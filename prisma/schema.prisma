@@ -1,6 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
+  provider  = "prisma-client-js"
+  output    = "../src/generated/prisma"
 }
 
 datasource db {
@@ -9,214 +9,326 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-enum Role {
-  OPERATOR
-  TEACHER
-  STUDENT
+enum UserRole {
+  ADMIN
+  GURU
+  SISWA
 }
 
-enum AttendanceStatus {
+enum MapelCategory {
+  WAJIB
+  MUATAN_LOKAL
+  EKSTRAKURIKULER
+}
+
+enum NilaiKomponenType {
+  INPUT
+  READ_ONLY
+}
+
+enum AbsensiStatus {
   HADIR
   SAKIT
   IZIN
-  ALFA
-}
-
-enum BillStatus {
-  LUNAS
-  BELUM_LUNAS
+  ALPHA
 }
 
 model User {
-  id              String    @id @default(cuid())
-  username        String    @unique
-  email           String?   @unique
-  password        String
-  role            Role
-  is_first_login  Boolean   @default(true)
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
+  id              String       @id @default(uuid())
+  username        String       @unique
+  passwordHash    String
+  role            UserRole
+  isWaliKelas     Boolean      @default(false)
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  admin           Admin?
+  guru            Guru?
+  siswa           Siswa?
+  Pengumuman      Pengumuman[]
 
-  studentProfile  Student?
-  teacherProfile  Teacher?
+  dokumens Dokumen[]
 }
 
-model Student {
-  id          String  @id @default(cuid())
-  userId      String  @unique
-  user        User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+model Admin {
+  id              String           @id @default(uuid())
+  userId          String           @unique
+  user            User             @relation(fields: [userId], references: [id])
+  nama            String
+  email           String?          @unique
+  SekolahData     SekolahData[]
+  Ruangan         Ruangan[]
+  TingkatanKelas  TingkatanKelas[]
+  TahunAjaran     TahunAjaran[]
+  MataPelajaran   MataPelajaran[]
 
-  name        String
-  nis         String  @unique
-  nisn        String? @unique
-  address     String?
-  phone       String?
-
-  classId     String?
-  class       Class?     @relation(fields: [classId], references: [id], onUpdate: SetNull, onDelete: SetNull)
-
-  attendances Attendance[]
-  grades      Grade[]
-  bills       Bill[]
-  reports     Report[]
-
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  skemaPenilaians SkemaPenilaian[]
 }
 
-model Teacher {
-  id        String  @id @default(cuid())
-  userId    String  @unique
-  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  name      String
-  nip       String  @unique
-  address   String?
-  phone     String?
-
-  homeroomClass Class? @relation("HomeroomTeacher")
-
-  schedules Schedule[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model Guru {
+  id              String               @id @default(uuid())
+  userId          String               @unique
+  user            User                 @relation(fields: [userId], references: [id])
+  nip             String?              @unique
+  nama            String
+  email           String?              @unique
+  KelasBimbingan  Kelas?
+  Penugasan       PenugasanGuru[]
+  Jadwal          Jadwal[]
+  AbsensiSesi     AbsensiSesi[]
+  NilaiInput      NilaiDetailSiswa[]
+  CapaianInput    CapaianKompetensi[]
+  RaporDiurus     Rapor[]
 }
 
-model Class {
-  id      String    @id @default(cuid())
-  name    String
-  year    Int
-
-  homeroomTeacherId String?   @unique
-  homeroomTeacher   Teacher?  @relation("HomeroomTeacher", fields: [homeroomTeacherId], references: [id])
-
-  students  Student[]
-  schedules Schedule[]
-
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+model Siswa {
+  id              String               @id @default(uuid())
+  userId          String               @unique
+  user            User                 @relation(fields: [userId], references: [id])
+  nis             String               @unique
+  nama            String
+  tanggalLahir    DateTime?
+  alamat          String?
+  Penempatan      PenempatanSiswa[]
+  AbsensiDetail   AbsensiDetail[]
+  Rapor           Rapor[]
+  NilaiDiperoleh  NilaiDetailSiswa[]
+  CapaianDiperoleh CapaianKompetensi[]
 }
 
-model Subject {
-  id          String      @id @default(cuid())
-  name        String      @unique
-  description String?
-
-  schedules   Schedule[]
-  grades      Grade[]
-
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+model SekolahData {
+  id              String       @id @default(uuid())
+  adminId         String
+  admin           Admin        @relation(fields: [adminId], references: [id])
+  namaSekolah     String
+  alamat          String?
+  kepalaSekolah   String?
 }
 
-model Schedule {
-  id        String    @id @default(cuid())
-  dayOfWeek Int
-  startTime String
-  endTime   String
+model TahunAjaran {
+  id              String           @id @default(uuid())
+  adminId         String
+  admin           Admin            @relation(fields: [adminId], references: [id])
+  nama            String           @unique
+  isAktif         Boolean          @default(false)
+  Penempatan      PenempatanSiswa[]
+  Jadwal          Jadwal[]
 
-  classId   String
-  class     Class     @relation(fields: [classId], references: [id])
-
-  subjectId String
-  subject   Subject   @relation(fields: [subjectId], references: [id])
-
-  teacherId String
-  teacher   Teacher   @relation(fields: [teacherId], references: [id])
-
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  rapors Rapor[]
 }
 
-model Attendance {
-  id        String            @id @default(cuid())
-  date      DateTime          @db.Date
-  status    AttendanceStatus
-  notes     String?
-
-  studentId String
-  student   Student           @relation(fields: [studentId], references: [id])
-
-  createdAt DateTime          @default(now())
-  updatedAt DateTime          @updatedAt
-
-  @@unique([studentId, date])
+model TingkatanKelas {
+  id              String           @id @default(uuid())
+  adminId         String
+  admin           Admin            @relation(fields: [adminId], references: [id])
+  namaTingkat     String           @unique
+  Kelas           Kelas[]
 }
 
-model Grade {
-  id        String    @id @default(cuid())
-  component String
-  score     Float
-
-  studentId String
-  student   Student   @relation(fields: [studentId], references: [id])
-
-  subjectId String
-  subject   Subject   @relation(fields: [subjectId], references: [id])
-
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+model Ruangan {
+  id              String       @id @default(uuid())
+  adminId         String
+  admin           Admin        @relation(fields: [adminId], references: [id])
+  namaRuangan     String       @unique
+  kapasitas       Int?
+  Jadwal          Jadwal[]
 }
 
-model Announcement {
-  id        String    @id @default(cuid())
-  title     String
-  content   String
-  author    String
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+model Kelas {
+  id              String           @id @default(uuid())
+  namaKelas       String
+  tingkatanId     String
+  tingkatan       TingkatanKelas   @relation(fields: [tingkatanId], references: [id])
+  waliKelasId     String?          @unique
+  waliKelas       Guru?            @relation(fields: [waliKelasId], references: [id])
+  Penempatan      PenempatanSiswa[]
+  Jadwal          Jadwal[]
+
+  penugasanGurus PenugasanGuru[]
+
+  absensiSesis AbsensiSesi[]
+
+  rapors Rapor[]
 }
 
-model AcademicCalendar {
-    id          String      @id @default(cuid())
-    title       String
-    description String?
-    startDate   DateTime    @db.Date
-    endDate     DateTime?   @db.Date
-    createdAt   DateTime    @default(now())
-    updatedAt   DateTime    @updatedAt
+model PenempatanSiswa {
+  id              String       @id @default(uuid())
+  siswaId         String
+  siswa           Siswa        @relation(fields: [siswaId], references: [id])
+  kelasId         String
+  kelas           Kelas        @relation(fields: [kelasId], references: [id])
+  tahunAjaranId   String
+  tahunAjaran     TahunAjaran  @relation(fields: [tahunAjaranId], references: [id])
+
+  @@unique([siswaId, tahunAjaranId])
 }
 
-model PaymentType {
-  id          String   @id @default(cuid())
-  name        String   @unique
-  description String?
-  
-  bills       Bill[]
+model MataPelajaran {
+  id              String           @id @default(uuid())
+  adminId         String
+  admin           Admin            @relation(fields: [adminId], references: [id])
+  namaMapel       String
+  kategori        MapelCategory
+  Penugasan       PenugasanGuru[]
+  SkemaPenilaian  SkemaPenilaian[]
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  jadwals Jadwal[]
+
+  nilaiDetailSiswas NilaiDetailSiswa[]
+
+  capaianKompetensis CapaianKompetensi[]
+
+  nilaiRaporAkhirs NilaiRaporAkhir[]
 }
 
-model Bill {
-  id          String      @id @default(cuid())
-  amount      Float
-  dueDate     DateTime    @db.Date
-  status      BillStatus  @default(BELUM_LUNAS)
-  
-  studentId   String
-  student     Student     @relation(fields: [studentId], references: [id])
+model PenugasanGuru {
+  id              String           @id @default(uuid())
+  guruId          String
+  guru            Guru             @relation(fields: [guruId], references: [id])
+  mapelId         String
+  mapel           MataPelajaran    @relation(fields: [mapelId], references: [id])
+  kelasId         String
+  kelas           Kelas            @relation(fields: [kelasId], references: [id])
 
-  paymentTypeId String
-  paymentType PaymentType @relation(fields: [paymentTypeId], references: [id])
-
-  paidAt      DateTime?
-
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  @@unique([guruId, mapelId, kelasId])
 }
 
-model Report {
-  id              String   @id @default(cuid())
-  semester        Int
-  academicYear    String
-  
-  finalGrades     Json
-  pdfUrl          String?
-  
-  studentId       String
-  student         Student  @relation(fields: [studentId], references: [id])
+model SkemaPenilaian {
+  id              String       @id @default(uuid())
+  adminId         String
+  admin           Admin        @relation(fields: [adminId], references: [id])
+  mapelId         String
+  mapel           MataPelajaran @relation(fields: [mapelId], references: [id])
+  Komponen        NilaiKomponen[]
 
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  @@unique([mapelId])
+}
+
+model NilaiKomponen {
+  id              String               @id @default(uuid())
+  skemaId         String
+  skema           SkemaPenilaian       @relation(fields: [skemaId], references: [id])
+  namaKomponen    String
+  tipe            NilaiKomponenType
+  formula         String?
+  urutan          Int
+  NilaiDetail     NilaiDetailSiswa[]
+}
+
+model Jadwal {
+  id              String       @id @default(uuid())
+  tahunAjaranId   String
+  tahunAjaran     TahunAjaran  @relation(fields: [tahunAjaranId], references: [id])
+  kelasId         String
+  kelas           Kelas        @relation(fields: [kelasId], references: [id])
+  mapelId         String
+  mapel           MataPelajaran @relation(fields: [mapelId], references: [id])
+  guruId          String
+  guru            Guru         @relation(fields: [guruId], references: [id])
+  ruanganId       String
+  ruangan         Ruangan      @relation(fields: [ruanganId], references: [id])
+  hari            String
+  waktuMulai      String
+  waktuSelesai    String
+}
+
+model AbsensiSesi {
+  id              String       @id @default(uuid())
+  guruId          String
+  guru            Guru         @relation(fields: [guruId], references: [id])
+  kelasId         String
+  kelas           Kelas        @relation(fields: [kelasId], references: [id])
+  tanggal         DateTime
+  pertemuanKe     Int
+  Detail          AbsensiDetail[]
+
+  @@unique([kelasId, tanggal, pertemuanKe])
+}
+
+model AbsensiDetail {
+  id              String          @id @default(uuid())
+  siswaId         String
+  siswa           Siswa           @relation(fields: [siswaId], references: [id])
+  sesiId          String
+  sesi            AbsensiSesi     @relation(fields: [sesiId], references: [id])
+  status          AbsensiStatus
+
+  @@unique([siswaId, sesiId])
+}
+
+model NilaiDetailSiswa {
+  id              String               @id @default(uuid())
+  siswaId         String
+  siswa           Siswa                @relation(fields: [siswaId], references: [id])
+  mapelId         String
+  mapel           MataPelajaran        @relation(fields: [mapelId], references: [id])
+  komponenId      String?
+  komponen        NilaiKomponen?       @relation(fields: [komponenId], references: [id])
+  guruId          String
+  guru            Guru                 @relation(fields: [guruId], references: [id])
+  nilaiAngka      Float?
+  nilaiDeskripsi  String?
+
+  @@unique([siswaId, mapelId, komponenId])
+}
+
+model CapaianKompetensi {
+  id              String       @id @default(uuid())
+  siswaId         String
+  siswa           Siswa        @relation(fields: [siswaId], references: [id])
+  mapelId         String
+  mapel           MataPelajaran @relation(fields: [mapelId], references: [id])
+  guruId          String
+  guru            Guru         @relation(fields: [guruId], references: [id])
+  deskripsi       String
+
+  @@unique([siswaId, mapelId])
+}
+
+
+model Rapor {
+  id              String       @id @default(uuid())
+  siswaId         String
+  siswa           Siswa        @relation(fields: [siswaId], references: [id])
+  kelasId         String
+  kelas           Kelas        @relation(fields: [kelasId], references: [id])
+  tahunAjaranId   String
+  tahunAjaran     TahunAjaran  @relation(fields: [tahunAjaranId], references: [id])
+  waliKelasId     String
+  waliKelas       Guru         @relation(fields: [waliKelasId], references: [id])
+  catatanWaliKelas String?
+  dataKokurikuler String?
+  isFinalisasi    Boolean      @default(false)
+  NilaiRaporAkhir NilaiRaporAkhir[]
+
+  @@unique([siswaId, tahunAjaranId])
+}
+
+model NilaiRaporAkhir {
+  id              String       @id @default(uuid())
+  raporId         String
+  rapor           Rapor        @relation(fields: [raporId], references: [id])
+  mapelId         String
+  mapel           MataPelajaran @relation(fields: [mapelId], references: [id])
+  nilaiAkhir      Float?
+  isOverride      Boolean      @default(false)
+
+  @@unique([raporId, mapelId])
+}
+
+model Dokumen {
+  id              String       @id @default(uuid())
+  adminId         String
+  admin           User         @relation(fields: [adminId], references: [id])
+  judul           String
+  urlFile         String
+  createdAt       DateTime     @default(now())
+}
+
+model Pengumuman {
+  id              String       @id @default(uuid())
+  adminId         String
+  admin           User         @relation(fields: [adminId], references: [id])
+  judul           String
+  konten          String
+  tanggalPublikasi DateTime    @default(now())
 }
