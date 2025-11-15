@@ -11,6 +11,7 @@ import KelasRouter from "./routers/kelas.router";
 import RuanganRouter from "./routers/ruangan.router";
 import MapelRouter from "./routers/mapel.router";
 import SkemaRouter from "./routers/skema.router";
+import TahunAjaranRouter from "./routers/tahunAjaran.router";
 
 const PORT: string = process.env.PORT || "8181";
 
@@ -69,6 +70,10 @@ private route(): void {
     // 7. Daftarkan SkemaRouter
     const skemaRouter: SkemaRouter = new SkemaRouter();
     this.app.use("/skema", skemaRouter.getRouter());
+
+    // 8. Daftarkan TahunAjaranRouter
+    const tahunAjaranRouter: TahunAjaranRouter = new TahunAjaranRouter();
+    this.app.use("/tahun-ajaran", tahunAjaranRouter.getRouter());
   }
 
   private errorHandler(): void {
