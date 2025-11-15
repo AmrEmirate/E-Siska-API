@@ -12,6 +12,7 @@ import RuanganRouter from "./routers/ruangan.router";
 import MapelRouter from "./routers/mapel.router";
 import SkemaRouter from "./routers/skema.router";
 import TahunAjaranRouter from "./routers/tahunAjaran.router";
+import PenempatanRouter from "./routers/penempatan.router";
 
 const PORT: string = process.env.PORT || "8181";
 
@@ -74,6 +75,10 @@ private route(): void {
     // 8. Daftarkan TahunAjaranRouter
     const tahunAjaranRouter: TahunAjaranRouter = new TahunAjaranRouter();
     this.app.use("/tahun-ajaran", tahunAjaranRouter.getRouter());
+
+    // 9. Daftarkan PenempatanRouter
+    const penempatanRouter: PenempatanRouter = new PenempatanRouter();
+    this.app.use("/penempatan", penempatanRouter.getRouter());
   }
 
   private errorHandler(): void {
