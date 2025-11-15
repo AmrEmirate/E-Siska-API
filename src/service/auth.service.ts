@@ -1,28 +1,30 @@
 import { compare } from "bcrypt";
-import { prisma } from "../config/prisma";
+// import { prisma } from "../config/prisma"; // Hapus prisma dari service
 import AppError from "../utils/AppError";
-import { createToken } from "../utils/createToken"; // 1. Impor createToken
+import { createToken } from "../utils/createToken";
+import { findUserByUsernameRepo } from "../repositories/user.repository"; // Impor repository
 
 export const loginService = async (data: {
-  email: string;
+  username: string;
   password: string;
 }) => {
-  const account = await prisma.accounts.findUnique({
-    where: {
-      email: data.email,
-    },
-  });
-  if (!account) {
-    throw new AppError("Account is not exist", 404);
+  // 1. Panggil Repository untuk mengambil data user
+  const user = await findUserByUsernameRepo(data.username);
+
+  if (!user) {
+    throw new AppError("Akun tidak ditemukan", 404);
   }
 
-  const comparePass = await compare(data.password, account.password);
+  // 2. Logika bisnis (compare password) tetap di service
+  const comparePass = await compare(data.password, user.passwordHash);
   if (!comparePass) {
-    throw new AppError("Password is wrong", 400);
+    throw new AppError("Password salah", 400);
   }
 
-  // 2. Gunakan fungsi untuk membuat token
-  const token = createToken(account, "24h");
+  // 3. Menyiapkan data untuk token
+  const { passwordHash, ...accountData } = user;
 
-  return { ...account, token };
+  const token = createToken(accountData, "24h");
+
+  return { ...accountData, token };
 };

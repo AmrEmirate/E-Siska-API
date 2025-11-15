@@ -4,6 +4,7 @@ import cors from "cors";
 import express, { Application, NextFunction, Request, Response } from "express";
 import AuthRouter from "./routers/auth.router";
 import logger from "./utils/logger";
+import SiswaRouter from "./routers/siswa.router";
 
 const PORT: string = process.env.PORT || "8181";
 
@@ -27,7 +28,7 @@ class App {
     });
   }
 
-  private route(): void {
+private route(): void {
     this.app.get("/", (req: Request, res: Response) => {
       res.status(200).send("<h1>Classbase API</h1>");
     });
@@ -35,6 +36,10 @@ class App {
     // Mendaftarkan AuthRouter
     const authRouter: AuthRouter = new AuthRouter();
     this.app.use("/auth", authRouter.getRouter());
+
+    // 2. Daftarkan SiswaRouter
+    const siswaRouter: SiswaRouter = new SiswaRouter();
+    this.app.use("/siswa", siswaRouter.getRouter());
   }
 
   private errorHandler(): void {

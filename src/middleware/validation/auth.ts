@@ -15,6 +15,7 @@ const validationHandler = (req: Request, res: Response, next: NextFunction) => {
 };
 
 export const regisValidation = [
+  // ... (kode regisValidation tetap sama)
   body("email").notEmpty().isEmail().withMessage("Email is required"),
   body("password").notEmpty().isStrongPassword({
     minLength: 4,
@@ -26,8 +27,10 @@ export const regisValidation = [
   validationHandler,
 ];
 
+// ### PERUBAHAN DI SINI ###
 export const loginValidation = [
-  body("email").notEmpty().isEmail().withMessage("Email is required"),
+  // Diubah dari email ke username
+  body("username").notEmpty().withMessage("Username is required"), 
   body("password").notEmpty().withMessage("Password is required"),
   validationHandler,
 ];
