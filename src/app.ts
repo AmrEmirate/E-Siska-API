@@ -9,6 +9,7 @@ import GuruRouter from "./routers/guru.router";
 import TingkatanRouter from "./routers/tingkatan.router";
 import KelasRouter from "./routers/kelas.router";
 import RuanganRouter from "./routers/ruangan.router";
+import MapelRouter from "./routers/mapel.router";
 
 const PORT: string = process.env.PORT || "8181";
 
@@ -59,6 +60,10 @@ private route(): void {
     // 5. Daftarkan RuanganRouter
     const ruanganRouter: RuanganRouter = new RuanganRouter();
     this.app.use("/ruangan", ruanganRouter.getRouter());
+
+    // 6. Daftarkan MapelRouter
+    const mapelRouter: MapelRouter = new MapelRouter();
+    this.app.use("/mapel", mapelRouter.getRouter());
   }
 
   private errorHandler(): void {

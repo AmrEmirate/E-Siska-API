@@ -1,0 +1,26 @@
+import { createMapelRepo } from "../repositories/mapel.repository";
+import logger from "../utils/logger";
+import { MapelCategory } from "../generated/prisma";
+
+interface CreateMapelServiceInput {
+  namaMapel: string;
+  kategori: string; // Terima sebagai string dari validator
+}
+
+export const createMapelService = async (data: CreateMapelServiceInput) => {
+  logger.info(`Mencoba membuat mata pelajaran: ${data.namaMapel}`);
+
+  // TODO: adminId harus didapat dari data user yang sedang login (via token)
+  const ADMIN_ID_DUMMY = "dummy-admin-id-untuk-tes"; // Ganti ini
+
+  const repoInput = {
+    namaMapel: data.namaMapel,
+    kategori: data.kategori as MapelCategory, // Konversi string ke Enum
+    adminId: ADMIN_ID_DUMMY,
+  };
+
+  // Panggil Repository
+  const newData = await createMapelRepo(repoInput);
+
+  return newData;
+};
