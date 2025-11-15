@@ -1,0 +1,26 @@
+import { prisma } from "../config/prisma";
+
+interface CreateKelasInput {
+  namaKelas: string;
+  tingkatanId: string;
+  waliKelasId?: string; // Wali kelas bersifat opsional
+}
+
+/**
+ * Membuat data Kelas baru
+ */
+export const createKelasRepo = async (data: CreateKelasInput) => {
+  try {
+    const newKelas = await prisma.kelas.create({
+      data: {
+        namaKelas: data.namaKelas,
+        tingkatanId: data.tingkatanId,
+        waliKelasId: data.waliKelasId,
+      },
+    });
+    return newKelas;
+  } catch (error) {
+    // Tangani error, misal tingkatanId tidak ada atau waliKelasId unik terlanggar
+    throw error;
+  }
+};

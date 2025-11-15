@@ -7,6 +7,7 @@ import logger from "./utils/logger";
 import SiswaRouter from "./routers/siswa.router";
 import GuruRouter from "./routers/guru.router";
 import TingkatanRouter from "./routers/tingkatan.router";
+import KelasRouter from "./routers/kelas.router";
 
 const PORT: string = process.env.PORT || "8181";
 
@@ -49,6 +50,10 @@ private route(): void {
 
     const tingkatanRouter: TingkatanRouter = new TingkatanRouter();
     this.app.use("/tingkatan", tingkatanRouter.getRouter());
+
+    // 4. Daftarkan KelasRouter
+    const kelasRouter: KelasRouter = new KelasRouter();
+    this.app.use("/kelas", kelasRouter.getRouter());
   }
 
   private errorHandler(): void {
