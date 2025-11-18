@@ -2,6 +2,12 @@ import { upsertRaporRepo } from "../repositories/rapor.repository";
 import logger from "../utils/logger";
 import AppError from "../utils/AppError";
 import { prisma } from "../config/prisma";
+import { 
+    getAbsensiSummaryRepo, 
+    getNilaiRaporRepo, 
+    getNilaiEkskulRepo, 
+    getRaporDataRepo 
+} from "../repositories/rapor.repository";
 
 interface InputRaporService {
   guruId: string; // ID Guru yang sedang login
@@ -60,3 +66,91 @@ export const inputDataRaporService = async (input: InputRaporService) => {
 
   return result;
 };
+
+interface GenerateRaporInput {
+  guruId: string;
+  siswaId: string;
+  tahunAjaranId: string;
+}
+
+export const generateRaporService = async (input: GenerateRaporInput) => {
+    // 1. Validasi Akses (Apakah ini Wali Kelasnya?)
+    const penempatan = await prisma.penempatanSiswa.findUnique({
+        where: { siswaId_tahunAjaranId: { siswaId: input.siswaId, tahunAjaranId: input.tahunAjaranId } },
+        include: { kelas: true, siswa: true, tahunAjaran: true }
+    });
+
+    if (!penempatan) throw new AppError("Data penempatan siswa tidak ditemukan", 404);
+    if (penempatan.kelas.waliKelasId !== input.guruId) {
+        throw new AppError("Anda bukan Wali Kelas siswa ini", 403);
+    }
+
+    // 2. Ambil Data Secara Paralel
+    const [absensi, nilaiData, ekskulData, dataRapor] = await Promise.all([
+        getAbsensiSummaryRepo(input.siswaId, input.tahunAjaranId),
+        getNilaiRaporRepo(input.siswaId),
+        getNilaiEkskulRepo(input.siswaId),
+        getRaporDataRepo(input.siswaId, input.tahunAjaranId)
+    ]);
+
+    // 3. Format Data Nilai Mapel Wajib
+    // Kita perlu mencari "Nilai Akhir" dari sekian banyak komponen.
+    // Asumsi: Komponen dengan nama "Nilai Akhir" atau komponen READ_ONLY urutan terakhir.
+    const mapelMap = new Map();
+
+    nilaiData.nilaiDetails.forEach(n => {
+        const mapelName = n.mapel.namaMapel;
+        if (!mapelMap.has(mapelName)) {
+            mapelMap.set(mapelName, { 
+                kkm: 75, // Hardcode atau ambil dari DB jika ada
+                nilaiAkhir: 0, 
+                predikat: "",
+                deskripsi: "" 
+            });
+        }
+
+        // Logika sederhana: Ambil nilai dari komponen bernama "Nilai Akhir"
+        // Atau jika tidak ada, ambil nilai READ_ONLY terakhir
+        if (n.komponen?.namaKomponen === "Nilai Akhir" || (n.komponen?.tipe === "READ_ONLY" && n.nilaiAngka)) {
+            const current = mapelMap.get(mapelName);
+            current.nilaiAkhir = n.nilaiAngka || 0;
+            // Hitung predikat sederhana
+            current.predikat = current.nilaiAkhir >= 90 ? "A" : current.nilaiAkhir >= 80 ? "B" : "C";
+        }
+    });
+
+    // Masukkan deskripsi capaian
+    nilaiData.capaianDetails.forEach(c => {
+         // Note: Di repo capaian kita tidak fetch nama mapel, ini simplifikasi. 
+         // Idealnya capaianDetails di-include mapelnya juga di repo.
+         // Kita skip mapping nama mapel persisnya untuk demo ini, 
+         // anggap Frontend mapping by mapelId.
+    });
+
+    // Konversi Map ke Array untuk JSON
+    const nilaiAkademik = Array.from(mapelMap, ([nama, val]) => ({ mapel: nama, ...val }));
+
+    // 4. Format Data Ekskul
+    const ekstrakurikuler = ekskulData.map(e => ({
+        nama: e.mapel.namaMapel,
+        nilai: "A", // Ekskul biasanya predikat, atau ambil dari deskripsi jika ada logika khusus
+        deskripsi: e.nilaiDeskripsi
+    }));
+
+    // 5. Construct Final JSON
+    return {
+        infoSiswa: {
+            nama: penempatan.siswa.nama,
+            nis: penempatan.siswa.nis,
+            kelas: penempatan.kelas.namaKelas,
+            tahunAjaran: penempatan.tahunAjaran.nama
+        },
+        nilaiAkademik,
+        ekstrakurikuler,
+        ketidakhadiran: absensi,
+        catatanWaliKelas: dataRapor?.catatanWaliKelas || "-",
+        dataKokurikuler: dataRapor?.dataKokurikuler || "-",
+        status: dataRapor?.isFinalisasi ? "FINAL" : "DRAFT",
+        tanggalCetak: new Date()
+    };
+};  

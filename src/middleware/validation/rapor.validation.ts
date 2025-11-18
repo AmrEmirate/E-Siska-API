@@ -21,3 +21,11 @@ export const inputRaporValidation = [
   body("kokurikuler").optional().isString(),
   validationHandler,
 ];
+
+export const generateRaporValidation = [
+  param("siswaId").isUUID().withMessage("Format siswaId tidak valid"),
+  // query("tahunAjaranId").isUUID().withMessage("Tahun Ajaran wajib ada di query params"), // Bisa via query param
+  body("tahunAjaranId").isUUID().withMessage("Format tahunAjaranId tidak valid"), // Kita pakai body biar konsisten
+  body("guruId").isUUID().withMessage("Format guruId tidak valid"),
+  validationHandler,
+];

@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { inputDataRaporService } from "../service/rapor.service";
+import { generateRaporService, inputDataRaporService } from "../service/rapor.service";
 import logger from "../utils/logger";
 
 class RaporController {
@@ -24,6 +24,30 @@ class RaporController {
     } catch (error: unknown) {
       if (error instanceof Error) {
         logger.error(`Error update rapor: ${error.message}`);
+      }
+      next(error);
+    }
+  }
+
+public async generate(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { siswaId } = req.params;
+      const { guruId, tahunAjaranId } = req.body; // Atau req.query jika mau GET murni
+
+      const result = await generateRaporService({
+        siswaId,
+        guruId,
+        tahunAjaranId
+      });
+
+      res.status(200).send({
+        success: true,
+        message: "Data rapor berhasil di-generate",
+        data: result,
+      });
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+ logger.error(`Error generate rapor: ${error.message}`);
       }
       next(error);
     }
