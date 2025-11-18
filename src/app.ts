@@ -19,6 +19,7 @@ import PengumumanRouter from "./routers/pengumuman.router";
 import DokumenRouter from "./routers/dokumen.router";
 import AbsensiRouter from "./routers/absensi.router";
 import NilaiRouter from "./routers/nilai.router";
+import EkskulRouter from "./routers/ekskul.router";
 
 const PORT: string = process.env.PORT || "8181";
 
@@ -109,6 +110,11 @@ private route(): void {
     // 15. Daftarkan NilaiRouter
     const nilaiRouter: NilaiRouter = new NilaiRouter();
     this.app.use("/nilai", nilaiRouter.getRouter());
+
+    // 16. Daftarkan EkskulRouter
+    // Kita pasang di /nilai-ekskul untuk membedakan dengan /nilai (kuantitatif)
+    const ekskulRouter: EkskulRouter = new EkskulRouter();
+    this.app.use("/nilai-ekskul", ekskulRouter.getRouter());
   }
 
   private errorHandler(): void {
