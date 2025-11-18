@@ -17,6 +17,7 @@ import PenugasanRouter from "./routers/penugasan.router";
 import JadwalRouter from "./routers/jadwal.router";
 import PengumumanRouter from "./routers/pengumuman.router";
 import DokumenRouter from "./routers/dokumen.router";
+import AbsensiRouter from "./routers/absensi.router";
 
 const PORT: string = process.env.PORT || "8181";
 
@@ -99,6 +100,10 @@ private route(): void {
     // 13. Daftarkan DokumenRouter
     const dokumenRouter: DokumenRouter = new DokumenRouter();
     this.app.use("/dokumen", dokumenRouter.getRouter());
+
+    // 14. Daftarkan AbsensiRouter
+    const absensiRouter: AbsensiRouter = new AbsensiRouter();
+    this.app.use("/absensi", absensiRouter.getRouter());
   }
 
   private errorHandler(): void {
