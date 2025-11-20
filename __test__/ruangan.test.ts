@@ -5,10 +5,10 @@ import { prisma } from "../src/config/prisma";
 const appTest = new App().app;
 
 describe("POST /ruangan - Create Ruangan", () => {
-  // Kita gunakan Admin ID yang sudah dibuat di tes tingkatan
+  
   const ADMIN_ID_DUMMY = "dummy-admin-id-untuk-tes";
 
-  // Buat admin dummy jika belum ada (berguna jika tes ini dijalankan terpisah)
+  
   beforeAll(async () => {
     await prisma.admin.upsert({
       where: { id: ADMIN_ID_DUMMY },
@@ -27,11 +27,11 @@ describe("POST /ruangan - Create Ruangan", () => {
     });
   });
 
-  // Bersihkan data setelah tes
+  
   afterAll(async () => {
     await prisma.ruangan.deleteMany();
-    // Kita tidak hapus admin di sini agar bisa dipakai tes lain
-    // Sebaiknya ada setup/teardown global nanti
+    
+    
     await prisma.$disconnect();
   });
 

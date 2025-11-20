@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import PengumumanController from '../controllers/pengumuman.controller';
 import { createPengumumanValidation } from '../middleware/validation/pengumuman.validation';
-// import { authMiddleware, adminGuard } from '../middleware/auth.middleware';
+import { authMiddleware, adminGuard } from '../middleware/auth.middleware';
 
 class PengumumanRouter {
   private route: Router;
@@ -14,12 +14,46 @@ class PengumumanRouter {
   }
 
   private initializeRoute(): void {
+    // Create pengumuman - Admin only
     this.route.post(
       '/',
-      // authMiddleware, // (Nanti)
-      // adminGuard, // (Nanti)
+      authMiddleware,
+      adminGuard,
       createPengumumanValidation,
       this.pengumumanController.create
+    );
+
+    // List all pengumuman - Admin only
+    this.route.get(
+      '/',
+      authMiddleware,
+      adminGuard,
+      this.pengumumanController.getAll
+    );
+
+    // Get pengumuman by ID - Admin only
+    this.route.get(
+      '/:id',
+      authMiddleware,
+      adminGuard,
+      this.pengumumanController.getById
+    );
+
+    // Update pengumuman - Admin only
+    this.route.put(
+      '/:id',
+      authMiddleware,
+      adminGuard,
+      createPengumumanValidation,
+      this.pengumumanController.update
+    );
+
+    // Delete pengumuman - Admin only
+    this.route.delete(
+      '/:id',
+      authMiddleware,
+      adminGuard,
+      this.pengumumanController.delete
     );
   }
 

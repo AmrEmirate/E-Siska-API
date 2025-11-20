@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import RuanganController from '../controllers/ruangan.controller';
 import { createRuanganValidation } from '../middleware/validation/ruangan.validation';
-// import { authMiddleware, adminGuard } from '../middleware/auth.middleware';
+import { authMiddleware, adminGuard } from '../middleware/auth.middleware';
 
 class RuanganRouter {
   private route: Router;
@@ -16,10 +16,24 @@ class RuanganRouter {
   private initializeRoute(): void {
     this.route.post(
       '/',
-      // authMiddleware, // (Nanti)
-      // adminGuard, // (Nanti)
+      authMiddleware,
+      adminGuard,
       createRuanganValidation,
       this.ruanganController.create
+    );
+
+    this.route.put(
+      '/:id',
+      authMiddleware,
+      adminGuard,
+      this.ruanganController.update
+    );
+
+    this.route.delete(
+      '/:id',
+      authMiddleware,
+      adminGuard,
+      this.ruanganController.delete
     );
   }
 

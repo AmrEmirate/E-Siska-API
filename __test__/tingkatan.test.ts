@@ -5,7 +5,7 @@ import { prisma } from "../src/config/prisma";
 const appTest = new App().app;
 
 describe("POST /tingkatan - Create Tingkatan Kelas", () => {
-  // Kita perlu buat Admin dummy dulu agar relasinya valid
+  
   beforeAll(async () => {
     await prisma.admin.create({
       data: {
@@ -22,7 +22,7 @@ describe("POST /tingkatan - Create Tingkatan Kelas", () => {
     });
   });
 
-  // Bersihkan data setelah tes
+  
   afterAll(async () => {
     await prisma.tingkatanKelas.deleteMany();
     await prisma.admin.deleteMany({

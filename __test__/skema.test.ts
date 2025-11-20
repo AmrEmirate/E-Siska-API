@@ -13,7 +13,7 @@ describe("POST /skema/:skemaId/komponen - Add Nilai Komponen", () => {
   let skemaEskul: SkemaPenilaian;
 
   beforeAll(async () => {
-    // Buat Admin
+    
     await prisma.admin.upsert({
       where: { id: ADMIN_ID_DUMMY },
       update: {},
@@ -30,7 +30,7 @@ describe("POST /skema/:skemaId/komponen - Add Nilai Komponen", () => {
       },
     });
 
-    // Buat Mapel WAJIB dan Skema-nya
+    
     const mapel1 = await prisma.mataPelajaran.create({
       data: {
         namaMapel: "Matematika (Skema Test)",
@@ -45,7 +45,7 @@ describe("POST /skema/:skemaId/komponen - Add Nilai Komponen", () => {
     mapelWajib = mapel1;
     skemaWajib = mapel1.SkemaPenilaian[0];
 
-    // Buat Mapel ESKUL dan Skema-nya
+    
     const mapel2 = await prisma.mataPelajaran.create({
       data: {
         namaMapel: "Pramuka (Skema Test)",
@@ -107,7 +107,7 @@ describe("POST /skema/:skemaId/komponen - Add Nilai Komponen", () => {
       .post(`/skema/${skemaWajib.id}/komponen`)
       .send({
         namaKomponen: "Nilai Akhir",
-        tipe: "READ_ONLY", // Lupa formula
+        tipe: "READ_ONLY", 
         urutan: 3,
       });
 
@@ -124,7 +124,7 @@ describe("POST /skema/:skemaId/komponen - Add Nilai Komponen", () => {
         namaKomponen: "Tugas 2",
         tipe: "INPUT",
         urutan: 4,
-        formula: "salah_nih", // INPUT tidak boleh ada formula
+        formula: "salah_nih", 
       });
 
     expect(response.status).toBe(400);
@@ -135,7 +135,7 @@ describe("POST /skema/:skemaId/komponen - Add Nilai Komponen", () => {
 
   it("Should fail to add component to 'EKSTRAKURIKULER' mapel", async () => {
     const response = await request(appTest)
-      .post(`/skema/${skemaEskul.id}/komponen`) // Coba ke skema Eskul
+      .post(`/skema/${skemaEskul.id}/komponen`) 
       .send({
         namaKomponen: "Kehadiran",
         tipe: "INPUT",

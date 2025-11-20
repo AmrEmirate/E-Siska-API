@@ -12,7 +12,7 @@ describe("POST /penempatan - Create Penempatan Siswa", () => {
   const ADMIN_ID_DUMMY = "dummy-admin-id-penempatan";
 
   beforeAll(async () => {
-    // 1. Buat Admin
+    
     await prisma.admin.upsert({
       where: { id: ADMIN_ID_DUMMY },
       update: {},
@@ -28,7 +28,7 @@ describe("POST /penempatan - Create Penempatan Siswa", () => {
         },
       },
     });
-    // 2. Buat Siswa
+    
     siswaTest = (
       await prisma.siswa.create({
         data: {
@@ -44,7 +44,7 @@ describe("POST /penempatan - Create Penempatan Siswa", () => {
         },
       })
     );
-    // 3. Buat Tingkatan & Kelas
+    
     const tingkatan = await prisma.tingkatanKelas.create({
       data: { namaTingkat: "Tingkat Penempatan", adminId: ADMIN_ID_DUMMY },
     });
@@ -54,14 +54,14 @@ describe("POST /penempatan - Create Penempatan Siswa", () => {
         tingkatanId: tingkatan.id,
       },
     });
-    // 4. Buat Tahun Ajaran
+    
     taTest = await prisma.tahunAjaran.create({
       data: { nama: "TA Penempatan", adminId: ADMIN_ID_DUMMY },
     });
   });
 
   afterAll(async () => {
-    // Hapus data dengan urutan terbalik
+    
     await prisma.penempatanSiswa.deleteMany();
     await prisma.siswa.deleteMany();
     await prisma.kelas.deleteMany();
@@ -88,14 +88,14 @@ describe("POST /penempatan - Create Penempatan Siswa", () => {
   });
 
   it("Should fail if student is already placed in that year", async () => {
-    // Coba tempatkan siswa yang sama di tahun ajaran yang sama (meski kelas beda)
+    
     const response = await request(appTest).post("/penempatan").send({
-      siswaId: siswaTest.id, // Siswa yang sama
-      kelasId: kelasTest.id, // Kelas lain (atau sama, tidak masalah)
-      tahunAjaranId: taTest.id, // Tahun Ajaran yang sama
+      siswaId: siswaTest.id, 
+      kelasId: kelasTest.id, 
+      tahunAjaranId: taTest.id, 
     });
 
-    expect(response.status).toBe(409); // 409 Conflict
+    expect(response.status).toBe(409); 
     expect(response.body.message).toContain(
       "Siswa ini sudah ditempatkan di kelas lain",
     );

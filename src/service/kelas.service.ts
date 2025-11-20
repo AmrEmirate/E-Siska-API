@@ -1,4 +1,4 @@
-import { createKelasRepo } from "../repositories/kelas.repository";
+import { createKelasRepo, updateKelasRepo, deleteKelasRepo } from "../repositories/kelas.repository";
 import logger from "../utils/logger";
 import AppError from "../utils/AppError";
 import { prisma } from "../config/prisma";
@@ -33,4 +33,25 @@ export const createKelasService = async (data: CreateKelasServiceInput) => {
   const newKelas = await createKelasRepo(data);
 
   return newKelas;
+};
+
+export const updateKelasService = async (id: string, data: Partial<CreateKelasServiceInput>) => {
+  logger.info(`Mencoba update kelas: ${id}`);
+  
+  // Validasi jika ada update wali kelas
+  if (data.waliKelasId) {
+    const guru = await prisma.guru.findUnique({
+      where: { id: data.waliKelasId },
+    });
+    if (!guru) {
+      throw new AppError("Guru (calon Wali Kelas) tidak ditemukan", 404);
+    }
+  }
+
+  return await updateKelasRepo(id, data);
+};
+
+export const deleteKelasService = async (id: string) => {
+  logger.info(`Mencoba hapus kelas: ${id}`);
+  return await deleteKelasRepo(id);
 };

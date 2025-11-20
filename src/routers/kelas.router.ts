@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import KelasController from '../controllers/kelas.controller';
 import { createKelasValidation } from '../middleware/validation/kelas.validation';
-// import { authMiddleware, adminGuard } from '../middleware/auth.middleware';
+import { authMiddleware, adminGuard } from '../middleware/auth.middleware';
 
 class KelasRouter {
   private route: Router;
@@ -16,10 +16,24 @@ class KelasRouter {
   private initializeRoute(): void {
     this.route.post(
       '/',
-      // authMiddleware, // (Nanti)
-      // adminGuard, // (Nanti)
+      authMiddleware,
+      adminGuard,
       createKelasValidation,
       this.kelasController.create
+    );
+
+    this.route.put(
+      '/:id',
+      authMiddleware,
+      adminGuard,
+      this.kelasController.update
+    );
+
+    this.route.delete(
+      '/:id',
+      authMiddleware,
+      adminGuard,
+      this.kelasController.delete
     );
   }
 

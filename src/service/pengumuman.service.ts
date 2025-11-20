@@ -1,13 +1,11 @@
 import { prisma } from "../config/prisma";
 import { createPengumumanRepo } from "../repositories/pengumuman.repository";
 import logger from "../utils/logger";
-// import AppError from "../utils/AppError";
-// import { prisma } from "../config/prisma";
+import AppError from "../utils/AppError";
 
 interface CreatePengumumanServiceInput {
   judul: string;
   konten: string;
-  // adminUserId: string; // Akan kita dapatkan dari token nanti
 }
 
 export const createPengumumanService = async (
@@ -15,13 +13,10 @@ export const createPengumumanService = async (
 ) => {
   logger.info(`Mencoba membuat pengumuman: ${data.judul}`);
 
-  // TODO: adminUserId harus didapat dari data user (Admin) yang sedang login
-  // Kita gunakan USER_ID dari admin dummy yang dibuat di tes-tes sebelumnya
   const ADMIN_USER_ID_DUMMY = (await prisma.admin.findFirst({
       where: { id: "dummy-admin-id-untuk-tes" },
       include: { user: true }
-  }))?.user.id || "dummy-admin-user-id"; // fallback
-
+  }))?.user.id || "dummy-admin-user-id";
 
   const repoInput = {
     judul: data.judul,
@@ -29,8 +24,112 @@ export const createPengumumanService = async (
     adminId: ADMIN_USER_ID_DUMMY,
   };
 
-  // Panggil Repository
   const newPengumuman = await createPengumumanRepo(repoInput);
 
   return newPengumuman;
+};
+
+/**
+ * Get all pengumuman with pagination
+ */
+export const getAllPengumumanService = async (page: number = 1, limit: number = 50) => {
+  const skip = (page - 1) * limit;
+  const take = limit;
+
+  logger.info(`Fetching all pengumuman - Page: ${page}, Limit: ${limit}`);
+
+  const pengumuman = await prisma.pengumuman.findMany({
+    skip,
+    take,
+    orderBy: {
+      tanggalPublikasi: 'desc',
+    },
+    select: {
+      id: true,
+      judul: true,
+      konten: true,
+      tanggalPublikasi: true,
+    },
+  });
+
+  const total = await prisma.pengumuman.count();
+
+  return {
+    data: pengumuman,
+    pagination: {
+      page,
+      limit,
+      total,
+      totalPages: Math.ceil(total / limit),
+    },
+  };
+};
+
+/**
+ * Get pengumuman by ID
+ */
+export const getPengumumanByIdService = async (id: string) => {
+  logger.info(`Fetching pengumuman: ${id}`);
+
+  const pengumuman = await prisma.pengumuman.findUnique({
+    where: { id },
+    select: {
+      id: true,
+      judul: true,
+      konten: true,
+      tanggalPublikasi: true,
+    },
+  });
+
+  if (!pengumuman) {
+    throw new AppError("Pengumuman tidak ditemukan", 404);
+  }
+
+  return pengumuman;
+};
+
+/**
+ * Update pengumuman
+ */
+export const updatePengumumanService = async (id: string, data: Partial<CreatePengumumanServiceInput>) => {
+  logger.info(`Updating pengumuman: ${id}`);
+
+  const pengumuman = await prisma.pengumuman.findUnique({
+    where: { id },
+  });
+
+  if (!pengumuman) {
+    throw new AppError("Pengumuman tidak ditemukan", 404);
+  }
+
+  const updated = await prisma.pengumuman.update({
+    where: { id },
+    data: {
+      ...(data.judul && { judul: data.judul }),
+      ...(data.konten && { konten: data.konten }),
+    },
+  });
+
+  return updated;
+};
+
+/**
+ * Delete pengumuman
+ */
+export const deletePengumumanService = async (id: string) => {
+  logger.info(`Deleting pengumuman: ${id}`);
+
+  const pengumuman = await prisma.pengumuman.findUnique({
+    where: { id },
+  });
+
+  if (!pengumuman) {
+    throw new AppError("Pengumuman tidak ditemukan", 404);
+  }
+
+  await prisma.pengumuman.delete({
+    where: { id },
+  });
+
+  return { message: "Pengumuman berhasil dihapus" };
 };

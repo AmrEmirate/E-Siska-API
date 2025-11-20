@@ -24,3 +24,16 @@ export const createKelasRepo = async (data: CreateKelasInput) => {
     throw error;
   }
 };
+
+export const updateKelasRepo = async (id: string, data: Partial<CreateKelasInput>) => {
+  return await prisma.kelas.update({
+    where: { id },
+    data,
+  });
+};
+
+export const deleteKelasRepo = async (id: string) => {
+  return await prisma.kelas.delete({
+    where: { id },
+  });
+};

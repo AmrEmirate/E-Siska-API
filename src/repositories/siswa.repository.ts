@@ -52,3 +52,89 @@ export const createSiswaRepo = async (data: CreateSiswaInput) => {
     throw error;
   }
 };
+
+/**
+ * Get all Students with optional pagination
+ */
+export const getAllSiswaRepo = async (skip?: number, take?: number) => {
+  return prisma.siswa.findMany({
+    skip: skip || 0,
+    take: take || 100,
+    include: {
+      user: {
+        select: {
+          id: true,
+          username: true,
+          role: true,
+        },
+      },
+    },
+    orderBy: {
+      nama: 'asc',
+    },
+  });
+};
+
+/**
+ * Get Student by ID with user data
+ */
+export const getSiswaByIdRepo = async (id: string) => {
+  return prisma.siswa.findUnique({
+    where: { id },
+    include: {
+      user: {
+        select: {
+          id: true,
+          username: true,
+          role: true,
+        },
+      },
+      Penempatan: {
+        include: {
+          kelas: true,
+          tahunAjaran: true,
+        },
+      },
+    },
+  });
+};
+
+interface UpdateSiswaInput {
+  nis?: string;
+  nama?: string;
+  tanggalLahir?: Date;
+  alamat?: string;
+}
+
+/**
+ * Update Student data
+ */
+export const updateSiswaRepo = async (id: string, data: UpdateSiswaInput) => {
+  return prisma.siswa.update({
+    where: { id },
+    data: {
+      ...(data.nis && { nis: data.nis }),
+      ...(data.nama && { nama: data.nama }),
+      ...(data.tanggalLahir !== undefined && { tanggalLahir: data.tanggalLahir }),
+      ...(data.alamat !== undefined && { alamat: data.alamat }),
+    },
+    include: {
+      user: {
+        select: {
+          id: true,
+          username: true,
+          role: true,
+        },
+      },
+    },
+  });
+};
+
+/**
+ * Delete Student (cascade delete user via Prisma schema)
+ */
+export const deleteSiswaRepo = async (id: string) => {
+  return prisma.siswa.delete({
+    where: { id },
+  });
+};

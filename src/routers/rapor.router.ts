@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import RaporController from '../controllers/rapor.controller';
-import { inputRaporValidation, generateRaporValidation } from '../middleware/validation/rapor.validation'; // Import baru
+import { authMiddleware, guruGuard, waliKelasGuard, adminGuard } from '../middleware/auth.middleware';
 
 class RaporRouter {
   private route: Router;
@@ -13,18 +13,44 @@ class RaporRouter {
   }
 
   private initializeRoute(): void {
-    // Update Data Rapor
+    // Update rapor data - Wali Kelas only
     this.route.put(
       '/siswa/:siswaId',
-      inputRaporValidation,
+      authMiddleware,
+      waliKelasGuard,
       this.raporController.updateDataRapor
     );
 
-    // Generate / Preview Rapor
-    this.route.post( // Menggunakan POST untuk mengirim filter (TA/GuruID) di body
+    // Generate rapor - Wali Kelas only
+    this.route.post(
       '/siswa/:siswaId/generate',
-      generateRaporValidation,
+      authMiddleware,
+      waliKelasGuard,
       this.raporController.generate
+    );
+
+    // Finalize rapor - Wali Kelas only
+    this.route.post(
+      '/siswa/:siswaId/finalize',
+      authMiddleware,
+      waliKelasGuard,
+      this.raporController.finalize
+    );
+
+    // Definalize rapor - Wali Kelas only
+    this.route.post(
+      '/siswa/:siswaId/definalize',
+      authMiddleware,
+      waliKelasGuard,
+      this.raporController.definalize
+    );
+
+    // Override nilai rapor - Admin only
+    this.route.post(
+      '/siswa/:siswaId/override',
+      authMiddleware,
+      adminGuard,
+      this.raporController.override
     );
   }
 

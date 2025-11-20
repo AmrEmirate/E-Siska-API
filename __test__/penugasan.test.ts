@@ -12,7 +12,7 @@ describe("POST /penugasan-guru - Create Penugasan Guru", () => {
   const ADMIN_ID_DUMMY = "dummy-admin-id-penugasan";
 
   beforeAll(async () => {
-    // 1. Buat Admin
+    
     await prisma.admin.upsert({
       where: { id: ADMIN_ID_DUMMY },
       update: {},
@@ -28,7 +28,7 @@ describe("POST /penugasan-guru - Create Penugasan Guru", () => {
         },
       },
     });
-    // 2. Buat Guru
+    
     guruTest = (
       await prisma.guru.create({
         data: {
@@ -44,7 +44,7 @@ describe("POST /penugasan-guru - Create Penugasan Guru", () => {
         },
       })
     );
-    // 3. Buat Mapel
+    
     mapelTest = (
       await prisma.mataPelajaran.create({
         data: {
@@ -55,7 +55,7 @@ describe("POST /penugasan-guru - Create Penugasan Guru", () => {
         },
       })
     );
-    // 4. Buat Tingkatan & Kelas
+    
     const tingkatan = await prisma.tingkatanKelas.create({
       data: { namaTingkat: "Tingkat Penugasan", adminId: ADMIN_ID_DUMMY },
     });
@@ -68,7 +68,7 @@ describe("POST /penugasan-guru - Create Penugasan Guru", () => {
   });
 
   afterAll(async () => {
-    // Hapus data dengan urutan terbalik
+    
     await prisma.penugasanGuru.deleteMany();
     await prisma.skemaPenilaian.deleteMany();
     await prisma.mataPelajaran.deleteMany();
@@ -98,12 +98,12 @@ describe("POST /penugasan-guru - Create Penugasan Guru", () => {
 
   it("Should fail if the assignment already exists", async () => {
     const response = await request(appTest).post("/penugasan-guru").send({
-      guruId: guruTest.id, // Penugasan yang sama
-      mapelId: mapelTest.id, // Penugasan yang sama
-      kelasId: kelasTest.id, // Penugasan yang sama
+      guruId: guruTest.id, 
+      mapelId: mapelTest.id, 
+      kelasId: kelasTest.id, 
     });
 
-    expect(response.status).toBe(409); // 409 Conflict
+    expect(response.status).toBe(409); 
     expect(response.body.message).toContain("sudah ditugaskan");
   });
 

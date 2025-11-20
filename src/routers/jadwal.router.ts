@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import JadwalController from '../controllers/jadwal.controller';
 import { createJadwalValidation } from '../middleware/validation/jadwal.validation';
-// import { authMiddleware, adminGuard } from '../middleware/auth.middleware';
+import { authMiddleware, adminGuard } from '../middleware/auth.middleware';
 
 class JadwalRouter {
   private route: Router;
@@ -14,10 +14,11 @@ class JadwalRouter {
   }
 
   private initializeRoute(): void {
+    // Create jadwal - Admin only
     this.route.post(
       '/',
-      // authMiddleware, // (Nanti)
-      // adminGuard, // (Nanti)
+      authMiddleware,
+      adminGuard,
       createJadwalValidation,
       this.jadwalController.create
     );

@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import TahunAjaranController from '../controllers/tahunAjaran.controller';
 import { createTahunAjaranValidation } from '../middleware/validation/tahunAjaran.validation';
-// import { authMiddleware, adminGuard } from '../middleware/auth.middleware';
+import { authMiddleware, adminGuard } from '../middleware/auth.middleware';
 
 class TahunAjaranRouter {
   private route: Router;
@@ -14,12 +14,54 @@ class TahunAjaranRouter {
   }
 
   private initializeRoute(): void {
+    // Create tahun ajaran - Admin only
     this.route.post(
       '/',
-      // authMiddleware, // (Nanti)
-      // adminGuard, // (Nanti)
+      authMiddleware,
+      adminGuard,
       createTahunAjaranValidation,
       this.tahunAjaranController.create
+    );
+
+    // List all tahun ajaran - Admin only
+    this.route.get(
+      '/',
+      authMiddleware,
+      adminGuard,
+      this.tahunAjaranController.getAll
+    );
+
+    // Get tahun ajaran by ID - Admin only
+    this.route.get(
+      '/:id',
+      authMiddleware,
+      adminGuard,
+      this.tahunAjaranController.getById
+    );
+
+    // Update tahun ajaran - Admin only
+    this.route.put(
+      '/:id',
+      authMiddleware,
+      adminGuard,
+      createTahunAjaranValidation,
+      this.tahunAjaranController.update
+    );
+
+    // Activate tahun ajaran - Admin only
+    this.route.post(
+      '/:id/activate',
+      authMiddleware,
+      adminGuard,
+      this.tahunAjaranController.activate
+    );
+
+    // Delete tahun ajaran - Admin only
+    this.route.delete(
+      '/:id',
+      authMiddleware,
+      adminGuard,
+      this.tahunAjaranController.delete
     );
   }
 

@@ -50,3 +50,91 @@ export const createGuruRepo = async (data: CreateGuruInput) => {
     throw error;
   }
 };
+
+/**
+ * Get all Guru with optional pagination
+ */
+export const getAllGuruRepo = async (skip?: number, take?: number) => {
+  return prisma.guru.findMany({
+    skip: skip || 0,
+    take: take || 100,
+    include: {
+      user: {
+        select: {
+          id: true,
+          username: true,
+          role: true,
+          isWaliKelas: true,
+        },
+      },
+      KelasBimbingan: true,
+    },
+    orderBy: {
+      nama: 'asc',
+    },
+  });
+};
+
+/**
+ * Get Guru by ID with user data
+ */
+export const getGuruByIdRepo = async (id: string) => {
+  return prisma.guru.findUnique({
+    where: { id },
+    include: {
+      user: {
+        select: {
+          id: true,
+          username: true,
+          role: true,
+          isWaliKelas: true,
+        },
+      },
+      KelasBimbingan: true,
+      Penugasan: {
+        include: {
+          mapel: true,
+          kelas: true,
+        },
+      },
+    },
+  });
+};
+
+interface UpdateGuruInput {
+  nip?: string;
+  nama?: string;
+  email?: string;
+}
+
+/**
+ * Update Guru data
+ */
+export const updateGuruRepo = async (id: string, data: UpdateGuruInput) => {
+  return prisma.guru.update({
+    where: { id },
+    data: {
+      ...(data.nip && { nip: data.nip }),
+      ...(data.nama && { nama: data.nama }),
+      ...(data.email !== undefined && { email: data.email }),
+    },
+    include: {
+      user: {
+        select: {
+          id: true,
+          username: true,
+          role: true,
+        },
+      },
+    },
+  });
+};
+
+/**
+ * Delete Guru (cascade delete user via Prisma schema)
+ */
+export const deleteGuruRepo = async (id: string) => {
+  return prisma.guru.delete({
+    where: { id },
+  });
+};

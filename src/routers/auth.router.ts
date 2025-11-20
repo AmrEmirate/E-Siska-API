@@ -22,6 +22,12 @@ class AuthRouter {
       this.authController.login
     );
 
+    // Logout Route
+    this.route.post(
+      '/signout',
+      this.authController.logout
+    );
+
     // Rute yang sudah ada
     this.route.patch(
       '/profile-img',

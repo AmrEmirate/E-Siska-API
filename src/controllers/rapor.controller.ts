@@ -1,5 +1,11 @@
 import { Request, Response, NextFunction } from "express";
-import { generateRaporService, inputDataRaporService } from "../service/rapor.service";
+import { 
+  generateRaporService, 
+  inputDataRaporService,
+  finalizeRaporService,
+  definalizeRaporService,
+  overrideNilaiRaporService
+} from "../service/rapor.service";
 import logger from "../utils/logger";
 
 class RaporController {
@@ -48,6 +54,79 @@ public async generate(req: Request, res: Response, next: NextFunction) {
     } catch (error: unknown) {
       if (error instanceof Error) {
  logger.error(`Error generate rapor: ${error.message}`);
+      }
+      next(error);
+    }
+  }
+  public async finalize(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { siswaId } = req.params;
+      const { guruId, tahunAjaranId } = req.body;
+
+      const result = await finalizeRaporService({
+        guruId,
+        siswaId,
+        tahunAjaranId
+      });
+
+      res.status(200).send({
+        success: true,
+        message: "Rapor berhasil difinalisasi",
+        data: result,
+      });
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        logger.error(`Error finalize rapor: ${error.message}`);
+      }
+      next(error);
+    }
+  }
+
+  public async definalize(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { siswaId } = req.params;
+      const { guruId, tahunAjaranId } = req.body;
+
+      const result = await definalizeRaporService({
+        guruId,
+        siswaId,
+        tahunAjaranId
+      });
+
+      res.status(200).send({
+        success: true,
+        message: "Rapor berhasil didefinalisasi",
+        data: result,
+      });
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        logger.error(`Error definalize rapor: ${error.message}`);
+      }
+      next(error);
+    }
+  }
+
+  public async override(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { siswaId } = req.params;
+      const { adminId, mapelId, tahunAjaranId, nilaiAkhir } = req.body;
+
+      const result = await overrideNilaiRaporService({
+        adminId,
+        siswaId,
+        mapelId,
+        tahunAjaranId,
+        nilaiAkhir
+      });
+
+      res.status(200).send({
+        success: true,
+        message: "Nilai rapor berhasil di-override",
+        data: result,
+      });
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        logger.error(`Error override nilai rapor: ${error.message}`);
       }
       next(error);
     }

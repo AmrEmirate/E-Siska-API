@@ -24,3 +24,16 @@ export const createRuanganRepo = async (data: CreateRuanganInput) => {
     throw error;
   }
 };
+
+export const updateRuanganRepo = async (id: string, data: Partial<CreateRuanganInput>) => {
+  return await prisma.ruangan.update({
+    where: { id },
+    data,
+  });
+};
+
+export const deleteRuanganRepo = async (id: string) => {
+  return await prisma.ruangan.delete({
+    where: { id },
+  });
+};

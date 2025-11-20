@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import GuruController from '../controllers/guru.controller';
 import { createGuruValidation } from '../middleware/validation/guru.validation';
-// import { authMiddleware, adminGuard } from '../middleware/auth.middleware'; // (Akan dibuat nanti)
+import { authMiddleware, adminGuard } from '../middleware/auth.middleware';
 
 class GuruRouter {
   private route: Router;
@@ -14,15 +14,46 @@ class GuruRouter {
   }
 
   private initializeRoute(): void {
+    // Create - Admin only
     this.route.post(
       '/',
-      // authMiddleware, // (Nanti)
-      // adminGuard, // (Nanti)
-      createGuruValidation, // Terapkan validasi
+      authMiddleware,
+      adminGuard,
+      createGuruValidation,
       this.guruController.create
     );
 
-    // (Nanti kita tambahkan route lain: GET /, GET /:id, PATCH /:id, DELETE /:id)
+    // Read All - Admin only
+    this.route.get(
+      '/',
+      authMiddleware,
+      adminGuard,
+      this.guruController.getAll
+    );
+
+    // Read One - Admin only
+    this.route.get(
+      '/:id',
+      authMiddleware,
+      adminGuard,
+      this.guruController.getById
+    );
+
+    // Update - Admin only
+    this.route.put(
+      '/:id',
+      authMiddleware,
+      adminGuard,
+      this.guruController.update
+    );
+
+    // Delete - Admin only
+    this.route.delete(
+      '/:id',
+      authMiddleware,
+      adminGuard,
+      this.guruController.delete
+    );
   }
 
   public getRouter(): Router {

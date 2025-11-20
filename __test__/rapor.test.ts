@@ -14,25 +14,25 @@ describe("PUT /rapor/siswa/:siswaId - Manajemen Data Rapor", () => {
   let kelasTest: Kelas;
 
   beforeAll(async () => {
-    // 1. Setup Admin
+    
     await prisma.admin.upsert({ where: { id: ADMIN_ID_DUMMY }, update: {}, create: { id: ADMIN_ID_DUMMY, nama: "Admin Rapor", user: { create: { username: "admin.rapor", passwordHash: "hash", role: "ADMIN" } } } });
     
-    // 2. Setup Guru (Wali Kelas & Guru Biasa)
+    
     waliKelas = await prisma.guru.create({ data: { nama: "Wali Kelas 10A", nip: "G-WALI", user: { create: { username: "wali.kelas", passwordHash: "hash", role: "GURU" } } } });
     guruBiasa = await prisma.guru.create({ data: { nama: "Guru Biasa", nip: "G-BIASA", user: { create: { username: "guru.biasa", passwordHash: "hash", role: "GURU" } } } });
 
-    // 3. Setup Tingkatan, Kelas (Assign Wali Kelas), TA
+    
     const tingkatan = await prisma.tingkatanKelas.create({ data: { namaTingkat: "Tingkat Rapor", adminId: ADMIN_ID_DUMMY } });
     kelasTest = await prisma.kelas.create({ 
         data: { 
             namaKelas: "Kelas Rapor", 
             tingkatanId: tingkatan.id,
-            waliKelasId: waliKelas.id // SET WALI KELAS DI SINI
+            waliKelasId: waliKelas.id 
         } 
     });
     taTest = await prisma.tahunAjaran.create({ data: { nama: "TA Rapor", adminId: ADMIN_ID_DUMMY } });
 
-    // 4. Setup Siswa & Penempatan
+    
     siswaTest = await prisma.siswa.create({ data: { nama: "Siswa Rapor", nis: "S-RAPOR", user: { create: { username: "s.rapor", passwordHash: "hash", role: "SISWA" } } } });
     
     await prisma.penempatanSiswa.create({
@@ -68,7 +68,7 @@ describe("PUT /rapor/siswa/:siswaId - Manajemen Data Rapor", () => {
 
   it("Should forbid non-Wali Kelas from updating rapor", async () => {
     const response = await request(appTest).put(`/rapor/siswa/${siswaTest.id}`).send({
-      guruId: guruBiasa.id, // BUKAN Wali Kelas
+      guruId: guruBiasa.id, 
       tahunAjaranId: taTest.id,
       catatan: "Saya bajak rapor ini"
     });

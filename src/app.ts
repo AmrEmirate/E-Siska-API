@@ -22,6 +22,8 @@ import NilaiRouter from "./routers/nilai.router";
 import EkskulRouter from "./routers/ekskul.router";
 import CapaianRouter from "./routers/capaian.router";
 import RaporRouter from "./routers/rapor.router";
+import SiswaViewRouter from "./routers/siswa-view.router";
+import WaliKelasRouter from "./routers/wali-kelas.router";
 
 const PORT: string = process.env.PORT || "8181";
 
@@ -32,108 +34,95 @@ class App {
     this.app = express();
     this.configure();
     this.route();
-    this.errorHandler(); // Pastikan error handler dipanggil setelah route
+    this.errorHandler();
   }
 
   private configure(): void {
     this.app.use(cors());
     this.app.use(express.json());
-    // Middleware untuk mencatat setiap request yang masuk
     this.app.use((req: Request, res: Response, next: NextFunction) => {
       logger.info(`${req.method} ${req.path}`);
       next();
     });
   }
 
-private route(): void {
+  private route(): void {
     this.app.get("/", (req: Request, res: Response) => {
       res.status(200).send("<h1>Classbase API</h1>");
     });
 
-    // Mendaftarkan AuthRouter
     const authRouter: AuthRouter = new AuthRouter();
     this.app.use("/auth", authRouter.getRouter());
 
-    // Mendaftarkan SiswaRouter
     const siswaRouter: SiswaRouter = new SiswaRouter();
     this.app.use("/siswa", siswaRouter.getRouter());
 
-    // 2. Daftarkan GuruRouter
     const guruRouter: GuruRouter = new GuruRouter();
     this.app.use("/guru", guruRouter.getRouter());
 
     const tingkatanRouter: TingkatanRouter = new TingkatanRouter();
     this.app.use("/tingkatan", tingkatanRouter.getRouter());
 
-    // 4. Daftarkan KelasRouter
     const kelasRouter: KelasRouter = new KelasRouter();
     this.app.use("/kelas", kelasRouter.getRouter());
 
-    // 5. Daftarkan RuanganRouter
     const ruanganRouter: RuanganRouter = new RuanganRouter();
     this.app.use("/ruangan", ruanganRouter.getRouter());
 
-    // 6. Daftarkan MapelRouter
     const mapelRouter: MapelRouter = new MapelRouter();
     this.app.use("/mapel", mapelRouter.getRouter());
 
-    // 7. Daftarkan SkemaRouter
     const skemaRouter: SkemaRouter = new SkemaRouter();
     this.app.use("/skema", skemaRouter.getRouter());
 
-    // 8. Daftarkan TahunAjaranRouter
     const tahunAjaranRouter: TahunAjaranRouter = new TahunAjaranRouter();
     this.app.use("/tahun-ajaran", tahunAjaranRouter.getRouter());
 
-    // 9. Daftarkan PenempatanRouter
     const penempatanRouter: PenempatanRouter = new PenempatanRouter();
     this.app.use("/penempatan", penempatanRouter.getRouter());
 
-    // 10. Daftarkan PenugasanRouter
     const penugasanRouter: PenugasanRouter = new PenugasanRouter();
     this.app.use("/penugasan-guru", penugasanRouter.getRouter());
 
-    // 11. Daftarkan JadwalRouter
     const jadwalRouter: JadwalRouter = new JadwalRouter();
     this.app.use("/jadwal", jadwalRouter.getRouter());
 
-    // 12. Daftarkan PengumumanRouter
     const pengumumanRouter: PengumumanRouter = new PengumumanRouter();
     this.app.use("/pengumuman", pengumumanRouter.getRouter());
 
-    // 13. Daftarkan DokumenRouter
     const dokumenRouter: DokumenRouter = new DokumenRouter();
     this.app.use("/dokumen", dokumenRouter.getRouter());
 
-    // 14. Daftarkan AbsensiRouter
     const absensiRouter: AbsensiRouter = new AbsensiRouter();
     this.app.use("/absensi", absensiRouter.getRouter());
 
-    // 15. Daftarkan NilaiRouter
     const nilaiRouter: NilaiRouter = new NilaiRouter();
     this.app.use("/nilai", nilaiRouter.getRouter());
 
-    // 16. Daftarkan EkskulRouter
-    // Kita pasang di /nilai-ekskul untuk membedakan dengan /nilai (kuantitatif)
     const ekskulRouter: EkskulRouter = new EkskulRouter();
     this.app.use("/nilai-ekskul", ekskulRouter.getRouter());
 
-    // 17. Daftarkan CapaianRouter
     const capaianRouter: CapaianRouter = new CapaianRouter();
     this.app.use("/capaian", capaianRouter.getRouter());
 
-    // 18. Daftarkan RaporRouter
     const raporRouter: RaporRouter = new RaporRouter();
     this.app.use("/rapor", raporRouter.getRouter());
+
+    const siswaViewRouter: SiswaViewRouter = new SiswaViewRouter();
+    this.app.use("/siswa-view", siswaViewRouter.getRouter());
+
+    const waliKelasRouter: WaliKelasRouter = new WaliKelasRouter();
+    this.app.use("/wali-kelas", waliKelasRouter.getRouter());
   }
 
   private errorHandler(): void {
     this.app.use(
       (error: any, req: Request, res: Response, next: NextFunction) => {
         logger.error(
-          `${req.method} ${req.path}: ${error.message} ${JSON.stringify(error)}`
+          `${req.method} ${req.path}: ${error.message} ${JSON.stringify(
+            error
+          )}`
         );
-        // Menggunakan `error.code` dari AppError untuk status response
         res.status(error.code || 500).send(error);
       }
     );

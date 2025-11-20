@@ -1,4 +1,4 @@
-import { createRuanganRepo } from "../repositories/ruangan.repository";
+import { createRuanganRepo, updateRuanganRepo, deleteRuanganRepo } from "../repositories/ruangan.repository";
 import logger from "../utils/logger";
 
 interface CreateRuanganServiceInput {
@@ -25,4 +25,18 @@ export const createRuanganService = async (
   const newRuangan = await createRuanganRepo(repoInput);
 
   return newRuangan;
+};
+
+export const updateRuanganService = async (id: string, data: Partial<CreateRuanganServiceInput>) => {
+  logger.info(`Mencoba update ruangan: ${id}`);
+  
+  const updateData: any = { ...data };
+  // Jika ada logika khusus, tambahkan di sini
+
+  return await updateRuanganRepo(id, updateData);
+};
+
+export const deleteRuanganService = async (id: string) => {
+  logger.info(`Mencoba hapus ruangan: ${id}`);
+  return await deleteRuanganRepo(id);
 };

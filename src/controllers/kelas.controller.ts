@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { createKelasService } from "../service/kelas.service";
+import { createKelasService, updateKelasService, deleteKelasService } from "../service/kelas.service";
 import logger from "../utils/logger";
 
 class KelasController {
@@ -21,6 +21,47 @@ class KelasController {
     } catch (error) {
       if (error instanceof Error) {
         logger.error(`Error create kelas: ${error.message}`);
+      }
+      next(error);
+    }
+  }
+  public async update(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const { namaKelas, tingkatanId, waliKelasId } = req.body;
+
+      const result = await updateKelasService(id, {
+        namaKelas,
+        tingkatanId,
+        waliKelasId,
+      });
+
+      res.status(200).send({
+        success: true,
+        message: "Kelas berhasil diperbarui",
+        data: result,
+      });
+    } catch (error) {
+      if (error instanceof Error) {
+        logger.error(`Error update kelas: ${error.message}`);
+      }
+      next(error);
+    }
+  }
+
+  public async delete(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+
+      await deleteKelasService(id);
+
+      res.status(200).send({
+        success: true,
+        message: "Kelas berhasil dihapus",
+      });
+    } catch (error) {
+      if (error instanceof Error) {
+        logger.error(`Error delete kelas: ${error.message}`);
       }
       next(error);
     }

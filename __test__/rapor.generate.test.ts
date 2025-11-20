@@ -1,7 +1,7 @@
 import App from "../src/app";
 import request from "supertest";
 import { prisma } from "../src/config/prisma";
-import { Guru, Siswa, Kelas, TahunAjaran, NilaiKomponen } from "../src/generated/prisma"; // Hapus MataPelajaran dari import
+import { Guru, Siswa, Kelas, TahunAjaran, NilaiKomponen } from "../src/generated/prisma"; 
 
 const appTest = new App().app;
 
@@ -11,12 +11,12 @@ describe("POST /rapor/siswa/:siswaId/generate - Generate Rapor", () => {
   let siswaTest: Siswa;
   let taTest: TahunAjaran;
   let kelasTest: Kelas;
-  // [PERBAIKAN]: Ubah tipe mapelWajib menjadi 'any'
+  
   let mapelWajib: any; 
   let komponenAkhir: NilaiKomponen;
 
   beforeAll(async () => {
-    // 1. Setup Data Lengkap (Admin, Guru, Siswa, TA, Kelas, Mapel, Penugasan, Nilai)
+    
     await prisma.admin.upsert({ where: { id: ADMIN_ID_DUMMY }, update: {}, create: { id: ADMIN_ID_DUMMY, nama: "Admin Gen", user: { create: { username: "admin.gen", passwordHash: "hash", role: "ADMIN" } } } });
     waliKelas = await prisma.guru.create({ data: { nama: "Wali Gen", nip: "G-GEN", user: { create: { username: "wali.gen", passwordHash: "hash", role: "GURU" } } } });
     taTest = await prisma.tahunAjaran.create({ data: { nama: "TA Gen", adminId: ADMIN_ID_DUMMY } });
@@ -27,7 +27,7 @@ describe("POST /rapor/siswa/:siswaId/generate - Generate Rapor", () => {
     siswaTest = await prisma.siswa.create({ data: { nama: "Siswa Gen", nis: "S-GEN", user: { create: { username: "s.gen", passwordHash: "hash", role: "SISWA" } } } });
     await prisma.penempatanSiswa.create({ data: { siswaId: siswaTest.id, kelasId: kelasTest.id, tahunAjaranId: taTest.id } });
 
-    // Mapel & Nilai
+    
     mapelWajib = await prisma.mataPelajaran.create({ 
         data: { 
             namaMapel: "Matematika", kategori: "WAJIB", adminId: ADMIN_ID_DUMMY, 
@@ -41,10 +41,10 @@ describe("POST /rapor/siswa/:siswaId/generate - Generate Rapor", () => {
         include: { SkemaPenilaian: { include: { Komponen: true } } }
     });
     
-    // [PERBAIKAN]: Gunakan optional chaining (?.) untuk keamanan akses
+    
     komponenAkhir = mapelWajib.SkemaPenilaian?.[0]?.Komponen?.[0];
 
-    // Input Nilai Dummy
+    
     if (komponenAkhir) {
       await prisma.nilaiDetailSiswa.create({
           data: {
@@ -56,7 +56,7 @@ describe("POST /rapor/siswa/:siswaId/generate - Generate Rapor", () => {
   });
 
   afterAll(async () => {
-    // Cleanup all
+    
     await prisma.nilaiDetailSiswa.deleteMany();
     await prisma.penempatanSiswa.deleteMany();
     await prisma.penugasanGuru.deleteMany();

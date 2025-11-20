@@ -42,3 +42,16 @@ export const createMapelRepo = async (data: CreateMapelInput) => {
     throw error;
   }
 };
+
+export const updateMapelRepo = async (id: string, data: Partial<CreateMapelInput>) => {
+  return await prisma.mataPelajaran.update({
+    where: { id },
+    data,
+  });
+};
+
+export const deleteMapelRepo = async (id: string) => {
+  return await prisma.mataPelajaran.delete({
+    where: { id },
+  });
+};

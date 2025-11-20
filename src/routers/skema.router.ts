@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import SkemaController from '../controllers/skema.controller';
 import { addKomponenValidation } from '../middleware/validation/skema.validation';
-// import { authMiddleware, adminGuard } from '../middleware/auth.middleware';
+import { authMiddleware, adminGuard } from '../middleware/auth.middleware';
 
 class SkemaRouter {
   private route: Router;
@@ -14,12 +14,12 @@ class SkemaRouter {
   }
 
   private initializeRoute(): void {
-    // Endpoint: POST /skema/:skemaId/komponen
+    // Add komponen penilaian - Admin only
     this.route.post(
       '/:skemaId/komponen',
-      // authMiddleware, // (Nanti)
-      // adminGuard, // (Nanti)
-      addKomponenValidation, // Terapkan validasi
+      authMiddleware,
+      adminGuard,
+      addKomponenValidation,
       this.skemaController.addKomponen
     );
   }

@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import PenugasanController from '../controllers/penugasan.controller';
 import { createPenugasanValidation } from '../middleware/validation/penugasan.validation';
-// import { authMiddleware, adminGuard } from '../middleware/auth.middleware';
+import { authMiddleware, adminGuard } from '../middleware/auth.middleware';
 
 class PenugasanRouter {
   private route: Router;
@@ -14,10 +14,11 @@ class PenugasanRouter {
   }
 
   private initializeRoute(): void {
+    // Create penugasan - Admin only
     this.route.post(
       '/',
-      // authMiddleware, // (Nanti)
-      // adminGuard, // (Nanti)
+      authMiddleware,
+      adminGuard,
       createPenugasanValidation,
       this.penugasanController.create
     );

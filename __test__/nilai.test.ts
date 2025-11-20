@@ -8,23 +8,23 @@ const appTest = new App().app;
 describe("POST /nilai - Input Nilai Siswa", () => {
   const ADMIN_ID_DUMMY = "dummy-admin-id-nilai";
   let guruTest: Guru;
-  // [PERBAIKAN 1]: Ubah tipe ke 'any' agar bisa mengakses properti hasil include (SkemaPenilaian)
+  
   let mapelTest: any; 
   let komponenInput: NilaiKomponen;
   let komponenReadOnly: NilaiKomponen;
   let siswaTest: Siswa;
 
   beforeAll(async () => {
-    // 1. Setup Admin
+    
     await prisma.admin.upsert({
         where: { id: ADMIN_ID_DUMMY },
         update: {},
         create: { id: ADMIN_ID_DUMMY, nama: "Admin Nilai", user: { create: { username: "admin.nilai", passwordHash: "hash", role: "ADMIN" } } },
     });
-    // 2. Setup Guru
+    
     guruTest = await prisma.guru.create({ data: { nama: "Guru Nilai", nip: "G-NILAI", user: { create: { username: "guru.nilai", passwordHash: "hash", role: "GURU" } } } });
     
-    // 3. Setup Mapel & Skema dengan 2 Komponen (INPUT & READ_ONLY)
+    
     mapelTest = await prisma.mataPelajaran.create({
       data: {
         namaMapel: "Fisika",
@@ -47,13 +47,13 @@ describe("POST /nilai - Input Nilai Siswa", () => {
       include: { SkemaPenilaian: { include: { Komponen: true } } }
     });
 
-    // [PERBAIKAN 2]: Tambahkan optional chaining (?.) dan tipe eksplisit (k: any)
+    
     const komponen = mapelTest.SkemaPenilaian?.[0]?.Komponen;
     
     komponenInput = komponen?.find((k: any) => k.tipe === "INPUT");
     komponenReadOnly = komponen?.find((k: any) => k.tipe === "READ_ONLY");
 
-    // 4. Setup Kelas & Penugasan
+    
     const tingkatan = await prisma.tingkatanKelas.create({ data: { namaTingkat: "Tingkat Nilai", adminId: ADMIN_ID_DUMMY } });
     const kelas = await prisma.kelas.create({ data: { namaKelas: "Kelas Nilai", tingkatanId: tingkatan.id } });
     
@@ -61,7 +61,7 @@ describe("POST /nilai - Input Nilai Siswa", () => {
       data: { guruId: guruTest.id, mapelId: mapelTest.id, kelasId: kelas.id }
     });
 
-    // 5. Setup Siswa
+    
     siswaTest = await prisma.siswa.create({ data: { nama: "Siswa Nilai", nis: "S-NILAI", user: { create: { username: "s.nilai", passwordHash: "hash", role: "SISWA" } } } });
   });
 
@@ -99,7 +99,7 @@ describe("POST /nilai - Input Nilai Siswa", () => {
     const response = await request(appTest).post("/nilai").send({
       guruId: guruTest.id,
       mapelId: mapelTest.id,
-      komponenId: komponenReadOnly.id, // Ini READ_ONLY
+      komponenId: komponenReadOnly.id, 
       data: [{ siswaId: siswaTest.id, nilai: 90 }]
     });
 
@@ -108,7 +108,7 @@ describe("POST /nilai - Input Nilai Siswa", () => {
   });
 
   it("Should fail if guru is not assigned", async () => {
-    // Buat guru lain tanpa penugasan
+    
     const guruAsing = await prisma.guru.create({ data: { nama: "Guru Asing", nip: "G-ASING", user: { create: { username: "guru.asing", passwordHash: "hash", role: "GURU" } } } });
 
     const response = await request(appTest).post("/nilai").send({

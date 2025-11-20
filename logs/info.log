@@ -30,3 +30,11 @@
 2025-11-18 21:39:38 [INFO]: POST /siswa
 2025-11-18 21:39:38 [INFO]: POST /guru
 2025-11-18 21:39:38 [INFO]: POST /guru
+2025-11-20 11:20:01 [INFO]: POST /siswa
+2025-11-20 11:20:01 [INFO]: POST /guru
+2025-11-20 11:20:01 [INFO]: POST /auth/signin
+2025-11-20 11:20:02 [INFO]: Mencoba membuat siswa baru dengan NIS: 123456789
+2025-11-20 11:20:02 [INFO]: Mencoba membuat guru baru dengan NIP: G-123456
+2025-11-20 11:20:02 [INFO]: POST /auth/signin
+2025-11-20 11:20:02 [INFO]: Password default dibuat untuk NIS: 123456789
+2025-11-20 11:20:02 [INFO]: Password di-hash untuk user guru baru: guru.test

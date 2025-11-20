@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import MapelController from '../controllers/mapel.controller';
 import { createMapelValidation } from '../middleware/validation/mapel.validation';
-// import { authMiddleware, adminGuard } from '../middleware/auth.middleware';
+import { authMiddleware, adminGuard } from '../middleware/auth.middleware';
 
 class MapelRouter {
   private route: Router;
@@ -16,10 +16,24 @@ class MapelRouter {
   private initializeRoute(): void {
     this.route.post(
       '/',
-      // authMiddleware, // (Nanti)
-      // adminGuard, // (Nanti)
+      authMiddleware,
+      adminGuard,
       createMapelValidation,
       this.mapelController.create
+    );
+
+    this.route.put(
+      '/:id',
+      authMiddleware,
+      adminGuard,
+      this.mapelController.update
+    );
+
+    this.route.delete(
+      '/:id',
+      authMiddleware,
+      adminGuard,
+      this.mapelController.delete
     );
   }
 

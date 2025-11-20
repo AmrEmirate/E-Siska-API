@@ -10,7 +10,7 @@ describe("POST /pengumuman - Create Pengumuman", () => {
   let adminUserTest: User;
 
   beforeAll(async () => {
-    // Pastikan admin dummy dan user-nya ada
+    
     const adminData = await prisma.admin.upsert({
       where: { id: ADMIN_ID_DUMMY },
       update: {},
@@ -48,7 +48,7 @@ describe("POST /pengumuman - Create Pengumuman", () => {
     expect(response.status).toBe(201);
     expect(response.body.success).toBeTruthy();
     expect(response.body.data.judul).toBe("Libur Sekolah");
-    expect(response.body.data.adminId).toBe(adminUserTest.id); // Cek relasi
+    expect(response.body.data.adminId).toBe(adminUserTest.id); 
   });
 
   it("Should fail if judul is empty", async () => {

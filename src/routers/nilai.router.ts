@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import NilaiController from '../controllers/nilai.controller';
 import { inputNilaiValidation } from '../middleware/validation/nilai.validation';
+import { authMiddleware, guruGuard } from '../middleware/auth.middleware';
 
 class NilaiRouter {
   private route: Router;
@@ -13,8 +14,11 @@ class NilaiRouter {
   }
 
   private initializeRoute(): void {
+    // Input nilai - Guru only
     this.route.post(
       '/',
+      authMiddleware,
+      guruGuard,
       inputNilaiValidation,
       this.nilaiController.inputNilai
     );

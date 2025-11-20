@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import EkskulController from '../controllers/ekskul.controller';
 import { inputEkskulValidation } from '../middleware/validation/ekskul.validation';
+import { authMiddleware, guruGuard } from '../middleware/auth.middleware';
 
 class EkskulRouter {
   private route: Router;
@@ -13,10 +14,11 @@ class EkskulRouter {
   }
 
   private initializeRoute(): void {
-    // Endpoint khusus untuk nilai ekskul
-    // Menggunakan path /nilai/ekskul agar terpisah logikanya dari /nilai biasa
+    // Input nilai ekstrakurikuler - Guru only
     this.route.post(
-      '/ekskul', // Jadi url lengkapnya: POST /nilai/ekskul (jika di-mount di app.ts) atau buat root baru
+      '/ekskul',
+      authMiddleware,
+      guruGuard,
       inputEkskulValidation,
       this.ekskulController.inputNilai
     );

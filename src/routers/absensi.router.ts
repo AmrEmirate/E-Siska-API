@@ -1,32 +1,37 @@
 import { Router } from 'express';
 import AbsensiController from '../controllers/absensi.controller';
-import AbsensiDetailController from '../controllers/absensiDetail.controller'; // 1. Impor controller baru
+import AbsensiDetailController from '../controllers/absensiDetail.controller';
 import { createSesiValidation } from '../middleware/validation/absensi.validation';
-import { inputAbsensiValidation } from '../middleware/validation/absensiDetail.validation'; // 2. Impor validator baru
+import { inputAbsensiValidation } from '../middleware/validation/absensiDetail.validation';
+import { authMiddleware, guruGuard } from '../middleware/auth.middleware';
 
 class AbsensiRouter {
   private route: Router;
   private absensiController: AbsensiController;
-  private absensiDetailController: AbsensiDetailController; // 3. Property baru
+  private absensiDetailController: AbsensiDetailController;
 
   constructor() {
     this.route = Router();
     this.absensiController = new AbsensiController();
-    this.absensiDetailController = new AbsensiDetailController(); // 4. Init controller baru
+    this.absensiDetailController = new AbsensiDetailController();
     this.initializeRoute();
   }
 
   private initializeRoute(): void {
-    // 1. Buat Sesi Pertemuan
+    // Create Sesi Pertemuan - Guru only
     this.route.post(
       '/sesi',
+      authMiddleware,
+      guruGuard,
       createSesiValidation,
       this.absensiController.createSesi
     );
 
-    // 2. Input Detail Absensi (BARU)
+    // Input Detail Absensi - Guru only
     this.route.post(
       '/sesi/:sesiId/detail',
+      authMiddleware,
+      guruGuard,
       inputAbsensiValidation,
       this.absensiDetailController.inputAbsensi
     );

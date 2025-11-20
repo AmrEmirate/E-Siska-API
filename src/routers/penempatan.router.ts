@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import PenempatanController from '../controllers/penempatan.controller';
 import { createPenempatanValidation } from '../middleware/validation/penempatan.validation';
-// import { authMiddleware, adminGuard } from '../middleware/auth.middleware';
+import { authMiddleware, adminGuard } from '../middleware/auth.middleware';
 
 class PenempatanRouter {
   private route: Router;
@@ -14,10 +14,11 @@ class PenempatanRouter {
   }
 
   private initializeRoute(): void {
+    // Create pen empatan - Admin only
     this.route.post(
       '/',
-      // authMiddleware, // (Nanti)
-      // adminGuard, // (Nanti)
+      authMiddleware,
+      adminGuard,
       createPenempatanValidation,
       this.penempatanController.create
     );

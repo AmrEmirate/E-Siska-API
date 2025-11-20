@@ -8,7 +8,7 @@ describe("POST /tahun-ajaran - Create Tahun Ajaran", () => {
   const ADMIN_ID_DUMMY = "dummy-admin-id-untuk-tes";
 
   beforeAll(async () => {
-    // Pastikan admin dummy ada
+    
     await prisma.admin.upsert({
       where: { id: ADMIN_ID_DUMMY },
       update: {},
@@ -28,7 +28,7 @@ describe("POST /tahun-ajaran - Create Tahun Ajaran", () => {
 
   afterAll(async () => {
     await prisma.tahunAjaran.deleteMany();
-    // Hapus admin dan user dummy
+    
     await prisma.admin.deleteMany({
       where: { id: ADMIN_ID_DUMMY },
     });
@@ -46,7 +46,7 @@ describe("POST /tahun-ajaran - Create Tahun Ajaran", () => {
     expect(response.status).toBe(201);
     expect(response.body.success).toBeTruthy();
     expect(response.body.data.nama).toBe("2025/2026 Ganjil");
-    expect(response.body.data.isAktif).toBe(false); // Cek default value
+    expect(response.body.data.isAktif).toBe(false); 
   });
 
   it("Should fail if nama is empty", async () => {

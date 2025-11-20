@@ -1,4 +1,4 @@
-import { createMapelRepo } from "../repositories/mapel.repository";
+import { createMapelRepo, updateMapelRepo, deleteMapelRepo } from "../repositories/mapel.repository";
 import logger from "../utils/logger";
 import { MapelCategory } from "../generated/prisma";
 
@@ -23,4 +23,20 @@ export const createMapelService = async (data: CreateMapelServiceInput) => {
   const newData = await createMapelRepo(repoInput);
 
   return newData;
+};
+
+export const updateMapelService = async (id: string, data: Partial<CreateMapelServiceInput>) => {
+  logger.info(`Mencoba update mata pelajaran: ${id}`);
+  
+  const updateData: any = { ...data };
+  if (data.kategori) {
+      updateData.kategori = data.kategori as MapelCategory;
+  }
+
+  return await updateMapelRepo(id, updateData);
+};
+
+export const deleteMapelService = async (id: string) => {
+  logger.info(`Mencoba hapus mata pelajaran: ${id}`);
+  return await deleteMapelRepo(id);
 };
