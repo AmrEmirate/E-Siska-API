@@ -89,3 +89,23 @@
 2025-11-20 15:58:22 [INFO]: Mencoba membuat tingkatan kelas: Kelas 10
 2025-11-20 16:00:55 [INFO]: POST /tingkatan
 2025-11-20 16:00:58 [INFO]: Mencoba membuat tingkatan kelas: Kelas 10
+2025-11-24 09:47:53 [INFO]: POST /api/auth/signin
+2025-11-24 09:48:04 [INFO]: POST /api/auth/signin
+2025-11-24 09:48:06 [INFO]: POST /api/auth/signin
+2025-11-24 09:48:06 [INFO]: POST /api/auth/signin
+2025-11-24 09:48:06 [INFO]: POST /api/auth/signin
+2025-11-24 09:48:06 [INFO]: POST /api/auth/signin
+2025-11-24 09:48:07 [INFO]: POST /api/auth/signin
+2025-11-24 09:48:07 [INFO]: POST /api/auth/signin
+2025-11-24 09:48:07 [INFO]: POST /api/auth/signin
+2025-11-24 09:48:07 [INFO]: POST /api/auth/signin
+2025-11-24 09:48:08 [INFO]: POST /api/auth/signin
+2025-11-24 09:48:08 [INFO]: POST /api/auth/signin
+2025-11-24 09:48:08 [INFO]: POST /api/auth/signin
+2025-11-24 10:37:04 [INFO]: POST /auth/signin
+2025-11-24 10:37:12 [INFO]: POST /auth/signin
+2025-11-24 10:40:53 [INFO]: POST /auth/signin
+2025-11-24 10:43:58 [INFO]: POST /auth/signin
+2025-11-24 10:44:27 [INFO]: POST /auth/signin
+2025-11-24 10:46:43 [INFO]: Starting admin seed...
+2025-11-24 10:48:10 [INFO]: POST /auth/signin

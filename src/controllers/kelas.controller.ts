@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { createKelasService, updateKelasService, deleteKelasService } from "../service/kelas.service";
+import { createKelasService, updateKelasService, deleteKelasService, getAllKelasService } from "../service/kelas.service";
 import logger from "../utils/logger";
 
 class KelasController {
@@ -25,6 +25,24 @@ class KelasController {
       next(error);
     }
   }
+
+  public async getAll(req: Request, res: Response, next: NextFunction) {
+    try {
+      const result = await getAllKelasService();
+
+      res.status(200).send({
+        success: true,
+        message: "Data kelas berhasil diambil",
+        data: result,
+      });
+    } catch (error) {
+      if (error instanceof Error) {
+        logger.error(`Error get all kelas: ${error.message}`);
+      }
+      next(error);
+    }
+  }
+
   public async update(req: Request, res: Response, next: NextFunction) {
     try {
       const { id } = req.params;

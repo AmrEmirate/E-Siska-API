@@ -1,4 +1,4 @@
-import { createKelasRepo, updateKelasRepo, deleteKelasRepo } from "../repositories/kelas.repository";
+import { createKelasRepo, updateKelasRepo, deleteKelasRepo, findAllKelasRepo } from "../repositories/kelas.repository";
 import logger from "../utils/logger";
 import AppError from "../utils/AppError";
 import { prisma } from "../config/prisma";
@@ -54,4 +54,9 @@ export const updateKelasService = async (id: string, data: Partial<CreateKelasSe
 export const deleteKelasService = async (id: string) => {
   logger.info(`Mencoba hapus kelas: ${id}`);
   return await deleteKelasRepo(id);
+};
+
+export const getAllKelasService = async () => {
+  logger.info("Fetching all kelas");
+  return await findAllKelasRepo();
 };

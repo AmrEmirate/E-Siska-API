@@ -37,3 +37,18 @@ export const deleteKelasRepo = async (id: string) => {
     where: { id },
   });
 };
+
+export const findAllKelasRepo = async () => {
+  return await prisma.kelas.findMany({
+    include: {
+      tingkatan: true,
+      waliKelas: true,
+      _count: {
+        select: { Penempatan: true },
+      },
+    },
+    orderBy: {
+      namaKelas: 'asc',
+    },
+  });
+};

@@ -22,6 +22,13 @@ class KelasRouter {
       this.kelasController.create
     );
 
+    this.route.get(
+      '/',
+      authMiddleware,
+      // adminGuard, // Optional: if all logged in users can see classes
+      this.kelasController.getAll
+    );
+
     this.route.put(
       '/:id',
       authMiddleware,
