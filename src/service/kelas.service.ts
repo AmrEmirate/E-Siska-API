@@ -1,4 +1,4 @@
-import { createKelasRepo, updateKelasRepo, deleteKelasRepo, findAllKelasRepo, getKelasByWaliKelasRepo } from "../repositories/kelas.repository";
+import { createKelasRepo, updateKelasRepo, deleteKelasRepo, findAllKelasRepo, getKelasByWaliKelasRepo, getKelasByGuruIdRepo } from "../repositories/kelas.repository";
 import logger from "../utils/logger";
 import AppError from "../utils/AppError";
 import { prisma } from "../config/prisma";
@@ -70,4 +70,9 @@ export const getMyClassService = async (guruId: string) => {
   }
 
   return kelas;
+};
+
+export const getMyTeachingClassesService = async (guruId: string) => {
+  logger.info(`Fetching teaching classes for guru: ${guruId}`);
+  return await getKelasByGuruIdRepo(guruId);
 };

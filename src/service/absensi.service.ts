@@ -1,4 +1,5 @@
-import { createSesiRepo } from "../repositories/absensi.repository";
+import { createSesiRepo, findSesiByKelasRepo, findSesiByIdRepo } from "../repositories/absensi.repository";
+import { getKelasByIdWithStudentsRepo } from "../repositories/kelas.repository";
 import logger from "../utils/logger";
 import AppError from "../utils/AppError";
 import { prisma } from "../config/prisma";
@@ -60,4 +61,51 @@ export const createSesiService = async (data: CreateSesiServiceInput) => {
   });
 
   return newSesi;
+};
+
+export const getSesiByKelasService = async (kelasId: string) => {
+  logger.info(`Fetching sessions for class: ${kelasId}`);
+  return await findSesiByKelasRepo(kelasId);
+};
+
+export const getSesiDetailService = async (sesiId: string) => {
+  logger.info(`Fetching session detail: ${sesiId}`);
+  
+  const sesi = await findSesiByIdRepo(sesiId);
+  if (!sesi) {
+    throw new AppError("Sesi absensi tidak ditemukan", 404);
+  }
+
+  // If attendance has been taken (details exist), return them
+  if (sesi.Detail && sesi.Detail.length > 0) {
+    return {
+      ...sesi,
+      students: sesi.Detail.map(detail => ({
+        siswaId: detail.siswaId,
+        nama: detail.siswa.nama,
+        nis: detail.siswa.nis,
+        status: detail.status,
+        // keterangan: detail.keterangan // Keterangan not in schema yet, maybe add later?
+      }))
+    };
+  }
+
+  // If no attendance taken yet, fetch all students in class
+  const kelas = await getKelasByIdWithStudentsRepo(sesi.kelasId);
+  if (!kelas) {
+    throw new AppError("Data kelas tidak ditemukan", 404);
+  }
+
+  // Map students to default attendance structure
+  const students = kelas.Penempatan.map(p => ({
+    siswaId: p.siswa.id,
+    nama: p.siswa.nama,
+    nis: p.siswa.nis,
+    status: null, // Not set yet
+  }));
+
+  return {
+    ...sesi,
+    students
+  };
 };

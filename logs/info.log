@@ -117,3 +117,7 @@
 2025-11-25 12:13:29 [INFO]: POST /siswa
 2025-11-25 12:13:35 [INFO]: Mencoba membuat siswa baru dengan NIS: 202301001
 2025-11-25 12:13:36 [INFO]: Password default dibuat untuk NIS: 202301001
+2025-11-25 12:55:59 [INFO]: POST /auth/signin
+2025-11-25 13:02:35 [INFO]: POST /auth/signin
+2025-11-25 13:03:03 [INFO]: POST /tahun-ajaran
+2025-11-25 13:03:04 [INFO]: Creating tahun ajaran: 2023/2024 Semester 1

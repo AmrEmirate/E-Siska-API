@@ -66,3 +66,29 @@ export const getKelasByWaliKelasRepo = async (waliKelasId: string) => {
     },
   });
 };
+
+export const getKelasByIdWithStudentsRepo = async (kelasId: string) => {
+  return await prisma.kelas.findUnique({
+    where: { id: kelasId },
+    include: {
+      tingkatan: true,
+      Penempatan: {
+        include: {
+          siswa: true,
+        },
+      },
+    },
+  });
+};
+
+export const getKelasByGuruIdRepo = async (guruId: string) => {
+  const penugasan = await prisma.penugasanGuru.findMany({
+    where: { guruId },
+    include: {
+      kelas: true
+    },
+    distinct: ['kelasId'] // Ensure unique classes
+  });
+
+  return penugasan.map(p => p.kelas);
+};

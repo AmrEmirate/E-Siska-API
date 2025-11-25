@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { createKelasService, updateKelasService, deleteKelasService, getAllKelasService, getMyClassService } from "../service/kelas.service";
+import { createKelasService, updateKelasService, deleteKelasService, getAllKelasService, getMyClassService, getMyTeachingClassesService } from "../service/kelas.service";
 import logger from "../utils/logger";
 
 class KelasController {
@@ -106,6 +106,29 @@ class KelasController {
     } catch (error) {
       if (error instanceof Error) {
         logger.error(`Error get my class: ${error.message}`);
+      }
+      next(error);
+    }
+  }
+
+  public async getMyTeachingClasses(req: Request, res: Response, next: NextFunction) {
+    try {
+      const guruId = (req as any).user?.id; 
+
+      if (!guruId) {
+        throw new Error("User ID not found in request");
+      }
+
+      const result = await getMyTeachingClassesService(guruId);
+
+      res.status(200).send({
+        success: true,
+        message: "Data kelas ajar berhasil diambil",
+        data: result,
+      });
+    } catch (error) {
+      if (error instanceof Error) {
+        logger.error(`Error get my teaching classes: ${error.message}`);
       }
       next(error);
     }

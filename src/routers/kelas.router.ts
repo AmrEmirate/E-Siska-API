@@ -36,6 +36,13 @@ class KelasRouter {
       this.kelasController.getMyClass
     );
 
+    this.route.get(
+      '/teaching',
+      authMiddleware,
+      guruGuard,
+      this.kelasController.getMyTeachingClasses
+    );
+
     this.route.put(
       '/:id',
       authMiddleware,

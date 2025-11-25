@@ -26,3 +26,29 @@ export const createSesiRepo = async (data: CreateSesiInput) => {
     throw error;
   }
 };
+
+export const findSesiByKelasRepo = async (kelasId: string) => {
+  return await prisma.absensiSesi.findMany({
+    where: { kelasId },
+    orderBy: { tanggal: 'desc' },
+    include: {
+      _count: {
+        select: { Detail: true }
+      }
+    }
+  });
+};
+
+export const findSesiByIdRepo = async (sesiId: string) => {
+  return await prisma.absensiSesi.findUnique({
+    where: { id: sesiId },
+    include: {
+      kelas: true,
+      Detail: {
+        include: {
+          siswa: true
+        }
+      }
+    }
+  });
+};

@@ -27,6 +27,22 @@ class AbsensiRouter {
       this.absensiController.createSesi
     );
 
+    // Get Sesi by Kelas - Guru only
+    this.route.get(
+      '/kelas/:kelasId',
+      authMiddleware,
+      guruGuard,
+      this.absensiController.getSesiByKelas
+    );
+
+    // Get Sesi Detail (with students) - Guru only
+    this.route.get(
+      '/sesi/:sesiId',
+      authMiddleware,
+      guruGuard,
+      this.absensiController.getSesiDetail
+    );
+
     // Input Detail Absensi - Guru only
     this.route.post(
       '/sesi/:sesiId/detail',
