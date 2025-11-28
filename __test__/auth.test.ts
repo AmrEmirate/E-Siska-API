@@ -1,4 +1,9 @@
-import { setupTestUser, cleanupTestUser, appTest, TEST_ADMIN_CREDENTIALS } from "./test-helpers";
+import {
+  setupTestUser,
+  cleanupTestUser,
+  appTest,
+  TEST_ADMIN_CREDENTIALS,
+} from "./test-helpers";
 import request from "supertest";
 
 describe("Authentication", () => {
@@ -11,7 +16,7 @@ describe("Authentication", () => {
   });
 
   it("Should login successfully with correct data", async () => {
-    const response = await request(appTest).post("/auth/signin").send({
+    const response = await request(appTest).post("/api/auth/signin").send({
       username: TEST_ADMIN_CREDENTIALS.username,
       password: TEST_ADMIN_CREDENTIALS.password,
     });
@@ -22,7 +27,7 @@ describe("Authentication", () => {
   });
 
   it("Should fail login with incorrect password", async () => {
-    const response = await request(appTest).post("/auth/signin").send({
+    const response = await request(appTest).post("/api/auth/signin").send({
       username: TEST_ADMIN_CREDENTIALS.username,
       password: "WrongPassword123!",
     });
@@ -31,7 +36,7 @@ describe("Authentication", () => {
   });
 
   it("Should fail login with non-existent user", async () => {
-    const response = await request(appTest).post("/auth/signin").send({
+    const response = await request(appTest).post("/api/auth/signin").send({
       username: "nonexistent@user.com",
       password: "SomePassword123!",
     });

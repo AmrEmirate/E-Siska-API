@@ -28,7 +28,7 @@ import GuruViewRouter from "./routers/guru-view.router";
 import SekolahRouter from "./routers/sekolah.router";
 import BackupRouter from "./routers/backup.router";
 
-const PORT: string = process.env.PORT || "8181";
+const PORT: string = process.env.PORT as string;
 
 class App {
   public app: Application;
@@ -41,7 +41,7 @@ class App {
   }
 
   private configure(): void {
-    this.app.use(cors());
+    this.app.use(cors({ origin: process.env.FE_URL }));
     this.app.use(express.json());
     this.app.use((req: Request, res: Response, next: NextFunction) => {
       logger.info(`${req.method} ${req.path}`);
@@ -54,77 +54,81 @@ class App {
       res.status(200).send("<h1>Classbase API</h1>");
     });
 
+    const apiRouter = express.Router();
+
     const authRouter: AuthRouter = new AuthRouter();
-    this.app.use("/auth", authRouter.getRouter());
+    apiRouter.use("/auth", authRouter.getRouter());
 
     const siswaRouter: SiswaRouter = new SiswaRouter();
-    this.app.use("/siswa", siswaRouter.getRouter());
+    apiRouter.use("/siswa", siswaRouter.getRouter());
 
     const guruRouter: GuruRouter = new GuruRouter();
-    this.app.use("/guru", guruRouter.getRouter());
+    apiRouter.use("/guru", guruRouter.getRouter());
 
     const tingkatanRouter: TingkatanRouter = new TingkatanRouter();
-    this.app.use("/tingkatan", tingkatanRouter.getRouter());
+    apiRouter.use("/tingkatan", tingkatanRouter.getRouter());
 
     const kelasRouter: KelasRouter = new KelasRouter();
-    this.app.use("/kelas", kelasRouter.getRouter());
+    apiRouter.use("/kelas", kelasRouter.getRouter());
 
     const ruanganRouter: RuanganRouter = new RuanganRouter();
-    this.app.use("/ruangan", ruanganRouter.getRouter());
+    apiRouter.use("/ruangan", ruanganRouter.getRouter());
 
     const mapelRouter: MapelRouter = new MapelRouter();
-    this.app.use("/mapel", mapelRouter.getRouter());
+    apiRouter.use("/mapel", mapelRouter.getRouter());
 
     const skemaRouter: SkemaRouter = new SkemaRouter();
-    this.app.use("/skema", skemaRouter.getRouter());
+    apiRouter.use("/skema", skemaRouter.getRouter());
 
     const tahunAjaranRouter: TahunAjaranRouter = new TahunAjaranRouter();
-    this.app.use("/tahun-ajaran", tahunAjaranRouter.getRouter());
+    apiRouter.use("/tahun-ajaran", tahunAjaranRouter.getRouter());
 
     const penempatanRouter: PenempatanRouter = new PenempatanRouter();
-    this.app.use("/penempatan", penempatanRouter.getRouter());
+    apiRouter.use("/penempatan", penempatanRouter.getRouter());
 
     const penugasanRouter: PenugasanRouter = new PenugasanRouter();
-    this.app.use("/penugasan-guru", penugasanRouter.getRouter());
+    apiRouter.use("/penugasan-guru", penugasanRouter.getRouter());
 
     const jadwalRouter: JadwalRouter = new JadwalRouter();
-    this.app.use("/jadwal", jadwalRouter.getRouter());
+    apiRouter.use("/jadwal", jadwalRouter.getRouter());
 
     const pengumumanRouter: PengumumanRouter = new PengumumanRouter();
-    this.app.use("/pengumuman", pengumumanRouter.getRouter());
+    apiRouter.use("/pengumuman", pengumumanRouter.getRouter());
 
     const dokumenRouter: DokumenRouter = new DokumenRouter();
-    this.app.use("/dokumen", dokumenRouter.getRouter());
+    apiRouter.use("/dokumen", dokumenRouter.getRouter());
 
     const absensiRouter: AbsensiRouter = new AbsensiRouter();
-    this.app.use("/absensi", absensiRouter.getRouter());
+    apiRouter.use("/absensi", absensiRouter.getRouter());
 
     const nilaiRouter: NilaiRouter = new NilaiRouter();
-    this.app.use("/nilai", nilaiRouter.getRouter());
+    apiRouter.use("/nilai", nilaiRouter.getRouter());
 
     const ekskulRouter: EkskulRouter = new EkskulRouter();
-    this.app.use("/nilai-ekskul", ekskulRouter.getRouter());
+    apiRouter.use("/nilai-ekskul", ekskulRouter.getRouter());
 
     const capaianRouter: CapaianRouter = new CapaianRouter();
-    this.app.use("/capaian", capaianRouter.getRouter());
+    apiRouter.use("/capaian", capaianRouter.getRouter());
 
     const raporRouter: RaporRouter = new RaporRouter();
-    this.app.use("/rapor", raporRouter.getRouter());
+    apiRouter.use("/rapor", raporRouter.getRouter());
 
     const siswaViewRouter: SiswaViewRouter = new SiswaViewRouter();
-    this.app.use("/siswa-view", siswaViewRouter.getRouter());
+    apiRouter.use("/siswa-view", siswaViewRouter.getRouter());
 
     const waliKelasRouter: WaliKelasRouter = new WaliKelasRouter();
-    this.app.use("/wali-kelas", waliKelasRouter.getRouter());
+    apiRouter.use("/wali-kelas", waliKelasRouter.getRouter());
 
     const guruViewRouter: GuruViewRouter = new GuruViewRouter();
-    this.app.use("/guru-view", guruViewRouter.getRouter());
+    apiRouter.use("/guru-view", guruViewRouter.getRouter());
 
     const sekolahRouter: SekolahRouter = new SekolahRouter();
-    this.app.use("/sekolah", sekolahRouter.getRouter());
+    apiRouter.use("/sekolah", sekolahRouter.getRouter());
 
     const backupRouter: BackupRouter = new BackupRouter();
-    this.app.use("/backup", backupRouter.getRouter());
+    apiRouter.use("/backup", backupRouter.getRouter());
+
+    this.app.use("/api", apiRouter);
   }
 
   private errorHandler(): void {

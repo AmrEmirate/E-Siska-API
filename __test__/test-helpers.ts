@@ -18,7 +18,7 @@ let authTokenCache: string | null = null;
  */
 export async function setupTestUser() {
   const hashedPassword = await bcrypt.hash(TEST_ADMIN_CREDENTIALS.password, 10);
-  
+
   try {
     await prisma.admin.upsert({
       where: { id: "test-admin-main-id" },
@@ -44,7 +44,9 @@ export async function setupTestUser() {
  * Helper function to get authentication token
  * @returns Promise<string> - JWT token
  */
-export async function getAuthToken(credentials = TEST_ADMIN_CREDENTIALS): Promise<string> {
+export async function getAuthToken(
+  credentials = TEST_ADMIN_CREDENTIALS
+): Promise<string> {
   // Return cached token if available
   if (authTokenCache && credentials === TEST_ADMIN_CREDENTIALS) {
     return authTokenCache;
@@ -54,7 +56,7 @@ export async function getAuthToken(credentials = TEST_ADMIN_CREDENTIALS): Promis
   await setupTestUser();
 
   const response = await request(appTest)
-    .post("/auth/signin")
+    .post("/api/auth/signin")
     .send(credentials);
 
   if (response.status !== 200) {
@@ -87,7 +89,9 @@ export function authenticatedRequest(
 export async function cleanupTestUser() {
   try {
     await prisma.admin.delete({ where: { id: "test-admin-main-id" } });
-    await prisma.user.delete({ where: { username: TEST_ADMIN_CREDENTIALS.username } });
+    await prisma.user.delete({
+      where: { username: TEST_ADMIN_CREDENTIALS.username },
+    });
   } catch (error) {
     // User might not exist, which is fine
   }
