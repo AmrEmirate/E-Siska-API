@@ -66,7 +66,7 @@ export const generateRaporPDFService = async (
 
   const infoRows = [
     ["Nama", ": " + raporData.infoSiswa.nama],
-    ["NIS", ": " + raporData.infoSiswa.nis],
+    ["NISN", ": " + raporData.infoSiswa.nisn],
     ["Kelas", ": " + raporData.infoSiswa.kelas],
   ];
 

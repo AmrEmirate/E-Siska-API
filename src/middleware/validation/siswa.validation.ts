@@ -15,11 +15,11 @@ const validationHandler = (req: Request, res: Response, next: NextFunction) => {
 
 export const createSiswaValidation = [
   body("nama").notEmpty().withMessage("Nama siswa wajib diisi"),
-  body("nis")
+  body("nisn")
     .notEmpty()
-    .withMessage("NIS wajib diisi")
+    .withMessage("NISN wajib diisi")
     .isLength({ min: 6 })
-    .withMessage("NIS harus memiliki minimal 6 digit"),
+    .withMessage("NISN harus memiliki minimal 6 digit"),
   body("tanggalLahir")
     .optional()
     .isISO8601()

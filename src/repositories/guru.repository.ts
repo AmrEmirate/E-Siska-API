@@ -84,6 +84,7 @@ export const getAllGuruRepo = async (skip?: number, take?: number) => {
   return prisma.guru.findMany({
     skip: skip || 0,
     take: take || 100,
+    where: { deletedAt: null },
     include: {
       user: {
         select: {
@@ -166,6 +167,7 @@ export const updateGuruRepo = async (id: string, data: UpdateGuruInput) => {
           id: true,
           username: true,
           role: true,
+          updatedAt: true,
         },
       },
     },
@@ -173,7 +175,8 @@ export const updateGuruRepo = async (id: string, data: UpdateGuruInput) => {
 };
 
 export const deleteGuruRepo = async (id: string) => {
-  return prisma.guru.delete({
+  return prisma.guru.update({
     where: { id },
+    data: { deletedAt: new Date() },
   });
 };

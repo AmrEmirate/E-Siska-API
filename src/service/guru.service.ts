@@ -151,6 +151,8 @@ export const updateGuruService = async (
 
   const updatedGuru = await updateGuruRepo(id, updateData);
 
+  logger.info(`Guru updated: ${id}, updatedAt: ${updatedGuru.user.updatedAt}`);
+
   return updatedGuru;
 };
 

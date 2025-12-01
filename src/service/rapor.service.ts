@@ -142,7 +142,7 @@ export const generateRaporService = async (input: GenerateRaporInput) => {
   return {
     infoSiswa: {
       nama: penempatan.siswa.nama,
-      nis: penempatan.siswa.nis,
+      nisn: penempatan.siswa.nisn,
       kelas: penempatan.kelas.namaKelas,
       tahunAjaran: penempatan.tahunAjaran.nama,
     },

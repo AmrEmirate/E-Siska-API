@@ -94,7 +94,7 @@ export const getNilaiKelasService = async (
 
     return {
       siswaId: p.siswaId,
-      nis: p.siswa.nis,
+      nisn: p.siswa.nisn,
       nama: p.siswa.nama,
       grades: gradesMap,
     };

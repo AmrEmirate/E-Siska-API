@@ -80,7 +80,7 @@ export const getSesiDetailService = async (sesiId: string) => {
       students: sesi.Detail.map((detail) => ({
         siswaId: detail.siswaId,
         nama: detail.siswa.nama,
-        nis: detail.siswa.nis,
+        nisn: detail.siswa.nisn,
         status: detail.status,
       })),
     };
@@ -94,7 +94,7 @@ export const getSesiDetailService = async (sesiId: string) => {
   const students = kelas.Penempatan.map((p) => ({
     siswaId: p.siswa.id,
     nama: p.siswa.nama,
-    nis: p.siswa.nis,
+    nisn: p.siswa.nisn,
     status: null,
   }));
 

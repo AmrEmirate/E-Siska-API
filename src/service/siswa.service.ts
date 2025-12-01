@@ -12,8 +12,7 @@ import { hashPassword } from "../utils/hashPassword";
 import logger from "../utils/logger";
 
 interface CreateSiswaServiceInput {
-  nis: string;
-  nisn?: string;
+  nisn: string;
   nama: string;
   jenisKelamin?: string;
   agama?: string;
@@ -34,20 +33,19 @@ interface CreateSiswaServiceInput {
 }
 
 export const createSiswaService = async (data: CreateSiswaServiceInput) => {
-  const { nis, nama, tanggalLahir, alamat } = data;
+  const { nisn, nama, tanggalLahir, alamat } = data;
 
-  const username = nis;
-  if (nis.length < 6) {
-    throw new AppError("NIS harus memiliki minimal 6 digit", 400);
+  const username = nisn;
+  if (nisn.length < 6) {
+    throw new AppError("NISN harus memiliki minimal 6 digit", 400);
   }
-  const defaultPassword = nis.slice(-6);
+  const defaultPassword = nisn.slice(-6);
 
   const passwordHash = await hashPassword(defaultPassword);
-  logger.info(`Password default dibuat untuk NIS: ${nis}`);
+  logger.info(`Password default dibuat untuk NISN: ${nisn}`);
 
   const repoInput = {
-    nis,
-    nisn: data.nisn,
+    nisn,
     nama,
     jenisKelamin: data.jenisKelamin,
     agama: data.agama,
@@ -111,7 +109,6 @@ export const getSiswaByIdService = async (id: string) => {
 };
 
 interface UpdateSiswaServiceInput {
-  nis?: string;
   nisn?: string;
   nama?: string;
   jenisKelamin?: string;
@@ -144,7 +141,6 @@ export const updateSiswaService = async (
   }
 
   const updateData: any = {};
-  if (data.nis) updateData.nis = data.nis;
   if (data.nisn) updateData.nisn = data.nisn;
   if (data.nama) updateData.nama = data.nama;
   if (data.jenisKelamin) updateData.jenisKelamin = data.jenisKelamin;
@@ -166,6 +162,10 @@ export const updateSiswaService = async (
   if (data.nik) updateData.nik = data.nik;
 
   const updatedSiswa = await updateSiswaRepo(id, updateData);
+
+  logger.info(
+    `Siswa updated: ${id}, updatedAt: ${updatedSiswa.user.updatedAt}`
+  );
 
   return updatedSiswa;
 };

@@ -2,8 +2,7 @@ import { prisma } from "../config/prisma";
 import { UserRole } from "../generated/prisma";
 
 interface CreateSiswaInput {
-  nis: string;
-  nisn?: string;
+  nisn: string;
   nama: string;
   jenisKelamin?: string;
   agama?: string;
@@ -28,7 +27,6 @@ interface CreateSiswaInput {
 
 export const createSiswaRepo = async (data: CreateSiswaInput) => {
   const {
-    nis,
     nisn,
     nama,
     jenisKelamin,
@@ -64,7 +62,6 @@ export const createSiswaRepo = async (data: CreateSiswaInput) => {
 
       const newSiswa = await tx.siswa.create({
         data: {
-          nis,
           nisn,
           nama,
           jenisKelamin,
@@ -101,6 +98,7 @@ export const getAllSiswaRepo = async (skip?: number, take?: number) => {
   return prisma.siswa.findMany({
     skip: skip || 0,
     take: take || 100,
+    where: { deletedAt: null },
     include: {
       user: {
         select: {
@@ -138,7 +136,6 @@ export const getSiswaByIdRepo = async (id: string) => {
 };
 
 interface UpdateSiswaInput {
-  nis?: string;
   nisn?: string;
   nama?: string;
   jenisKelamin?: string;
@@ -163,7 +160,6 @@ export const updateSiswaRepo = async (id: string, data: UpdateSiswaInput) => {
   return prisma.siswa.update({
     where: { id },
     data: {
-      ...(data.nis && { nis: data.nis }),
       ...(data.nisn && { nisn: data.nisn }),
       ...(data.nama && { nama: data.nama }),
       ...(data.jenisKelamin && { jenisKelamin: data.jenisKelamin }),
@@ -193,6 +189,7 @@ export const updateSiswaRepo = async (id: string, data: UpdateSiswaInput) => {
           id: true,
           username: true,
           role: true,
+          updatedAt: true,
         },
       },
     },
@@ -200,7 +197,8 @@ export const updateSiswaRepo = async (id: string, data: UpdateSiswaInput) => {
 };
 
 export const deleteSiswaRepo = async (id: string) => {
-  return prisma.siswa.delete({
+  return prisma.siswa.update({
     where: { id },
+    data: { deletedAt: new Date() },
   });
 };

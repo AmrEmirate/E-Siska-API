@@ -41,6 +41,7 @@ model User {
   isWaliKelas     Boolean      @default(false)
   createdAt       DateTime     @default(now())
   updatedAt       DateTime     @updatedAt
+  deletedAt       DateTime?
   admin           Admin?
   guru            Guru?
   siswa           Siswa?
@@ -62,6 +63,10 @@ model Admin {
   MataPelajaran   MataPelajaran[]
 
   skemaPenilaians SkemaPenilaian[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
 }
 
 model Guru {
@@ -88,14 +93,17 @@ model Guru {
   NilaiInput      NilaiDetailSiswa[]
   CapaianInput    CapaianKompetensi[]
   RaporDiurus     Rapor[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
 }
 
 model Siswa {
   id              String               @id @default(uuid())
   userId          String               @unique
   user            User                 @relation(fields: [userId], references: [id])
-  nis             String               @unique
-  nisn            String?              @unique
+  nisn            String               @unique
   nama            String
   jenisKelamin    String?
   agama           String?
@@ -118,6 +126,10 @@ model Siswa {
   Rapor           Rapor[]
   NilaiDiperoleh  NilaiDetailSiswa[]
   CapaianDiperoleh CapaianKompetensi[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
 }
 
 model SekolahData {
@@ -127,6 +139,10 @@ model SekolahData {
   namaSekolah     String
   alamat          String?
   kepalaSekolah   String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
 }
 
 model TahunAjaran {
@@ -139,6 +155,10 @@ model TahunAjaran {
   Jadwal          Jadwal[]
 
   rapors Rapor[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
 }
 
 model TingkatanKelas {
@@ -147,6 +167,10 @@ model TingkatanKelas {
   admin           Admin            @relation(fields: [adminId], references: [id])
   namaTingkat     String           @unique
   Kelas           Kelas[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
 }
 
 model Ruangan {
@@ -156,6 +180,10 @@ model Ruangan {
   namaRuangan     String       @unique
   kapasitas       Int?
   Jadwal          Jadwal[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
 }
 
 model Kelas {
@@ -173,6 +201,10 @@ model Kelas {
   absensiSesis AbsensiSesi[]
 
   rapors Rapor[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
 }
 
 model PenempatanSiswa {
@@ -185,6 +217,10 @@ model PenempatanSiswa {
   tahunAjaran     TahunAjaran  @relation(fields: [tahunAjaranId], references: [id])
 
   @@unique([siswaId, tahunAjaranId])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
 }
 
 model MataPelajaran {
@@ -203,6 +239,10 @@ model MataPelajaran {
   capaianKompetensis CapaianKompetensi[]
 
   nilaiRaporAkhirs NilaiRaporAkhir[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
 }
 
 model PenugasanGuru {
@@ -215,6 +255,10 @@ model PenugasanGuru {
   kelas           Kelas            @relation(fields: [kelasId], references: [id])
 
   @@unique([guruId, mapelId, kelasId])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
 }
 
 model SkemaPenilaian {
@@ -226,6 +270,10 @@ model SkemaPenilaian {
   Komponen        NilaiKomponen[]
 
   @@unique([mapelId])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
 }
 
 model NilaiKomponen {
@@ -237,6 +285,10 @@ model NilaiKomponen {
   formula         String?
   urutan          Int
   NilaiDetail     NilaiDetailSiswa[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
 }
 
 model Jadwal {
@@ -254,6 +306,10 @@ model Jadwal {
   hari            String
   waktuMulai      String
   waktuSelesai    String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
 }
 
 model AbsensiSesi {
@@ -267,6 +323,10 @@ model AbsensiSesi {
   Detail          AbsensiDetail[]
 
   @@unique([kelasId, tanggal, pertemuanKe])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
 }
 
 model AbsensiDetail {
@@ -278,6 +338,10 @@ model AbsensiDetail {
   status          AbsensiStatus
 
   @@unique([siswaId, sesiId])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
 }
 
 model NilaiDetailSiswa {
@@ -294,6 +358,10 @@ model NilaiDetailSiswa {
   nilaiDeskripsi  String?
 
   @@unique([siswaId, mapelId, komponenId])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
 }
 
 model CapaianKompetensi {
@@ -307,6 +375,10 @@ model CapaianKompetensi {
   deskripsi       String
 
   @@unique([siswaId, mapelId])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
 }
 
 
@@ -326,6 +398,10 @@ model Rapor {
   NilaiRaporAkhir NilaiRaporAkhir[]
 
   @@unique([siswaId, tahunAjaranId])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
 }
 
 model NilaiRaporAkhir {
@@ -338,6 +414,10 @@ model NilaiRaporAkhir {
   isOverride      Boolean      @default(false)
 
   @@unique([raporId, mapelId])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
 }
 
 model Dokumen {
@@ -347,6 +427,8 @@ model Dokumen {
   judul           String
   urlFile         String
   createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  deletedAt       DateTime?
 }
 
 model Pengumuman {
@@ -356,4 +438,7 @@ model Pengumuman {
   judul           String
   konten          String
   tanggalPublikasi DateTime    @default(now())
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  deletedAt       DateTime?
 }

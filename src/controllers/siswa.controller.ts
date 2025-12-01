@@ -13,7 +13,7 @@ class SiswaController {
     try {
       const dataSiswa = req.body;
 
-      logger.info(`Mencoba membuat siswa baru dengan NIS: ${dataSiswa.nis}`);
+      logger.info(`Mencoba membuat siswa baru dengan NISN: ${dataSiswa.nisn}`);
 
       const result = await createSiswaService(dataSiswa);
 
@@ -141,18 +141,17 @@ class SiswaController {
           // Map excel columns to expected object structure
           // Assumes columns: NIS, NISN, Nama, Email, No HP, Alamat, Jenis Kelamin
           const siswaData = {
-            nis: row["NIS"]?.toString(),
             nisn: row["NISN"]?.toString(),
             nama: row["Nama"],
             email: row["Email"],
             noHp: row["No HP"]?.toString(),
             alamat: row["Alamat"],
             jenisKelamin: row["Jenis Kelamin"],
-            username: row["NIS"]?.toString(), // Default username to NIS
-            password: row["NIS"]?.toString(), // Default password to NIS
+            username: row["NISN"]?.toString(), // Default username to NISN
+            password: row["NISN"]?.toString(), // Default password to NISN
           };
 
-          if (siswaData.nis && siswaData.nama && siswaData.email) {
+          if (siswaData.nisn && siswaData.nama && siswaData.email) {
             await createSiswaService(siswaData);
             successCount++;
           } else {

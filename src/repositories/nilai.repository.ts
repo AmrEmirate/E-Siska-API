@@ -85,7 +85,7 @@ export const getAllNilaiRepo = async (filters?: {
         select: {
           id: true,
           nama: true,
-          nis: true,
+          nisn: true,
         },
       },
       mapel: {
