@@ -2,6 +2,9 @@ import { Router } from "express";
 import SiswaController from "../controllers/siswa.controller";
 import { createSiswaValidation } from "../middleware/validation/siswa.validation";
 import { authMiddleware, adminGuard } from "../middleware/auth.middleware";
+import multer from "multer";
+
+const upload = multer();
 
 class SiswaRouter {
   private route: Router;
@@ -14,6 +17,14 @@ class SiswaRouter {
   }
 
   private initializeRoute(): void {
+    this.route.post(
+      "/import",
+      authMiddleware,
+      adminGuard,
+      upload.single("file"),
+      this.siswaController.importSiswa
+    );
+
     this.route.post(
       "/",
       authMiddleware,

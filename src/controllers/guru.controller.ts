@@ -114,6 +114,67 @@ class GuruController {
       next(error);
     }
   }
+
+  public async importGuru(req: Request, res: Response, next: NextFunction) {
+    try {
+      if (!req.file) {
+        res.status(400).send({
+          success: false,
+          message: "File excel tidak ditemukan",
+        });
+        return;
+      }
+
+      const xlsx = require("xlsx");
+      const workbook = xlsx.read(req.file.buffer, { type: "buffer" });
+      const sheetName = workbook.SheetNames[0];
+      const worksheet = workbook.Sheets[sheetName];
+      const data = xlsx.utils.sheet_to_json(worksheet);
+
+      logger.info(`Importing ${data.length} guru records`);
+
+      let successCount = 0;
+      let errorCount = 0;
+
+      for (const row of data as any[]) {
+        try {
+          // Map excel columns to expected object structure
+          // Assumes columns: NIP, Nama, Email, No HP, Mata Pelajaran (optional)
+          const guruData = {
+            nip: row["NIP"]?.toString(),
+            nama: row["Nama"],
+            email: row["Email"],
+            noHp: row["No HP"]?.toString(),
+            mataPelajaran: row["Mata Pelajaran"],
+            username: row["NIP"]?.toString(), // Default username to NIP
+            password: row["NIP"]?.toString(), // Default password to NIP
+          };
+
+          if (guruData.nip && guruData.nama && guruData.email) {
+            await createGuruService(guruData);
+            successCount++;
+          } else {
+            errorCount++;
+            logger.warn(`Skipping invalid row: ${JSON.stringify(row)}`);
+          }
+        } catch (err) {
+          errorCount++;
+          logger.error(`Error importing row: ${JSON.stringify(row)} - ${err}`);
+        }
+      }
+
+      res.status(200).send({
+        success: true,
+        message: `Import selesai. Berhasil: ${successCount}, Gagal: ${errorCount}`,
+        data: { successCount, errorCount },
+      });
+    } catch (error) {
+      if (error instanceof Error) {
+        logger.error(`Error import guru: ${error.message}`);
+      }
+      next(error);
+    }
+  }
 }
 
 export default GuruController;

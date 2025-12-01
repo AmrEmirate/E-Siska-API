@@ -2,6 +2,9 @@ import { Router } from "express";
 import GuruController from "../controllers/guru.controller";
 import { createGuruValidation } from "../middleware/validation/guru.validation";
 import { authMiddleware, adminGuard } from "../middleware/auth.middleware";
+import multer from "multer";
+
+const upload = multer();
 
 class GuruRouter {
   private route: Router;
@@ -14,6 +17,14 @@ class GuruRouter {
   }
 
   private initializeRoute(): void {
+    this.route.post(
+      "/import",
+      authMiddleware,
+      adminGuard,
+      upload.single("file"),
+      this.guruController.importGuru
+    );
+
     this.route.post(
       "/",
       authMiddleware,

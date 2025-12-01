@@ -114,6 +114,69 @@ class SiswaController {
       next(error);
     }
   }
+
+  public async importSiswa(req: Request, res: Response, next: NextFunction) {
+    try {
+      if (!req.file) {
+        res.status(400).send({
+          success: false,
+          message: "File excel tidak ditemukan",
+        });
+        return;
+      }
+
+      const xlsx = require("xlsx");
+      const workbook = xlsx.read(req.file.buffer, { type: "buffer" });
+      const sheetName = workbook.SheetNames[0];
+      const worksheet = workbook.Sheets[sheetName];
+      const data = xlsx.utils.sheet_to_json(worksheet);
+
+      logger.info(`Importing ${data.length} siswa records`);
+
+      let successCount = 0;
+      let errorCount = 0;
+
+      for (const row of data as any[]) {
+        try {
+          // Map excel columns to expected object structure
+          // Assumes columns: NIS, NISN, Nama, Email, No HP, Alamat, Jenis Kelamin
+          const siswaData = {
+            nis: row["NIS"]?.toString(),
+            nisn: row["NISN"]?.toString(),
+            nama: row["Nama"],
+            email: row["Email"],
+            noHp: row["No HP"]?.toString(),
+            alamat: row["Alamat"],
+            jenisKelamin: row["Jenis Kelamin"],
+            username: row["NIS"]?.toString(), // Default username to NIS
+            password: row["NIS"]?.toString(), // Default password to NIS
+          };
+
+          if (siswaData.nis && siswaData.nama && siswaData.email) {
+            await createSiswaService(siswaData);
+            successCount++;
+          } else {
+            errorCount++;
+            logger.warn(`Skipping invalid row: ${JSON.stringify(row)}`);
+          }
+        } catch (err) {
+          errorCount++;
+          logger.error(`Error importing row: ${JSON.stringify(row)} - ${err}`);
+        }
+      }
+
+      res.status(200).send({
+        success: true,
+        message: `Import selesai. Berhasil: ${successCount}, Gagal: ${errorCount}`,
+        data: { successCount, errorCount },
+      });
+    } catch (error) {
+      if (error instanceof Error) {
+        logger.error(`Error import siswa: ${error.message}`);
+      }
+      next(error);
+    }
+  }
 }
 
 export default SiswaController;

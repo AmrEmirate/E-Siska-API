@@ -60,6 +60,12 @@ class RaporRouter {
       siswaGuard,
       this.raporController.getMyRapor
     );
+
+    this.route.get(
+      "/siswa/:siswaId/download-pdf",
+      authMiddleware,
+      this.raporController.downloadPDF
+    );
   }
 
   public getRouter(): Router {

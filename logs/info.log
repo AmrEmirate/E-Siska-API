@@ -1,0 +1,122 @@
+2025-11-29 10:11:28 [INFO]: API Running: http://localhost:2020
+2025-11-29 10:12:28 [INFO]: POST /api/auth/signin
+2025-11-29 10:12:35 [INFO]: GET /api/siswa
+2025-11-29 10:12:36 [INFO]: Fetching all siswa - Page: 1, Limit: 1
+2025-11-29 10:12:36 [INFO]: Fetching all siswa - Page: 1, Limit: 1
+2025-11-29 10:12:39 [INFO]: GET /api/siswa
+2025-11-29 10:12:39 [INFO]: GET /api/guru
+2025-11-29 10:12:40 [INFO]: Fetching all siswa - Page: 1, Limit: 1
+2025-11-29 10:12:40 [INFO]: Fetching all siswa - Page: 1, Limit: 1
+2025-11-29 10:12:42 [INFO]: Fetching all guru - Page: 1, Limit: 1
+2025-11-29 10:12:42 [INFO]: Fetching all guru - Page: 1, Limit: 1
+2025-11-29 10:12:42 [INFO]: GET /api/guru
+2025-11-29 10:12:44 [INFO]: GET /api/guru
+2025-11-29 10:12:44 [INFO]: GET /api/tahun-ajaran
+2025-11-29 10:12:45 [INFO]: GET /api/tingkatan
+2025-11-29 10:12:45 [INFO]: Fetching all guru - Page: 1, Limit: 10
+2025-11-29 10:12:45 [INFO]: Fetching all guru - Page: 1, Limit: 10
+2025-11-29 10:12:46 [INFO]: Fetching all tahun ajaran
+2025-11-29 10:12:46 [INFO]: Fetching all guru - Page: 1, Limit: 1
+2025-11-29 10:12:46 [INFO]: Fetching all guru - Page: 1, Limit: 1
+2025-11-29 10:12:48 [INFO]: GET /api/guru
+2025-11-29 10:12:48 [INFO]: Fetching all tingkatan
+2025-11-29 10:12:48 [INFO]: GET /api/tahun-ajaran
+2025-11-29 10:12:49 [INFO]: Fetching all guru - Page: 1, Limit: 10
+2025-11-29 10:12:49 [INFO]: Fetching all guru - Page: 1, Limit: 10
+2025-11-29 10:12:49 [INFO]: GET /api/tingkatan
+2025-11-29 10:12:50 [INFO]: Fetching all tahun ajaran
+2025-11-29 10:12:51 [INFO]: Fetching all tingkatan
+2025-11-29 10:12:55 [INFO]: GET /api/tingkatan
+2025-11-29 10:12:55 [INFO]: GET /api/tingkatan
+2025-11-29 10:12:56 [INFO]: Fetching all tingkatan
+2025-11-29 10:12:56 [INFO]: Fetching all tingkatan
+2025-11-29 10:13:06 [INFO]: GET /api/guru
+2025-11-29 10:13:06 [INFO]: GET /api/guru
+2025-11-29 10:13:08 [INFO]: Fetching all guru - Page: 1, Limit: 10
+2025-11-29 10:13:08 [INFO]: Fetching all guru - Page: 1, Limit: 10
+2025-11-29 10:13:08 [INFO]: Fetching all guru - Page: 1, Limit: 10
+2025-11-29 10:13:08 [INFO]: Fetching all guru - Page: 1, Limit: 10
+2025-11-29 10:13:34 [INFO]: GET /api/guru
+2025-11-29 10:13:36 [INFO]: GET /api/guru
+2025-11-29 10:13:36 [INFO]: GET /api/guru
+2025-11-29 10:13:36 [INFO]: Fetching all guru - Page: 1, Limit: 10
+2025-11-29 10:13:36 [INFO]: Fetching all guru - Page: 1, Limit: 10
+2025-11-29 10:13:38 [INFO]: Fetching all guru - Page: 1, Limit: 10
+2025-11-29 10:13:38 [INFO]: Fetching all guru - Page: 1, Limit: 10
+2025-11-29 10:13:38 [INFO]: Fetching all guru - Page: 1, Limit: 10
+2025-11-29 10:13:38 [INFO]: Fetching all guru - Page: 1, Limit: 10
+2025-11-29 10:13:39 [INFO]: GET /api/guru
+2025-11-29 10:13:40 [INFO]: Fetching all guru - Page: 1, Limit: 10
+2025-11-29 10:13:40 [INFO]: Fetching all guru - Page: 1, Limit: 10
+2025-11-29 10:13:46 [INFO]: GET /api/guru
+2025-11-29 10:13:46 [INFO]: GET /api/guru
+2025-11-29 10:13:47 [INFO]: Fetching all guru - Page: 1, Limit: 10
+2025-11-29 10:13:47 [INFO]: Fetching all guru - Page: 1, Limit: 10
+2025-11-29 10:13:47 [INFO]: Fetching all guru - Page: 1, Limit: 10
+2025-11-29 10:13:47 [INFO]: Fetching all guru - Page: 1, Limit: 10
+2025-11-29 10:14:47 [INFO]: GET /api/guru
+2025-11-29 10:14:47 [INFO]: GET /api/guru
+2025-11-29 10:14:49 [INFO]: Fetching all guru - Page: 1, Limit: 10
+2025-11-29 10:14:49 [INFO]: Fetching all guru - Page: 1, Limit: 10
+2025-11-29 10:14:49 [INFO]: Fetching all guru - Page: 1, Limit: 10
+2025-11-29 10:14:49 [INFO]: Fetching all guru - Page: 1, Limit: 10
+2025-11-29 10:15:00 [INFO]: GET /api/mapel
+2025-11-29 10:15:00 [INFO]: GET /api/mapel
+2025-11-29 10:15:01 [INFO]: Fetching all mata pelajaran
+2025-11-29 10:15:01 [INFO]: Fetching all mata pelajaran
+2025-11-29 10:45:50 [INFO]: GET /api/mapel
+2025-11-29 10:45:50 [INFO]: GET /api/mapel
+2025-11-29 10:45:54 [INFO]: Fetching all mata pelajaran
+2025-11-29 10:45:54 [INFO]: Fetching all mata pelajaran
+2025-11-29 10:45:59 [INFO]: GET /api/sekolah
+2025-11-29 10:45:59 [INFO]: GET /api/sekolah
+2025-11-29 10:46:01 [INFO]: Fetching school data
+2025-11-29 10:46:01 [INFO]: Fetching school data
+2025-11-29 10:46:35 [INFO]: GET /api/sekolah
+2025-11-29 10:46:35 [INFO]: GET /api/sekolah
+2025-11-29 10:46:37 [INFO]: Fetching school data
+2025-11-29 10:46:37 [INFO]: Fetching school data
+2025-11-29 10:46:48 [INFO]: GET /api/siswa
+2025-11-29 10:46:48 [INFO]: GET /api/siswa
+2025-11-29 10:46:50 [INFO]: Fetching all siswa - Page: 1, Limit: 10
+2025-11-29 10:46:50 [INFO]: Fetching all siswa - Page: 1, Limit: 10
+2025-11-29 10:46:50 [INFO]: Fetching all siswa - Page: 1, Limit: 10
+2025-11-29 10:46:50 [INFO]: Fetching all siswa - Page: 1, Limit: 10
+2025-11-29 10:47:58 [INFO]: GET /api/siswa
+2025-11-29 10:47:59 [INFO]: Fetching all siswa - Page: 1, Limit: 10
+2025-11-29 10:47:59 [INFO]: Fetching all siswa - Page: 1, Limit: 10
+2025-11-29 10:48:02 [INFO]: GET /api/siswa
+2025-11-29 10:48:04 [INFO]: Fetching all siswa - Page: 1, Limit: 10
+2025-11-29 10:48:04 [INFO]: Fetching all siswa - Page: 1, Limit: 10
+2025-11-29 10:48:36 [INFO]: GET /api/guru
+2025-11-29 10:48:38 [INFO]: Fetching all guru - Page: 1, Limit: 10
+2025-11-29 10:48:38 [INFO]: Fetching all guru - Page: 1, Limit: 10
+2025-11-29 10:48:40 [INFO]: GET /api/guru
+2025-11-29 10:48:42 [INFO]: Fetching all guru - Page: 1, Limit: 10
+2025-11-29 10:48:42 [INFO]: Fetching all guru - Page: 1, Limit: 10
+2025-11-29 10:50:42 [INFO]: API Running: http://localhost:2020
+2025-11-29 10:51:27 [INFO]: API Running: http://localhost:2020
+2025-11-29 10:51:36 [INFO]: API Running: http://localhost:2020
+2025-11-29 10:51:54 [INFO]: API Running: http://localhost:2020
+2025-11-29 10:52:04 [INFO]: API Running: http://localhost:2020
+2025-11-29 10:54:58 [INFO]: GET /api/guru
+2025-11-29 10:55:01 [INFO]: Fetching all guru - Page: 1, Limit: 10
+2025-11-29 10:55:01 [INFO]: Fetching all guru - Page: 1, Limit: 10
+2025-12-01 20:05:01 [INFO]: API Running: http://localhost:2020
+2025-12-01 20:05:52 [INFO]: POST /api/auth/signin
+2025-12-01 20:05:57 [INFO]: GET /api/siswa
+2025-12-01 20:05:58 [INFO]: Fetching all siswa - Page: 1, Limit: 1
+2025-12-01 20:05:58 [INFO]: Fetching all siswa - Page: 1, Limit: 1
+2025-12-01 20:06:01 [INFO]: GET /api/siswa
+2025-12-01 20:06:01 [INFO]: GET /api/guru
+2025-12-01 20:06:02 [INFO]: Fetching all siswa - Page: 1, Limit: 1
+2025-12-01 20:06:02 [INFO]: Fetching all siswa - Page: 1, Limit: 1
+2025-12-01 20:06:04 [INFO]: Fetching all guru - Page: 1, Limit: 1
+2025-12-01 20:06:04 [INFO]: Fetching all guru - Page: 1, Limit: 1
+2025-12-01 20:06:07 [INFO]: GET /api/guru
+2025-12-01 20:06:07 [INFO]: GET /api/tahun-ajaran
+2025-12-01 20:06:08 [INFO]: Fetching all tahun ajaran
+2025-12-01 20:06:08 [INFO]: Fetching all guru - Page: 1, Limit: 1
+2025-12-01 20:06:08 [INFO]: Fetching all guru - Page: 1, Limit: 1
+2025-12-01 20:06:12 [INFO]: GET /api/tahun-ajaran
+2025-12-01 20:06:13 [INFO]: Fetching all tahun ajaran

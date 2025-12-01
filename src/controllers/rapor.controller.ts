@@ -7,6 +7,7 @@ import {
   overrideNilaiRaporService,
   getMyRaporService,
 } from "../service/rapor.service";
+import { generateRaporPDFService } from "../service/rapor-pdf.service";
 import logger from "../utils/logger";
 
 class RaporController {
@@ -156,6 +157,53 @@ class RaporController {
     } catch (error) {
       if (error instanceof Error) {
         logger.error(`Error get my rapor: ${error.message}`);
+      }
+      next(error);
+    }
+  }
+
+  public async downloadPDF(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { siswaId } = req.params;
+      const { tahunAjaranId } = req.query as { tahunAjaranId: string };
+
+      // Get guruId from authenticated user
+      const guruId = req.user?.guruId;
+
+      if (!guruId && !req.user?.siswaId) {
+        throw new Error("User tidak terautentikasi dengan benar");
+      }
+
+      // Jika siswa, pastikan hanya bisa download rapor sendiri
+      if (req.user?.siswaId && req.user.siswaId !== siswaId) {
+        throw new Error("Anda hanya bisa download rapor sendiri");
+      }
+
+      if (!tahunAjaranId) {
+        throw new Error("Tahun ajaran ID diperlukan");
+      }
+
+      logger.info(`Generating PDF for siswa: ${siswaId}, TA: ${tahunAjaranId}`);
+
+      const pdfDoc = await generateRaporPDFService({
+        guruId: guruId || "system",
+        siswaId,
+        tahunAjaranId,
+      });
+
+      // Set response headers untuk PDF
+      res.setHeader("Content-Type", "application/pdf");
+      res.setHeader(
+        "Content-Disposition",
+        `attachment; filename=rapor-${siswaId}.pdf`
+      );
+
+      // Stream PDF ke response
+      pdfDoc.pipe(res);
+      pdfDoc.end();
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        logger.error(`Error download PDF: ${error.message}`);
       }
       next(error);
     }
