@@ -141,7 +141,19 @@ export const updateSiswaService = async (
   }
 
   const updateData: any = {};
-  if (data.nisn) updateData.nisn = data.nisn;
+  if (data.nisn && data.nisn !== existingSiswa.nisn) {
+    updateData.nisn = data.nisn;
+    // Sync username and password with new NISN
+    updateData.username = data.nisn;
+    const passwordToHash = data.nisn.slice(-6);
+    updateData.passwordHash = await hashPassword(passwordToHash);
+    logger.info(
+      `NISN updated for siswa ${id}. Credentials synced. New Username: ${data.nisn}`
+    );
+  } else if (data.nisn) {
+    updateData.nisn = data.nisn;
+  }
+
   if (data.nama) updateData.nama = data.nama;
   if (data.jenisKelamin) updateData.jenisKelamin = data.jenisKelamin;
   if (data.agama) updateData.agama = data.agama;

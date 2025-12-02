@@ -11,7 +11,7 @@ import logger from "../utils/logger";
 class PengumumanController {
   public async create(req: Request, res: Response, next: NextFunction) {
     try {
-      const { judul, konten } = req.body;
+      const { judul, konten, target } = req.body;
       const { id: userId } = req.user as any;
 
       if (!userId) {
@@ -21,6 +21,7 @@ class PengumumanController {
       const result = await createPengumumanService({
         judul,
         konten,
+        target,
         adminId: userId,
       });
 
@@ -79,9 +80,13 @@ class PengumumanController {
   public async update(req: Request, res: Response, next: NextFunction) {
     try {
       const { id } = req.params;
-      const { judul, konten } = req.body;
+      const { judul, konten, target } = req.body;
 
-      const result = await updatePengumumanService(id, { judul, konten });
+      const result = await updatePengumumanService(id, {
+        judul,
+        konten,
+        target,
+      });
 
       res.status(200).send({
         success: true,

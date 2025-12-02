@@ -15,8 +15,7 @@ interface CreateGuruServiceInput {
   nip: string;
   nama: string;
   email?: string;
-  username: string;
-  passwordDefault?: string;
+  // username & password removed as they are auto-generated from NIP
   jenisKelamin?: string;
   agama?: string;
   tempatLahir?: string;
@@ -30,18 +29,23 @@ interface CreateGuruServiceInput {
 }
 
 export const createGuruService = async (data: CreateGuruServiceInput) => {
-  const { nip, nama, email, username } = data;
+  const { nip, nama, email } = data;
 
-  let passwordToHash = data.passwordDefault;
-  if (!passwordToHash && nip) {
-    passwordToHash = nip.slice(-6);
-    logger.info(
-      `Auto-generated password for guru from NIP: ${nip} -> last 6 digits`
-    );
+  if (!nip) {
+    throw new AppError("NIP harus diisi untuk membuat akun guru", 400);
   }
 
-  if (!passwordToHash) {
-    throw new AppError("Password atau NIP harus disediakan", 400);
+  const username = nip;
+  const passwordToHash = nip.slice(-6);
+  logger.info(
+    `Auto-generated credentials for guru. Username: ${username}, Password: last 6 digits of NIP`
+  );
+
+  if (passwordToHash.length < 6) {
+    throw new AppError(
+      "NIP terlalu pendek untuk generate password (min 6 digit)",
+      400
+    );
   }
 
   const passwordHash = await hashPassword(passwordToHash);
@@ -134,7 +138,20 @@ export const updateGuruService = async (
   }
 
   const updateData: any = {};
-  if (data.nip) updateData.nip = data.nip;
+  if (data.nip && data.nip !== existingGuru.nip) {
+    updateData.nip = data.nip;
+    // Sync username and password with new NIP
+    updateData.username = data.nip;
+    const passwordToHash = data.nip.slice(-6);
+    updateData.passwordHash = await hashPassword(passwordToHash);
+    logger.info(
+      `NIP updated for guru ${id}. Credentials synced. New Username: ${data.nip}`
+    );
+  } else if (data.nip) {
+    // NIP provided but same as existing, just update if needed (though usually unique check handles this)
+    updateData.nip = data.nip;
+  }
+
   if (data.nama) updateData.nama = data.nama;
   if (data.email !== undefined) updateData.email = data.email;
   if (data.jenisKelamin) updateData.jenisKelamin = data.jenisKelamin;

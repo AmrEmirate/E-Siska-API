@@ -6,6 +6,7 @@ import AppError from "../utils/AppError";
 interface CreatePengumumanServiceInput {
   judul: string;
   konten: string;
+  target: string;
   adminId: string;
 }
 
@@ -17,6 +18,7 @@ export const createPengumumanService = async (
   const repoInput = {
     judul: data.judul,
     konten: data.konten,
+    target: data.target,
     adminId: data.adminId,
   };
 
@@ -44,6 +46,7 @@ export const getAllPengumumanService = async (
       id: true,
       judul: true,
       konten: true,
+      target: true,
       tanggalPublikasi: true,
     },
   });
@@ -70,6 +73,7 @@ export const getPengumumanByIdService = async (id: string) => {
       id: true,
       judul: true,
       konten: true,
+      target: true,
       tanggalPublikasi: true,
     },
   });
@@ -100,6 +104,7 @@ export const updatePengumumanService = async (
     data: {
       ...(data.judul && { judul: data.judul }),
       ...(data.konten && { konten: data.konten }),
+      ...(data.target && { target: data.target }),
     },
   });
 
