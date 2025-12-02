@@ -3,10 +3,13 @@ import { createTingkatanRepo } from "../repositories/tingkatan.repository";
 import logger from "../utils/logger";
 import AppError from "../utils/AppError";
 
-export const createTingkatanService = async (namaTingkat: string) => {
+export const createTingkatanService = async (
+  namaTingkat: string,
+  adminId: string
+) => {
   logger.info(`Mencoba membuat tingkatan kelas: ${namaTingkat}`);
 
-  const newTingkatan = await createTingkatanRepo(namaTingkat);
+  const newTingkatan = await createTingkatanRepo(namaTingkat, adminId);
 
   return newTingkatan;
 };

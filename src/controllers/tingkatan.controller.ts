@@ -11,8 +11,13 @@ class TingkatanController {
   public async create(req: Request, res: Response, next: NextFunction) {
     try {
       const { namaTingkat } = req.body;
+      const adminId = req.user?.adminId;
 
-      const result = await createTingkatanService(namaTingkat);
+      if (!adminId) {
+        throw new Error("Admin ID not found in request");
+      }
+
+      const result = await createTingkatanService(namaTingkat, adminId);
 
       res.status(201).send({
         success: true,
