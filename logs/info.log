@@ -1,0 +1,8 @@
+2025-12-03 11:13:10 [INFO]: API Running: http://localhost:2020
+2025-12-03 11:21:16 [INFO]: GET /
+2025-12-03 11:21:16 [INFO]: GET /api/transaction
+2025-12-03 11:21:18 [INFO]: POST /api/auth/signin
+2025-12-03 11:21:19 [INFO]: POST /api/auth/signin
+2025-12-03 11:21:19 [INFO]: POST /api/auth/signin
+2025-12-03 11:22:53 [INFO]: API Running: http://localhost:2020
+2025-12-03 11:23:53 [INFO]: API Running: http://localhost:2020
