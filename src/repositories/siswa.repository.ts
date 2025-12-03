@@ -94,11 +94,24 @@ export const createSiswaRepo = async (data: CreateSiswaInput) => {
   }
 };
 
-export const getAllSiswaRepo = async (skip?: number, take?: number) => {
+export const getAllSiswaRepo = async (
+  skip?: number,
+  take?: number,
+  search?: string
+) => {
+  const whereClause: any = { deletedAt: null };
+
+  if (search) {
+    whereClause.OR = [
+      { nama: { contains: search, mode: "insensitive" } },
+      { nisn: { contains: search, mode: "insensitive" } },
+    ];
+  }
+
   return prisma.siswa.findMany({
     skip: skip || 0,
     take: take || 100,
-    where: { deletedAt: null },
+    where: whereClause,
     include: {
       user: {
         select: {

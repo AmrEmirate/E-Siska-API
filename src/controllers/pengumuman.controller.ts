@@ -42,8 +42,9 @@ class PengumumanController {
     try {
       const page = parseInt(req.query.page as string) || 1;
       const limit = parseInt(req.query.limit as string) || 50;
+      const search = (req.query.search as string) || "";
 
-      const result = await getAllPengumumanService(page, limit);
+      const result = await getAllPengumumanService(page, limit, search);
 
       res.status(200).send({
         success: true,

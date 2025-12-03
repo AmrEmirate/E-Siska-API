@@ -78,7 +78,8 @@ class MapelController {
 
   public async getAll(req: Request, res: Response, next: NextFunction) {
     try {
-      const result = await getAllMapelService();
+      const search = (req.query.search as string) || "";
+      const result = await getAllMapelService(search);
 
       res.status(200).send({
         success: true,

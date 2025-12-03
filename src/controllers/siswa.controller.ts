@@ -34,10 +34,13 @@ class SiswaController {
     try {
       const page = parseInt(req.query.page as string) || 1;
       const limit = parseInt(req.query.limit as string) || 50;
+      const search = (req.query.search as string) || "";
 
-      logger.info(`Fetching all siswa - Page: ${page}, Limit: ${limit}`);
+      logger.info(
+        `Fetching all siswa - Page: ${page}, Limit: ${limit}, Search: ${search}`
+      );
 
-      const result = await getAllSiswaService(page, limit);
+      const result = await getAllSiswaService(page, limit, search);
 
       res.status(200).send({
         success: true,

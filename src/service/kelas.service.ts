@@ -63,9 +63,9 @@ export const deleteKelasService = async (id: string) => {
   return await deleteKelasRepo(id);
 };
 
-export const getAllKelasService = async () => {
-  logger.info("Fetching all kelas");
-  return await findAllKelasRepo();
+export const getAllKelasService = async (search?: string) => {
+  logger.info(`Fetching all kelas, search: ${search}`);
+  return await findAllKelasRepo(search);
 };
 
 export const getMyClassService = async (guruId: string) => {

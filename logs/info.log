@@ -921,3 +921,173 @@
 2025-12-04 00:15:03 [INFO]: Fetching all tahun ajaran
 2025-12-04 00:15:03 [INFO]: Fetching all jadwal
 2025-12-04 00:15:03 [INFO]: Fetching all kelas
+2025-12-04 01:59:02 [INFO]: API Running: http://localhost:2020
+2025-12-04 01:59:23 [INFO]: POST /api/auth/signin
+2025-12-04 01:59:26 [INFO]: GET /api/siswa
+2025-12-04 01:59:27 [INFO]: Fetching all siswa - Page: 1, Limit: 1, Search: 
+2025-12-04 01:59:27 [INFO]: Fetching all siswa - Page: 1, Limit: 1, Search: 
+2025-12-04 01:59:28 [INFO]: GET /api/siswa
+2025-12-04 01:59:28 [INFO]: GET /api/guru
+2025-12-04 01:59:29 [INFO]: Fetching all siswa - Page: 1, Limit: 1, Search: 
+2025-12-04 01:59:29 [INFO]: Fetching all siswa - Page: 1, Limit: 1, Search: 
+2025-12-04 01:59:29 [INFO]: GET /api/kelas
+2025-12-04 01:59:29 [INFO]: GET /api/guru
+2025-12-04 01:59:29 [INFO]: GET /api/tingkatan
+2025-12-04 01:59:29 [INFO]: Fetching all guru - Page: 1, Limit: 1, Search: 
+2025-12-04 01:59:29 [INFO]: Fetching all guru - Page: 1, Limit: 1, Search: 
+2025-12-04 01:59:31 [INFO]: Fetching all guru - Page: 1, Limit: 100, Search: 
+2025-12-04 01:59:31 [INFO]: Fetching all guru - Page: 1, Limit: 100, Search: 
+2025-12-04 01:59:31 [INFO]: Fetching all tingkatan
+2025-12-04 01:59:31 [INFO]: Fetching all kelas, search: 
+2025-12-04 01:59:31 [INFO]: GET /api/guru
+2025-12-04 01:59:31 [INFO]: GET /api/tahun-ajaran
+2025-12-04 01:59:31 [INFO]: GET /api/tingkatan
+2025-12-04 01:59:32 [INFO]: Fetching all guru - Page: 1, Limit: 1, Search: 
+2025-12-04 01:59:32 [INFO]: Fetching all guru - Page: 1, Limit: 1, Search: 
+2025-12-04 01:59:32 [INFO]: Fetching all tahun ajaran
+2025-12-04 01:59:32 [INFO]: GET /api/kelas
+2025-12-04 01:59:32 [INFO]: Fetching all tingkatan
+2025-12-04 01:59:32 [INFO]: GET /api/guru
+2025-12-04 01:59:32 [INFO]: GET /api/kelas
+2025-12-04 01:59:32 [INFO]: Fetching all kelas, search: 
+2025-12-04 01:59:33 [INFO]: Fetching all guru - Page: 1, Limit: 100, Search: 
+2025-12-04 01:59:33 [INFO]: Fetching all guru - Page: 1, Limit: 100, Search: 
+2025-12-04 01:59:33 [INFO]: Fetching all kelas, search: 
+2025-12-04 01:59:33 [INFO]: GET /api/tahun-ajaran
+2025-12-04 01:59:34 [INFO]: Fetching all tahun ajaran
+2025-12-04 01:59:34 [INFO]: GET /api/kelas
+2025-12-04 01:59:35 [INFO]: Fetching all kelas, search: 
+2025-12-04 01:59:36 [INFO]: GET /api/kelas
+2025-12-04 01:59:36 [INFO]: GET /api/guru
+2025-12-04 01:59:36 [INFO]: GET /api/tingkatan
+2025-12-04 01:59:37 [INFO]: Fetching all guru - Page: 1, Limit: 100, Search: 
+2025-12-04 01:59:37 [INFO]: Fetching all guru - Page: 1, Limit: 100, Search: 
+2025-12-04 01:59:37 [INFO]: Fetching all tingkatan
+2025-12-04 01:59:37 [INFO]: Fetching all kelas, search: Metopen
+2025-12-04 01:59:40 [INFO]: GET /api/guru
+2025-12-04 01:59:41 [INFO]: Fetching all guru - Page: 1, Limit: 10, Search: 
+2025-12-04 01:59:41 [INFO]: Fetching all guru - Page: 1, Limit: 10, Search: 
+2025-12-04 01:59:42 [INFO]: GET /api/guru
+2025-12-04 01:59:43 [INFO]: Fetching all guru - Page: 1, Limit: 10, Search: 
+2025-12-04 01:59:43 [INFO]: Fetching all guru - Page: 1, Limit: 10, Search: 
+2025-12-04 01:59:53 [INFO]: GET /api/guru
+2025-12-04 01:59:53 [INFO]: Fetching all guru - Page: 1, Limit: 10, Search: 19003242390
+2025-12-04 01:59:53 [INFO]: Fetching all guru - Page: 1, Limit: 10, Search: 19003242390
+2025-12-04 01:59:58 [INFO]: GET /api/siswa
+2025-12-04 01:59:58 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 
+2025-12-04 01:59:58 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 
+2025-12-04 01:59:59 [INFO]: GET /api/siswa
+2025-12-04 02:00:00 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 
+2025-12-04 02:00:00 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 
+2025-12-04 02:00:04 [INFO]: GET /api/siswa
+2025-12-04 02:00:05 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777
+2025-12-04 02:00:05 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777
+2025-12-04 02:00:17 [INFO]: GET /api/siswa
+2025-12-04 02:00:18 [INFO]: GET /api/siswa
+2025-12-04 02:00:18 [INFO]: GET /api/siswa
+2025-12-04 02:00:18 [INFO]: GET /api/siswa
+2025-12-04 02:00:18 [INFO]: GET /api/siswa
+2025-12-04 02:00:18 [INFO]: GET /api/siswa
+2025-12-04 02:00:18 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777\
+2025-12-04 02:00:18 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777\
+2025-12-04 02:00:18 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777\\
+2025-12-04 02:00:18 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777\\
+2025-12-04 02:00:18 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777\\\
+2025-12-04 02:00:18 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777\\\
+2025-12-04 02:00:18 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777\\\\
+2025-12-04 02:00:18 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777\\\\
+2025-12-04 02:00:18 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777\\\\\
+2025-12-04 02:00:18 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777\\\\\
+2025-12-04 02:00:19 [INFO]: GET /api/siswa
+2025-12-04 02:00:19 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777\\\\\\
+2025-12-04 02:00:19 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777\\\\\\
+2025-12-04 02:00:19 [INFO]: GET /api/siswa
+2025-12-04 02:00:19 [INFO]: GET /api/siswa
+2025-12-04 02:00:19 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777\\\\\\\
+2025-12-04 02:00:19 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777\\\\\\\
+2025-12-04 02:00:19 [INFO]: GET /api/siswa
+2025-12-04 02:00:19 [INFO]: GET /api/siswa
+2025-12-04 02:00:20 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777\\\\\\\\
+2025-12-04 02:00:20 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777\\\\\\\\
+2025-12-04 02:00:20 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777\\\\\\\\\
+2025-12-04 02:00:20 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777\\\\\\\\\
+2025-12-04 02:00:20 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777\\\\\\\\\\
+2025-12-04 02:00:20 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777\\\\\\\\\\
+2025-12-04 02:00:20 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777\\\\\\\\\\\
+2025-12-04 02:00:20 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777\\\\\\\\\\\
+2025-12-04 02:00:20 [INFO]: GET /api/siswa
+2025-12-04 02:00:20 [INFO]: GET /api/siswa
+2025-12-04 02:00:21 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777\\\\\\\\\\\\
+2025-12-04 02:00:21 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777\\\\\\\\\\\\
+2025-12-04 02:00:21 [INFO]: GET /api/siswa
+2025-12-04 02:00:21 [INFO]: GET /api/siswa
+2025-12-04 02:00:21 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777\\\\\\\\\\\\\
+2025-12-04 02:00:21 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777\\\\\\\\\\\\\
+2025-12-04 02:00:21 [INFO]: GET /api/siswa
+2025-12-04 02:00:21 [INFO]: GET /api/siswa
+2025-12-04 02:00:22 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777\
+2025-12-04 02:00:22 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777\
+2025-12-04 02:00:22 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777\\
+2025-12-04 02:00:22 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777\\
+2025-12-04 02:00:22 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777\\\
+2025-12-04 02:00:22 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777\\\
+2025-12-04 02:00:22 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777\\\\
+2025-12-04 02:00:22 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777\\\\
+2025-12-04 02:00:22 [INFO]: GET /api/siswa
+2025-12-04 02:00:22 [INFO]: GET /api/siswa
+2025-12-04 02:00:22 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777\\\\\
+2025-12-04 02:00:22 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777\\\\\
+2025-12-04 02:00:23 [INFO]: GET /api/siswa
+2025-12-04 02:00:23 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777\\\\\\
+2025-12-04 02:00:23 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777\\\\\\
+2025-12-04 02:00:23 [INFO]: GET /api/siswa
+2025-12-04 02:00:23 [INFO]: GET /api/siswa
+2025-12-04 02:00:23 [INFO]: GET /api/siswa
+2025-12-04 02:00:23 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777\\\\\\\
+2025-12-04 02:00:23 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777\\\\\\\
+2025-12-04 02:00:23 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777\\\\\\\\
+2025-12-04 02:00:23 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777\\\\\\\\
+2025-12-04 02:00:23 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777\\\\\\\\\
+2025-12-04 02:00:23 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777\\\\\\\\\
+2025-12-04 02:00:23 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777
+2025-12-04 02:00:23 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777
+2025-12-04 02:00:24 [INFO]: GET /api/siswa
+2025-12-04 02:00:24 [INFO]: GET /api/siswa
+2025-12-04 02:00:24 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 25010177
+2025-12-04 02:00:24 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 25010177
+2025-12-04 02:00:24 [INFO]: GET /api/siswa
+2025-12-04 02:00:24 [INFO]: GET /api/siswa
+2025-12-04 02:00:24 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 2501017
+2025-12-04 02:00:24 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 2501017
+2025-12-04 02:00:24 [INFO]: GET /api/siswa
+2025-12-04 02:00:25 [INFO]: GET /api/siswa
+2025-12-04 02:00:25 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101
+2025-12-04 02:00:25 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101
+2025-12-04 02:00:25 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 25010
+2025-12-04 02:00:25 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 25010
+2025-12-04 02:00:25 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 2501
+2025-12-04 02:00:25 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 2501
+2025-12-04 02:00:25 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250
+2025-12-04 02:00:25 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250
+2025-12-04 02:00:25 [INFO]: GET /api/siswa
+2025-12-04 02:00:26 [INFO]: GET /api/siswa
+2025-12-04 02:00:26 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777\\\\\\\\\\\
+2025-12-04 02:00:26 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777\\\\\\\\\\\
+2025-12-04 02:00:26 [INFO]: GET /api/siswa
+2025-12-04 02:00:26 [INFO]: GET /api/siswa
+2025-12-04 02:00:26 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 25
+2025-12-04 02:00:26 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 25
+2025-12-04 02:00:26 [INFO]: GET /api/siswa
+2025-12-04 02:00:27 [INFO]: GET /api/siswa
+2025-12-04 02:00:27 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 2
+2025-12-04 02:00:27 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 2
+2025-12-04 02:00:27 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777\\\\\\\\\\
+2025-12-04 02:00:27 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777\\\\\\\\\\
+2025-12-04 02:00:27 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777\\\\\\\\\\\\
+2025-12-04 02:00:27 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 250101777\\\\\\\\\\\\
+2025-12-04 02:00:27 [INFO]: GET /api/tahun-ajaran
+2025-12-04 02:00:27 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 
+2025-12-04 02:00:27 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 
+2025-12-04 02:00:28 [INFO]: Fetching all tahun ajaran
+2025-12-04 02:00:28 [INFO]: GET /api/tahun-ajaran
+2025-12-04 02:00:29 [INFO]: Fetching all tahun ajaran

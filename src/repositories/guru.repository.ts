@@ -80,11 +80,24 @@ export const createGuruRepo = async (data: CreateGuruInput) => {
   }
 };
 
-export const getAllGuruRepo = async (skip?: number, take?: number) => {
+export const getAllGuruRepo = async (
+  skip?: number,
+  take?: number,
+  search?: string
+) => {
+  const whereClause: any = { deletedAt: null };
+
+  if (search) {
+    whereClause.OR = [
+      { nama: { contains: search, mode: "insensitive" } },
+      { nip: { contains: search, mode: "insensitive" } },
+    ];
+  }
+
   return prisma.guru.findMany({
     skip: skip || 0,
     take: take || 100,
-    where: { deletedAt: null },
+    where: whereClause,
     include: {
       user: {
         select: {

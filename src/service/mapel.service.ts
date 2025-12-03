@@ -46,7 +46,7 @@ export const deleteMapelService = async (id: string) => {
   return await deleteMapelRepo(id);
 };
 
-export const getAllMapelService = async () => {
-  logger.info(`Fetching all mata pelajaran`);
-  return await getAllMapelRepo();
+export const getAllMapelService = async (search?: string) => {
+  logger.info(`Fetching all mata pelajaran, search: ${search}`);
+  return await getAllMapelRepo(search);
 };

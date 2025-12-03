@@ -53,9 +53,15 @@ export const deleteMapelRepo = async (id: string) => {
   });
 };
 
-export const getAllMapelRepo = async () => {
+export const getAllMapelRepo = async (search?: string) => {
+  const whereClause: any = { deletedAt: null };
+
+  if (search) {
+    whereClause.namaMapel = { contains: search, mode: "insensitive" };
+  }
+
   return await prisma.mataPelajaran.findMany({
-    where: { deletedAt: null },
+    where: whereClause,
     orderBy: { namaMapel: "asc" },
   });
 };

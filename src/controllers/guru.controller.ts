@@ -34,10 +34,13 @@ class GuruController {
     try {
       const page = parseInt(req.query.page as string) || 1;
       const limit = parseInt(req.query.limit as string) || 50;
+      const search = (req.query.search as string) || "";
 
-      logger.info(`Fetching all guru - Page: ${page}, Limit: ${limit}`);
+      logger.info(
+        `Fetching all guru - Page: ${page}, Limit: ${limit}, Search: ${search}`
+      );
 
-      const result = await getAllGuruService(page, limit);
+      const result = await getAllGuruService(page, limit, search);
 
       res.status(200).send({
         success: true,

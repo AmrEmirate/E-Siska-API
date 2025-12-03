@@ -37,8 +37,15 @@ export const deleteKelasRepo = async (id: string) => {
   });
 };
 
-export const findAllKelasRepo = async () => {
+export const findAllKelasRepo = async (search?: string) => {
+  const whereClause: any = { deletedAt: null };
+
+  if (search) {
+    whereClause.namaKelas = { contains: search, mode: "insensitive" };
+  }
+
   return await prisma.kelas.findMany({
+    where: whereClause,
     include: {
       tingkatan: true,
       waliKelas: true,

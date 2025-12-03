@@ -29,16 +29,25 @@ export const createPengumumanService = async (
 
 export const getAllPengumumanService = async (
   page: number = 1,
-  limit: number = 50
+  limit: number = 50,
+  search?: string
 ) => {
   const skip = (page - 1) * limit;
   const take = limit;
 
-  logger.info(`Fetching all pengumuman - Page: ${page}, Limit: ${limit}`);
+  logger.info(
+    `Fetching all pengumuman - Page: ${page}, Limit: ${limit}, Search: ${search}`
+  );
+
+  const whereClause: any = {};
+  if (search) {
+    whereClause.judul = { contains: search, mode: "insensitive" };
+  }
 
   const pengumuman = await prisma.pengumuman.findMany({
     skip,
     take,
+    where: whereClause,
     orderBy: {
       tanggalPublikasi: "desc",
     },
@@ -51,7 +60,7 @@ export const getAllPengumumanService = async (
     },
   });
 
-  const total = await prisma.pengumuman.count();
+  const total = await prisma.pengumuman.count({ where: whereClause });
 
   return {
     data: pengumuman,

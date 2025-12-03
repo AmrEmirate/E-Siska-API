@@ -75,15 +75,27 @@ export const createSiswaService = async (data: CreateSiswaServiceInput) => {
 
 export const getAllSiswaService = async (
   page: number = 1,
-  limit: number = 50
+  limit: number = 50,
+  search?: string
 ) => {
   const skip = (page - 1) * limit;
   const take = limit;
 
-  logger.info(`Fetching all siswa - Page: ${page}, Limit: ${limit}`);
+  logger.info(
+    `Fetching all siswa - Page: ${page}, Limit: ${limit}, Search: ${search}`
+  );
 
-  const students = await getAllSiswaRepo(skip, take);
-  const total = await prisma.siswa.count();
+  const students = await getAllSiswaRepo(skip, take, search);
+
+  // Count total with search filter
+  const whereClause: any = { deletedAt: null };
+  if (search) {
+    whereClause.OR = [
+      { nama: { contains: search, mode: "insensitive" } },
+      { nisn: { contains: search, mode: "insensitive" } },
+    ];
+  }
+  const total = await prisma.siswa.count({ where: whereClause });
 
   return {
     data: students,

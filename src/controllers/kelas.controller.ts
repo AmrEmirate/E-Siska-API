@@ -35,7 +35,8 @@ class KelasController {
 
   public async getAll(req: Request, res: Response, next: NextFunction) {
     try {
-      const result = await getAllKelasService();
+      const search = (req.query.search as string) || "";
+      const result = await getAllKelasService(search);
 
       res.status(200).send({
         success: true,

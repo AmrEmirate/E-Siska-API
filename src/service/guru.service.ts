@@ -77,15 +77,27 @@ export const createGuruService = async (data: CreateGuruServiceInput) => {
 
 export const getAllGuruService = async (
   page: number = 1,
-  limit: number = 50
+  limit: number = 50,
+  search?: string
 ) => {
   const skip = (page - 1) * limit;
   const take = limit;
 
-  logger.info(`Fetching all guru - Page: ${page}, Limit: ${limit}`);
+  logger.info(
+    `Fetching all guru - Page: ${page}, Limit: ${limit}, Search: ${search}`
+  );
 
-  const teachers = await getAllGuruRepo(skip, take);
-  const total = await prisma.guru.count();
+  const teachers = await getAllGuruRepo(skip, take, search);
+
+  // Count total with search filter
+  const whereClause: any = { deletedAt: null };
+  if (search) {
+    whereClause.OR = [
+      { nama: { contains: search, mode: "insensitive" } },
+      { nip: { contains: search, mode: "insensitive" } },
+    ];
+  }
+  const total = await prisma.guru.count({ where: whereClause });
 
   return {
     data: teachers,
