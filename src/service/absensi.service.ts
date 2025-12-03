@@ -3,6 +3,7 @@ import {
   findSesiByKelasRepo,
   findSesiByIdRepo,
 } from "../repositories/absensi.repository";
+import { findAbsensiBySiswaRepo } from "../repositories/absensiDetail.repository";
 import { getKelasByIdWithStudentsRepo } from "../repositories/kelas.repository";
 import logger from "../utils/logger";
 import AppError from "../utils/AppError";
@@ -102,4 +103,18 @@ export const getSesiDetailService = async (sesiId: string) => {
     ...sesi,
     students,
   };
+};
+
+export const getAbsensiByStudentService = async (siswaId: string) => {
+  logger.info(`Fetching absensi for student: ${siswaId}`);
+  const absensi = await findAbsensiBySiswaRepo(siswaId);
+
+  return absensi.map((a) => ({
+    id: a.id,
+    siswaId: a.siswaId,
+    kelasId: a.sesi.kelasId,
+    tanggal: a.sesi.tanggal,
+    status: a.status,
+    kelas: a.sesi.kelas,
+  }));
 };

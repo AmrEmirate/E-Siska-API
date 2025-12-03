@@ -7,6 +7,7 @@ import { prisma } from "../config/prisma";
 interface CreateDokumenServiceInput {
   judul: string;
   file: Express.Multer.File;
+  adminId: string;
 }
 
 export const createDokumenService = async (data: CreateDokumenServiceInput) => {
@@ -17,18 +18,10 @@ export const createDokumenService = async (data: CreateDokumenServiceInput) => {
     `File berhasil diupload ke Cloudinary: ${uploadResult.secure_url}`
   );
 
-  const ADMIN_USER_ID_DUMMY =
-    (
-      await prisma.admin.findFirst({
-        where: { id: "dummy-admin-id-untuk-tes" },
-        include: { user: true },
-      })
-    )?.user.id || "dummy-admin-user-id";
-
   const repoInput = {
     judul: data.judul,
     urlFile: uploadResult.secure_url,
-    adminId: ADMIN_USER_ID_DUMMY,
+    adminId: data.adminId,
   };
 
   const newDokumen = await createDokumenRepo(repoInput);

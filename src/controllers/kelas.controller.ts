@@ -94,10 +94,10 @@ class KelasController {
 
   public async getMyClass(req: Request, res: Response, next: NextFunction) {
     try {
-      const guruId = (req as any).user?.id;
+      const guruId = (req as any).user?.guruId;
 
       if (!guruId) {
-        throw new Error("User ID not found in request");
+        throw new Error("Guru ID not found in request");
       }
 
       const result = await getMyClassService(guruId);
@@ -121,10 +121,10 @@ class KelasController {
     next: NextFunction
   ) {
     try {
-      const guruId = (req as any).user?.id;
+      const guruId = (req as any).user?.guruId;
 
       if (!guruId) {
-        throw new Error("User ID not found in request");
+        throw new Error("Guru ID not found in request");
       }
 
       const result = await getMyTeachingClassesService(guruId);

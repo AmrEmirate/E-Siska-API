@@ -122,13 +122,32 @@ export const getMyNilaiService = async (
     },
   });
 
-  return {
-    kelas: penempatan.kelas,
-    tahunAjaran: penempatan.tahunAjaran,
-    nilaiDetail: nilaiDetail,
-    capaianKompetensi: capaianKompetensi,
-    nilaiAkhir: rapor?.NilaiRaporAkhir || [],
-  };
+  // Group nilai by mapel
+  const groupedGrades: any[] = [];
+  const mapelMap = new Map<string, any>();
+
+  for (const nilai of nilaiDetail) {
+    const mapelName = nilai.mapel.namaMapel;
+
+    if (!mapelMap.has(mapelName)) {
+      mapelMap.set(mapelName, {
+        mapel: mapelName,
+        kategori: "Umum", // Default category
+        components: [],
+      });
+      groupedGrades.push(mapelMap.get(mapelName));
+    }
+
+    const subjectGroup = mapelMap.get(mapelName);
+    subjectGroup.components.push({
+      komponen: nilai.komponen?.namaKomponen || "Nilai",
+      tipe: nilai.komponen?.tipe || "INPUT",
+      nilai: nilai.nilaiAngka,
+      guru: "Guru Mata Pelajaran", // Placeholder as guru name might not be directly available in nilaiDetail without include
+    });
+  }
+
+  return groupedGrades;
 };
 
 export const getMyJadwalService = async (siswaId: string) => {

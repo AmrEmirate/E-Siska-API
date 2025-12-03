@@ -18,7 +18,8 @@ export const createJadwalService = async (data: CreateJadwalServiceInput) => {
   try {
     logger.info(`Mencoba membuat jadwal baru...`);
 
-    const penugasan = await prisma.penugasanGuru.findUnique({
+    // Auto-create or ensure PenugasanGuru exists
+    await prisma.penugasanGuru.upsert({
       where: {
         guruId_mapelId_kelasId: {
           guruId: data.guruId,
@@ -26,14 +27,13 @@ export const createJadwalService = async (data: CreateJadwalServiceInput) => {
           kelasId: data.kelasId,
         },
       },
+      update: {},
+      create: {
+        guruId: data.guruId,
+        mapelId: data.mapelId,
+        kelasId: data.kelasId,
+      },
     });
-
-    if (!penugasan) {
-      throw new AppError(
-        "Penugasan Guru untuk Mapel dan Kelas ini tidak ditemukan. Harap buat penugasan terlebih dahulu.",
-        404
-      );
-    }
 
     const [tahunAjaran, ruangan] = await Promise.all([
       prisma.tahunAjaran.findUnique({ where: { id: data.tahunAjaranId } }),

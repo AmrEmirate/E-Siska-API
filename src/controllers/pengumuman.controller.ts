@@ -12,9 +12,9 @@ class PengumumanController {
   public async create(req: Request, res: Response, next: NextFunction) {
     try {
       const { judul, konten, target } = req.body;
-      const { id: userId } = req.user as any;
+      const { id: adminId } = req.user as any;
 
-      if (!userId) {
+      if (!adminId) {
         throw new Error("User ID not found");
       }
 
@@ -22,7 +22,7 @@ class PengumumanController {
         judul,
         konten,
         target,
-        adminId: userId,
+        adminId: adminId,
       });
 
       res.status(201).send({

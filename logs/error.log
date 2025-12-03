@@ -1,2 +1,321 @@
 2025-12-03 11:21:19 [ERROR]: POST /api/auth/signin: Password salah {"code":400,"message":"Password salah","isSuccess":false}
 2025-12-03 11:21:20 [ERROR]: POST /api/auth/signin: Akun tidak ditemukan {"code":404,"message":"Akun tidak ditemukan","isSuccess":false}
+2025-12-03 21:36:28 [ERROR]: POST /api/absensi/sesi: Guru tidak terdaftar mengajar di kelas ini. Tidak bisa membuat sesi. {"code":403,"message":"Guru tidak terdaftar mengajar di kelas ini. Tidak bisa membuat sesi.","isSuccess":false}
+2025-12-03 21:36:31 [ERROR]: POST /api/absensi/sesi: Guru tidak terdaftar mengajar di kelas ini. Tidak bisa membuat sesi. {"code":403,"message":"Guru tidak terdaftar mengajar di kelas ini. Tidak bisa membuat sesi.","isSuccess":false}
+2025-12-03 22:20:18 [ERROR]: POST /api/absensi/sesi: Guru tidak terdaftar mengajar di kelas ini. Tidak bisa membuat sesi. {"code":403,"message":"Guru tidak terdaftar mengajar di kelas ini. Tidak bisa membuat sesi.","isSuccess":false}
+2025-12-03 22:20:27 [ERROR]: POST /api/absensi/sesi: Guru tidak terdaftar mengajar di kelas ini. Tidak bisa membuat sesi. {"code":403,"message":"Guru tidak terdaftar mengajar di kelas ini. Tidak bisa membuat sesi.","isSuccess":false}
+2025-12-03 22:50:03 [ERROR]: POST /api/auth/signin: Akun tidak ditemukan {"code":404,"message":"Akun tidak ditemukan","isSuccess":false}
+2025-12-03 23:28:23 [ERROR]: Error create pengumuman: 
+Invalid `prisma.pengumuman.create()` invocation in
+C:\Dev 1\e-siska\e-siska-api\src\repositories\pengumuman.repository.ts:12:51
+
+   9 
+  10 export const createPengumumanRepo = async (data: CreatePengumumanInput) => {
+  11   try {
+→ 12     const newPengumuman = await prisma.pengumuman.create(
+Foreign key constraint violated on the constraint: `Pengumuman_adminId_fkey`
+2025-12-03 23:28:23 [ERROR]: POST /api/pengumuman: 
+Invalid `prisma.pengumuman.create()` invocation in
+C:\Dev 1\e-siska\e-siska-api\src\repositories\pengumuman.repository.ts:12:51
+
+   9 
+  10 export const createPengumumanRepo = async (data: CreatePengumumanInput) => {
+  11   try {
+→ 12     const newPengumuman = await prisma.pengumuman.create(
+Foreign key constraint violated on the constraint: `Pengumuman_adminId_fkey` {"code":"P2003","meta":{"modelName":"Pengumuman","constraint":"Pengumuman_adminId_fkey"},"clientVersion":"6.19.0","name":"PrismaClientKnownRequestError"}
+2025-12-03 23:28:32 [ERROR]: Error create pengumuman: 
+Invalid `prisma.pengumuman.create()` invocation in
+C:\Dev 1\e-siska\e-siska-api\src\repositories\pengumuman.repository.ts:12:51
+
+   9 
+  10 export const createPengumumanRepo = async (data: CreatePengumumanInput) => {
+  11   try {
+→ 12     const newPengumuman = await prisma.pengumuman.create(
+Foreign key constraint violated on the constraint: `Pengumuman_adminId_fkey`
+2025-12-03 23:28:32 [ERROR]: POST /api/pengumuman: 
+Invalid `prisma.pengumuman.create()` invocation in
+C:\Dev 1\e-siska\e-siska-api\src\repositories\pengumuman.repository.ts:12:51
+
+   9 
+  10 export const createPengumumanRepo = async (data: CreatePengumumanInput) => {
+  11   try {
+→ 12     const newPengumuman = await prisma.pengumuman.create(
+Foreign key constraint violated on the constraint: `Pengumuman_adminId_fkey` {"code":"P2003","meta":{"modelName":"Pengumuman","constraint":"Pengumuman_adminId_fkey"},"clientVersion":"6.19.0","name":"PrismaClientKnownRequestError"}
+2025-12-03 23:41:37 [ERROR]: Error create pengumuman: 
+Invalid `prisma.pengumuman.create()` invocation in
+C:\Dev 1\e-siska\e-siska-api\src\repositories\pengumuman.repository.ts:12:51
+
+   9 
+  10 export const createPengumumanRepo = async (data: CreatePengumumanInput) => {
+  11   try {
+→ 12     const newPengumuman = await prisma.pengumuman.create(
+Foreign key constraint violated on the constraint: `Pengumuman_adminId_fkey`
+2025-12-03 23:41:37 [ERROR]: POST /api/pengumuman: 
+Invalid `prisma.pengumuman.create()` invocation in
+C:\Dev 1\e-siska\e-siska-api\src\repositories\pengumuman.repository.ts:12:51
+
+   9 
+  10 export const createPengumumanRepo = async (data: CreatePengumumanInput) => {
+  11   try {
+→ 12     const newPengumuman = await prisma.pengumuman.create(
+Foreign key constraint violated on the constraint: `Pengumuman_adminId_fkey` {"code":"P2003","meta":{"modelName":"Pengumuman","constraint":"Pengumuman_adminId_fkey"},"clientVersion":"6.19.0","name":"PrismaClientKnownRequestError"}
+2025-12-03 23:41:39 [ERROR]: Error create pengumuman: 
+Invalid `prisma.pengumuman.create()` invocation in
+C:\Dev 1\e-siska\e-siska-api\src\repositories\pengumuman.repository.ts:12:51
+
+   9 
+  10 export const createPengumumanRepo = async (data: CreatePengumumanInput) => {
+  11   try {
+→ 12     const newPengumuman = await prisma.pengumuman.create(
+Foreign key constraint violated on the constraint: `Pengumuman_adminId_fkey`
+2025-12-03 23:41:39 [ERROR]: POST /api/pengumuman: 
+Invalid `prisma.pengumuman.create()` invocation in
+C:\Dev 1\e-siska\e-siska-api\src\repositories\pengumuman.repository.ts:12:51
+
+   9 
+  10 export const createPengumumanRepo = async (data: CreatePengumumanInput) => {
+  11   try {
+→ 12     const newPengumuman = await prisma.pengumuman.create(
+Foreign key constraint violated on the constraint: `Pengumuman_adminId_fkey` {"code":"P2003","meta":{"modelName":"Pengumuman","constraint":"Pengumuman_adminId_fkey"},"clientVersion":"6.19.0","name":"PrismaClientKnownRequestError"}
+2025-12-03 23:41:40 [ERROR]: Error create pengumuman: 
+Invalid `prisma.pengumuman.create()` invocation in
+C:\Dev 1\e-siska\e-siska-api\src\repositories\pengumuman.repository.ts:12:51
+
+   9 
+  10 export const createPengumumanRepo = async (data: CreatePengumumanInput) => {
+  11   try {
+→ 12     const newPengumuman = await prisma.pengumuman.create(
+Foreign key constraint violated on the constraint: `Pengumuman_adminId_fkey`
+2025-12-03 23:41:40 [ERROR]: POST /api/pengumuman: 
+Invalid `prisma.pengumuman.create()` invocation in
+C:\Dev 1\e-siska\e-siska-api\src\repositories\pengumuman.repository.ts:12:51
+
+   9 
+  10 export const createPengumumanRepo = async (data: CreatePengumumanInput) => {
+  11   try {
+→ 12     const newPengumuman = await prisma.pengumuman.create(
+Foreign key constraint violated on the constraint: `Pengumuman_adminId_fkey` {"code":"P2003","meta":{"modelName":"Pengumuman","constraint":"Pengumuman_adminId_fkey"},"clientVersion":"6.19.0","name":"PrismaClientKnownRequestError"}
+2025-12-03 23:41:40 [ERROR]: Error create pengumuman: 
+Invalid `prisma.pengumuman.create()` invocation in
+C:\Dev 1\e-siska\e-siska-api\src\repositories\pengumuman.repository.ts:12:51
+
+   9 
+  10 export const createPengumumanRepo = async (data: CreatePengumumanInput) => {
+  11   try {
+→ 12     const newPengumuman = await prisma.pengumuman.create(
+Foreign key constraint violated on the constraint: `Pengumuman_adminId_fkey`
+2025-12-03 23:41:40 [ERROR]: POST /api/pengumuman: 
+Invalid `prisma.pengumuman.create()` invocation in
+C:\Dev 1\e-siska\e-siska-api\src\repositories\pengumuman.repository.ts:12:51
+
+   9 
+  10 export const createPengumumanRepo = async (data: CreatePengumumanInput) => {
+  11   try {
+→ 12     const newPengumuman = await prisma.pengumuman.create(
+Foreign key constraint violated on the constraint: `Pengumuman_adminId_fkey` {"code":"P2003","meta":{"modelName":"Pengumuman","constraint":"Pengumuman_adminId_fkey"},"clientVersion":"6.19.0","name":"PrismaClientKnownRequestError"}
+2025-12-03 23:41:41 [ERROR]: Error create pengumuman: 
+Invalid `prisma.pengumuman.create()` invocation in
+C:\Dev 1\e-siska\e-siska-api\src\repositories\pengumuman.repository.ts:12:51
+
+   9 
+  10 export const createPengumumanRepo = async (data: CreatePengumumanInput) => {
+  11   try {
+→ 12     const newPengumuman = await prisma.pengumuman.create(
+Foreign key constraint violated on the constraint: `Pengumuman_adminId_fkey`
+2025-12-03 23:41:41 [ERROR]: POST /api/pengumuman: 
+Invalid `prisma.pengumuman.create()` invocation in
+C:\Dev 1\e-siska\e-siska-api\src\repositories\pengumuman.repository.ts:12:51
+
+   9 
+  10 export const createPengumumanRepo = async (data: CreatePengumumanInput) => {
+  11   try {
+→ 12     const newPengumuman = await prisma.pengumuman.create(
+Foreign key constraint violated on the constraint: `Pengumuman_adminId_fkey` {"code":"P2003","meta":{"modelName":"Pengumuman","constraint":"Pengumuman_adminId_fkey"},"clientVersion":"6.19.0","name":"PrismaClientKnownRequestError"}
+2025-12-03 23:41:46 [ERROR]: Error create pengumuman: 
+Invalid `prisma.pengumuman.create()` invocation in
+C:\Dev 1\e-siska\e-siska-api\src\repositories\pengumuman.repository.ts:12:51
+
+   9 
+  10 export const createPengumumanRepo = async (data: CreatePengumumanInput) => {
+  11   try {
+→ 12     const newPengumuman = await prisma.pengumuman.create(
+Foreign key constraint violated on the constraint: `Pengumuman_adminId_fkey`
+2025-12-03 23:41:46 [ERROR]: POST /api/pengumuman: 
+Invalid `prisma.pengumuman.create()` invocation in
+C:\Dev 1\e-siska\e-siska-api\src\repositories\pengumuman.repository.ts:12:51
+
+   9 
+  10 export const createPengumumanRepo = async (data: CreatePengumumanInput) => {
+  11   try {
+→ 12     const newPengumuman = await prisma.pengumuman.create(
+Foreign key constraint violated on the constraint: `Pengumuman_adminId_fkey` {"code":"P2003","meta":{"modelName":"Pengumuman","constraint":"Pengumuman_adminId_fkey"},"clientVersion":"6.19.0","name":"PrismaClientKnownRequestError"}
+2025-12-03 23:41:48 [ERROR]: Error create pengumuman: 
+Invalid `prisma.pengumuman.create()` invocation in
+C:\Dev 1\e-siska\e-siska-api\src\repositories\pengumuman.repository.ts:12:51
+
+   9 
+  10 export const createPengumumanRepo = async (data: CreatePengumumanInput) => {
+  11   try {
+→ 12     const newPengumuman = await prisma.pengumuman.create(
+Foreign key constraint violated on the constraint: `Pengumuman_adminId_fkey`
+2025-12-03 23:41:48 [ERROR]: POST /api/pengumuman: 
+Invalid `prisma.pengumuman.create()` invocation in
+C:\Dev 1\e-siska\e-siska-api\src\repositories\pengumuman.repository.ts:12:51
+
+   9 
+  10 export const createPengumumanRepo = async (data: CreatePengumumanInput) => {
+  11   try {
+→ 12     const newPengumuman = await prisma.pengumuman.create(
+Foreign key constraint violated on the constraint: `Pengumuman_adminId_fkey` {"code":"P2003","meta":{"modelName":"Pengumuman","constraint":"Pengumuman_adminId_fkey"},"clientVersion":"6.19.0","name":"PrismaClientKnownRequestError"}
+2025-12-03 23:42:42 [ERROR]: Error create pengumuman: 
+Invalid `prisma.pengumuman.create()` invocation in
+C:\Dev 1\e-siska\e-siska-api\src\repositories\pengumuman.repository.ts:12:51
+
+   9 
+  10 export const createPengumumanRepo = async (data: CreatePengumumanInput) => {
+  11   try {
+→ 12     const newPengumuman = await prisma.pengumuman.create(
+Foreign key constraint violated on the constraint: `Pengumuman_adminId_fkey`
+2025-12-03 23:42:42 [ERROR]: POST /api/pengumuman: 
+Invalid `prisma.pengumuman.create()` invocation in
+C:\Dev 1\e-siska\e-siska-api\src\repositories\pengumuman.repository.ts:12:51
+
+   9 
+  10 export const createPengumumanRepo = async (data: CreatePengumumanInput) => {
+  11   try {
+→ 12     const newPengumuman = await prisma.pengumuman.create(
+Foreign key constraint violated on the constraint: `Pengumuman_adminId_fkey` {"code":"P2003","meta":{"modelName":"Pengumuman","constraint":"Pengumuman_adminId_fkey"},"clientVersion":"6.19.0","name":"PrismaClientKnownRequestError"}
+2025-12-03 23:51:48 [ERROR]: Error create pengumuman: 
+Invalid `prisma.pengumuman.create()` invocation in
+C:\Dev 1\e-siska\e-siska-api\src\repositories\pengumuman.repository.ts:12:51
+
+   9 
+  10 export const createPengumumanRepo = async (data: CreatePengumumanInput) => {
+  11   try {
+→ 12     const newPengumuman = await prisma.pengumuman.create(
+Foreign key constraint violated on the constraint: `Pengumuman_adminId_fkey`
+2025-12-03 23:51:48 [ERROR]: POST /api/pengumuman: 
+Invalid `prisma.pengumuman.create()` invocation in
+C:\Dev 1\e-siska\e-siska-api\src\repositories\pengumuman.repository.ts:12:51
+
+   9 
+  10 export const createPengumumanRepo = async (data: CreatePengumumanInput) => {
+  11   try {
+→ 12     const newPengumuman = await prisma.pengumuman.create(
+Foreign key constraint violated on the constraint: `Pengumuman_adminId_fkey` {"code":"P2003","meta":{"modelName":"Pengumuman","constraint":"Pengumuman_adminId_fkey"},"clientVersion":"6.19.0","name":"PrismaClientKnownRequestError"}
+2025-12-03 23:51:52 [ERROR]: Error create pengumuman: 
+Invalid `prisma.pengumuman.create()` invocation in
+C:\Dev 1\e-siska\e-siska-api\src\repositories\pengumuman.repository.ts:12:51
+
+   9 
+  10 export const createPengumumanRepo = async (data: CreatePengumumanInput) => {
+  11   try {
+→ 12     const newPengumuman = await prisma.pengumuman.create(
+Foreign key constraint violated on the constraint: `Pengumuman_adminId_fkey`
+2025-12-03 23:51:52 [ERROR]: POST /api/pengumuman: 
+Invalid `prisma.pengumuman.create()` invocation in
+C:\Dev 1\e-siska\e-siska-api\src\repositories\pengumuman.repository.ts:12:51
+
+   9 
+  10 export const createPengumumanRepo = async (data: CreatePengumumanInput) => {
+  11   try {
+→ 12     const newPengumuman = await prisma.pengumuman.create(
+Foreign key constraint violated on the constraint: `Pengumuman_adminId_fkey` {"code":"P2003","meta":{"modelName":"Pengumuman","constraint":"Pengumuman_adminId_fkey"},"clientVersion":"6.19.0","name":"PrismaClientKnownRequestError"}
+2025-12-03 23:51:53 [ERROR]: Error create pengumuman: 
+Invalid `prisma.pengumuman.create()` invocation in
+C:\Dev 1\e-siska\e-siska-api\src\repositories\pengumuman.repository.ts:12:51
+
+   9 
+  10 export const createPengumumanRepo = async (data: CreatePengumumanInput) => {
+  11   try {
+→ 12     const newPengumuman = await prisma.pengumuman.create(
+Foreign key constraint violated on the constraint: `Pengumuman_adminId_fkey`
+2025-12-03 23:51:53 [ERROR]: POST /api/pengumuman: 
+Invalid `prisma.pengumuman.create()` invocation in
+C:\Dev 1\e-siska\e-siska-api\src\repositories\pengumuman.repository.ts:12:51
+
+   9 
+  10 export const createPengumumanRepo = async (data: CreatePengumumanInput) => {
+  11   try {
+→ 12     const newPengumuman = await prisma.pengumuman.create(
+Foreign key constraint violated on the constraint: `Pengumuman_adminId_fkey` {"code":"P2003","meta":{"modelName":"Pengumuman","constraint":"Pengumuman_adminId_fkey"},"clientVersion":"6.19.0","name":"PrismaClientKnownRequestError"}
+2025-12-03 23:52:06 [ERROR]: Error create pengumuman: 
+Invalid `prisma.pengumuman.create()` invocation in
+C:\Dev 1\e-siska\e-siska-api\src\repositories\pengumuman.repository.ts:12:51
+
+   9 
+  10 export const createPengumumanRepo = async (data: CreatePengumumanInput) => {
+  11   try {
+→ 12     const newPengumuman = await prisma.pengumuman.create(
+Foreign key constraint violated on the constraint: `Pengumuman_adminId_fkey`
+2025-12-03 23:52:06 [ERROR]: POST /api/pengumuman: 
+Invalid `prisma.pengumuman.create()` invocation in
+C:\Dev 1\e-siska\e-siska-api\src\repositories\pengumuman.repository.ts:12:51
+
+   9 
+  10 export const createPengumumanRepo = async (data: CreatePengumumanInput) => {
+  11   try {
+→ 12     const newPengumuman = await prisma.pengumuman.create(
+Foreign key constraint violated on the constraint: `Pengumuman_adminId_fkey` {"code":"P2003","meta":{"modelName":"Pengumuman","constraint":"Pengumuman_adminId_fkey"},"clientVersion":"6.19.0","name":"PrismaClientKnownRequestError"}
+2025-12-03 23:53:00 [ERROR]: Error create pengumuman: 
+Invalid `prisma.pengumuman.create()` invocation in
+C:\Dev 1\e-siska\e-siska-api\src\repositories\pengumuman.repository.ts:12:51
+
+   9 
+  10 export const createPengumumanRepo = async (data: CreatePengumumanInput) => {
+  11   try {
+→ 12     const newPengumuman = await prisma.pengumuman.create(
+Foreign key constraint violated on the constraint: `Pengumuman_adminId_fkey`
+2025-12-03 23:53:00 [ERROR]: POST /api/pengumuman: 
+Invalid `prisma.pengumuman.create()` invocation in
+C:\Dev 1\e-siska\e-siska-api\src\repositories\pengumuman.repository.ts:12:51
+
+   9 
+  10 export const createPengumumanRepo = async (data: CreatePengumumanInput) => {
+  11   try {
+→ 12     const newPengumuman = await prisma.pengumuman.create(
+Foreign key constraint violated on the constraint: `Pengumuman_adminId_fkey` {"code":"P2003","meta":{"modelName":"Pengumuman","constraint":"Pengumuman_adminId_fkey"},"clientVersion":"6.19.0","name":"PrismaClientKnownRequestError"}
+2025-12-03 23:53:06 [ERROR]: Error create pengumuman: 
+Invalid `prisma.pengumuman.create()` invocation in
+C:\Dev 1\e-siska\e-siska-api\src\repositories\pengumuman.repository.ts:12:51
+
+   9 
+  10 export const createPengumumanRepo = async (data: CreatePengumumanInput) => {
+  11   try {
+→ 12     const newPengumuman = await prisma.pengumuman.create(
+Foreign key constraint violated on the constraint: `Pengumuman_adminId_fkey`
+2025-12-03 23:53:06 [ERROR]: POST /api/pengumuman: 
+Invalid `prisma.pengumuman.create()` invocation in
+C:\Dev 1\e-siska\e-siska-api\src\repositories\pengumuman.repository.ts:12:51
+
+   9 
+  10 export const createPengumumanRepo = async (data: CreatePengumumanInput) => {
+  11   try {
+→ 12     const newPengumuman = await prisma.pengumuman.create(
+Foreign key constraint violated on the constraint: `Pengumuman_adminId_fkey` {"code":"P2003","meta":{"modelName":"Pengumuman","constraint":"Pengumuman_adminId_fkey"},"clientVersion":"6.19.0","name":"PrismaClientKnownRequestError"}
+2025-12-03 23:53:06 [ERROR]: Error create pengumuman: 
+Invalid `prisma.pengumuman.create()` invocation in
+C:\Dev 1\e-siska\e-siska-api\src\repositories\pengumuman.repository.ts:12:51
+
+   9 
+  10 export const createPengumumanRepo = async (data: CreatePengumumanInput) => {
+  11   try {
+→ 12     const newPengumuman = await prisma.pengumuman.create(
+Foreign key constraint violated on the constraint: `Pengumuman_adminId_fkey`
+2025-12-03 23:53:06 [ERROR]: POST /api/pengumuman: 
+Invalid `prisma.pengumuman.create()` invocation in
+C:\Dev 1\e-siska\e-siska-api\src\repositories\pengumuman.repository.ts:12:51
+
+   9 
+  10 export const createPengumumanRepo = async (data: CreatePengumumanInput) => {
+  11   try {
+→ 12     const newPengumuman = await prisma.pengumuman.create(
+Foreign key constraint violated on the constraint: `Pengumuman_adminId_fkey` {"code":"P2003","meta":{"modelName":"Pengumuman","constraint":"Pengumuman_adminId_fkey"},"clientVersion":"6.19.0","name":"PrismaClientKnownRequestError"}
+2025-12-04 00:06:42 [ERROR]: Error in createJadwalService: [object Object]
+2025-12-04 00:06:42 [ERROR]: POST /api/jadwal: Penugasan Guru untuk Mapel dan Kelas ini tidak ditemukan. Harap buat penugasan terlebih dahulu. {"code":404,"message":"Penugasan Guru untuk Mapel dan Kelas ini tidak ditemukan. Harap buat penugasan terlebih dahulu.","isSuccess":false}
+2025-12-04 00:06:46 [ERROR]: Error in createJadwalService: [object Object]
+2025-12-04 00:06:46 [ERROR]: POST /api/jadwal: Penugasan Guru untuk Mapel dan Kelas ini tidak ditemukan. Harap buat penugasan terlebih dahulu. {"code":404,"message":"Penugasan Guru untuk Mapel dan Kelas ini tidak ditemukan. Harap buat penugasan terlebih dahulu.","isSuccess":false}
+2025-12-04 00:06:47 [ERROR]: Error in createJadwalService: [object Object]
+2025-12-04 00:06:47 [ERROR]: POST /api/jadwal: Penugasan Guru untuk Mapel dan Kelas ini tidak ditemukan. Harap buat penugasan terlebih dahulu. {"code":404,"message":"Penugasan Guru untuk Mapel dan Kelas ini tidak ditemukan. Harap buat penugasan terlebih dahulu.","isSuccess":false}
+2025-12-04 00:06:48 [ERROR]: Error in createJadwalService: [object Object]
+2025-12-04 00:06:48 [ERROR]: POST /api/jadwal: Penugasan Guru untuk Mapel dan Kelas ini tidak ditemukan. Harap buat penugasan terlebih dahulu. {"code":404,"message":"Penugasan Guru untuk Mapel dan Kelas ini tidak ditemukan. Harap buat penugasan terlebih dahulu.","isSuccess":false}

@@ -16,9 +16,16 @@ class DokumenController {
         throw new AppError("File dokumen wajib diupload", 400);
       }
 
+      const { id: adminId } = req.user as any;
+
+      if (!adminId) {
+        throw new AppError("User ID not found", 401);
+      }
+
       const result = await createDokumenService({
         judul,
         file: req.file,
+        adminId,
       });
 
       res.status(201).send({

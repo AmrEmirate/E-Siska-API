@@ -18,13 +18,11 @@ class AbsensiRouter {
   }
 
   private initializeRoute(): void {
-    this.route.get("/", authMiddleware, (req, res) => {
-      res.status(200).send({
-        success: true,
-        message: "Data absensi berhasil diambil",
-        data: [],
-      });
-    });
+    this.route.get(
+      "/",
+      authMiddleware,
+      this.absensiController.getAbsensiByStudent
+    );
 
     this.route.post(
       "/sesi",

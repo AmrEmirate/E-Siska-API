@@ -39,7 +39,12 @@ class JadwalController {
 
   public async getAll(req: Request, res: Response, next: NextFunction) {
     try {
-      const { tahunAjaranId, kelasId, guruId } = req.query;
+      let { tahunAjaranId, kelasId, guruId } = req.query;
+
+      // Jika user adalah GURU, paksa filter berdasarkan guruId dari token
+      if ((req as any).user?.role === "GURU") {
+        guruId = (req as any).user?.guruId;
+      }
 
       const result = await getAllJadwalService({
         tahunAjaranId: tahunAjaranId as string,

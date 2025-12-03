@@ -47,13 +47,15 @@ export const updateMapelRepo = async (
 };
 
 export const deleteMapelRepo = async (id: string) => {
-  return await prisma.mataPelajaran.delete({
+  return await prisma.mataPelajaran.update({
     where: { id },
+    data: { deletedAt: new Date() },
   });
 };
 
 export const getAllMapelRepo = async () => {
   return await prisma.mataPelajaran.findMany({
+    where: { deletedAt: null },
     orderBy: { namaMapel: "asc" },
   });
 };

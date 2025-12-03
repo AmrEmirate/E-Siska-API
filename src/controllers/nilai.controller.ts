@@ -38,7 +38,7 @@ class NilaiController {
   public async getNilaiKelas(req: Request, res: Response, next: NextFunction) {
     try {
       const { kelasId, mapelId } = req.params;
-      const guruId = req.user?.id || "";
+      const guruId = req.user?.guruId || "";
 
       const result = await getNilaiKelasService(guruId, kelasId, mapelId);
 
@@ -97,7 +97,7 @@ class NilaiController {
     try {
       const { id } = req.params;
       const { nilai } = req.body;
-      const guruId = req.user?.id || "";
+      const guruId = req.user?.guruId || "";
 
       const result = await updateNilaiService(id, nilai, guruId);
 

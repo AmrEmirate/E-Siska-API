@@ -34,7 +34,19 @@ class PenempatanController {
 
   public async getAll(req: Request, res: Response, next: NextFunction) {
     try {
-      const { tahunAjaranId, kelasId, siswaId } = req.query;
+      let { tahunAjaranId, kelasId, siswaId } = req.query;
+
+      console.log("DEBUG PenempatanController: User", (req as any).user);
+      console.log("DEBUG PenempatanController: Query Before", req.query);
+
+      // Jika user adalah SISWA, paksa filter berdasarkan siswaId dari token
+      if ((req as any).user?.role === "SISWA") {
+        siswaId = (req as any).user?.siswaId;
+        console.log(
+          "DEBUG PenempatanController: Overriding siswaId to",
+          siswaId
+        );
+      }
 
       const result = await getAllPenempatanService({
         tahunAjaranId: tahunAjaranId as string,

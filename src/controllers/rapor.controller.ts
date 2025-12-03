@@ -116,7 +116,8 @@ class RaporController {
   public async override(req: Request, res: Response, next: NextFunction) {
     try {
       const { siswaId } = req.params;
-      const { adminId, mapelId, tahunAjaranId, nilaiAkhir } = req.body;
+      const { mapelId, tahunAjaranId, nilaiAkhir } = req.body;
+      const { adminId } = req.user as any;
 
       const result = await overrideNilaiRaporService({
         adminId,
