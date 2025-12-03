@@ -15,13 +15,12 @@ const validationHandler = (req: Request, res: Response, next: NextFunction) => {
 
 export const createGuruValidation = [
   body("nama").notEmpty().withMessage("Nama guru wajib diisi"),
-  body("nip").notEmpty().withMessage("NIP wajib diisi"),
-  body("username").notEmpty().withMessage("Username login wajib diisi"),
-  body("passwordDefault")
+  body("nip")
     .notEmpty()
-    .withMessage("Password default wajib diisi")
+    .withMessage("NIP wajib diisi")
     .isLength({ min: 6 })
-    .withMessage("Password default minimal 6 karakter"),
+    .withMessage("NIP minimal 6 karakter (untuk generate password)"),
+  // Username and password are auto-generated from NIP, so no validation needed
   body("email").optional().isEmail().withMessage("Format email tidak valid"),
   validationHandler,
 ];

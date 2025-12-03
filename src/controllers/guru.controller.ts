@@ -140,14 +140,13 @@ class GuruController {
         try {
           // Map excel columns to expected object structure
           // Assumes columns: NIP, Nama, Email, No HP, Mata Pelajaran (optional)
+          // Username and password are auto-generated from NIP in the service layer
           const guruData = {
             nip: row["NIP"]?.toString(),
             nama: row["Nama"],
             email: row["Email"],
             noHp: row["No HP"]?.toString(),
             mataPelajaran: row["Mata Pelajaran"],
-            username: row["NIP"]?.toString(), // Default username to NIP
-            password: row["NIP"]?.toString(), // Default password to NIP
           };
 
           if (guruData.nip && guruData.nama && guruData.email) {
