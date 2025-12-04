@@ -24,12 +24,7 @@ class DokumenRouter {
       this.dokumenController.create
     );
 
-    this.route.get(
-      "/",
-      authMiddleware,
-      adminGuard,
-      this.dokumenController.getAll
-    );
+    this.route.get("/", authMiddleware, this.dokumenController.getAll);
 
     this.route.delete(
       "/:id",
