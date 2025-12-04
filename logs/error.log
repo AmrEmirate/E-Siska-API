@@ -320,3 +320,39 @@ Foreign key constraint violated on the constraint: `Pengumuman_adminId_fkey` {"c
 2025-12-04 00:06:48 [ERROR]: Error in createJadwalService: [object Object]
 2025-12-04 00:06:48 [ERROR]: POST /api/jadwal: Penugasan Guru untuk Mapel dan Kelas ini tidak ditemukan. Harap buat penugasan terlebih dahulu. {"code":404,"message":"Penugasan Guru untuk Mapel dan Kelas ini tidak ditemukan. Harap buat penugasan terlebih dahulu.","isSuccess":false}
 2025-12-04 12:05:37 [ERROR]: POST /api/auth/signin: Akun tidak ditemukan {"code":404,"message":"Akun tidak ditemukan","isSuccess":false}
+2025-12-04 14:38:31 [ERROR]: Error delete tahun ajaran: 
+Invalid `prisma.tahunAjaran.delete()` invocation in
+C:\Dev 1\e-siska\e-siska-api\src\service\tahunAjaran.service.ts:129:34
+
+  126   );
+  127 }
+  128 
+→ 129 await prisma.tahunAjaran.delete(
+Foreign key constraint violated on the constraint: `PenempatanSiswa_tahunAjaranId_fkey`
+2025-12-04 14:38:31 [ERROR]: DELETE /api/tahun-ajaran/d99e1ef8-12bd-4fe6-b9ae-542d0eb8fb0d: 
+Invalid `prisma.tahunAjaran.delete()` invocation in
+C:\Dev 1\e-siska\e-siska-api\src\service\tahunAjaran.service.ts:129:34
+
+  126   );
+  127 }
+  128 
+→ 129 await prisma.tahunAjaran.delete(
+Foreign key constraint violated on the constraint: `PenempatanSiswa_tahunAjaranId_fkey` {"code":"P2003","meta":{"modelName":"TahunAjaran","constraint":"PenempatanSiswa_tahunAjaranId_fkey"},"clientVersion":"6.19.0","name":"PrismaClientKnownRequestError"}
+2025-12-04 14:38:49 [ERROR]: Error delete tahun ajaran: 
+Invalid `prisma.tahunAjaran.delete()` invocation in
+C:\Dev 1\e-siska\e-siska-api\src\service\tahunAjaran.service.ts:129:34
+
+  126   );
+  127 }
+  128 
+→ 129 await prisma.tahunAjaran.delete(
+Foreign key constraint violated on the constraint: `PenempatanSiswa_tahunAjaranId_fkey`
+2025-12-04 14:38:49 [ERROR]: DELETE /api/tahun-ajaran/d99e1ef8-12bd-4fe6-b9ae-542d0eb8fb0d: 
+Invalid `prisma.tahunAjaran.delete()` invocation in
+C:\Dev 1\e-siska\e-siska-api\src\service\tahunAjaran.service.ts:129:34
+
+  126   );
+  127 }
+  128 
+→ 129 await prisma.tahunAjaran.delete(
+Foreign key constraint violated on the constraint: `PenempatanSiswa_tahunAjaranId_fkey` {"code":"P2003","meta":{"modelName":"TahunAjaran","constraint":"PenempatanSiswa_tahunAjaranId_fkey"},"clientVersion":"6.19.0","name":"PrismaClientKnownRequestError"}

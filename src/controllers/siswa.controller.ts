@@ -114,34 +114,47 @@ class SiswaController {
       logger.info(`Importing ${data.length} siswa records`);
       let successCount = 0;
       let errorCount = 0;
+      const errors: string[] = [];
+
       for (const row of data as any[]) {
         try {
-          const siswaData = {
-            nisn: row["NISN"]?.toString(),
-            nama: row["Nama"],
-            email: row["Email"],
-            noHp: row["No HP"]?.toString(),
-            alamat: row["Alamat"],
-            jenisKelamin: row["Jenis Kelamin"],
-            username: row["NISN"]?.toString(), 
-            password: row["NISN"]?.toString(), 
-          };
-          if (siswaData.nisn && siswaData.nama && siswaData.email) {
-            await createSiswaService(siswaData);
-            successCount++;
-          } else {
+          const nisn = row["NISN"]?.toString() || row["nisn"]?.toString();
+          const nama = row["Nama"] || row["nama"] || row["NAMA"];
+
+          if (!nisn || !nama) {
             errorCount++;
-            logger.warn(`Skipping invalid row: ${JSON.stringify(row)}`);
+            errors.push(`Row skipped: NISN atau Nama kosong`);
+            continue;
           }
-        } catch (err) {
+
+          const siswaData = {
+            nisn: nisn,
+            nama: nama,
+            jenisKelamin:
+              row["Jenis Kelamin"] || row["JK"] || row["jenis_kelamin"] || "L",
+            agama: row["Agama"] || row["agama"],
+            tempatLahir: row["Tempat Lahir"] || row["tempat_lahir"],
+            tanggalLahir: row["Tanggal Lahir"] || row["tanggal_lahir"],
+            alamat: row["Alamat"] || row["alamat"],
+            nik: row["NIK"]?.toString() || row["nik"]?.toString(),
+            namaAyah: row["Nama Ayah"] || row["nama_ayah"],
+            namaIbu: row["Nama Ibu"] || row["nama_ibu"],
+            status: row["Status"] || "Aktif",
+          };
+
+          await createSiswaService(siswaData);
+          successCount++;
+        } catch (err: any) {
           errorCount++;
+          const errMsg = err.message || "Unknown error";
+          errors.push(`NISN ${row["NISN"] || "?"}: ${errMsg}`);
           logger.error(`Error importing row: ${JSON.stringify(row)} - ${err}`);
         }
       }
       res.status(200).send({
         success: true,
         message: `Import selesai. Berhasil: ${successCount}, Gagal: ${errorCount}`,
-        data: { successCount, errorCount },
+        data: { successCount, errorCount, errors: errors.slice(0, 10) },
       });
     } catch (error) {
       if (error instanceof Error) {

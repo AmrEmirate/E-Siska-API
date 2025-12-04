@@ -26,7 +26,7 @@ export const createSesiRepo = async (data: CreateSesiInput) => {
 export const findSesiByKelasRepo = async (kelasId: string) => {
   return await prisma.absensiSesi.findMany({
     where: { kelasId },
-    orderBy: { tanggal: "desc" },
+    orderBy: [{ tanggal: "desc" }, { pertemuanKe: "asc" }],
     include: {
       _count: {
         select: { Detail: true },

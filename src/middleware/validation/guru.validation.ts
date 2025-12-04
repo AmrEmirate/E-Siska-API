@@ -16,8 +16,22 @@ export const createGuruValidation = [
   body("nip")
     .notEmpty()
     .withMessage("NIP wajib diisi")
-    .isLength({ min: 6 })
-    .withMessage("NIP minimal 6 karakter (untuk generate password)"),
+    .isLength({ min: 18, max: 18 })
+    .withMessage("NIP harus tepat 18 digit")
+    .matches(/^\d+$/)
+    .withMessage("NIP harus berupa angka"),
+  body("nik")
+    .optional()
+    .isLength({ min: 16, max: 16 })
+    .withMessage("NIK harus tepat 16 digit")
+    .matches(/^\d+$/)
+    .withMessage("NIK harus berupa angka"),
+  body("nuptk")
+    .optional()
+    .isLength({ min: 16, max: 16 })
+    .withMessage("NUPTK harus tepat 16 digit")
+    .matches(/^\d+$/)
+    .withMessage("NUPTK harus berupa angka"),
   body("email").optional().isEmail().withMessage("Format email tidak valid"),
   validationHandler,
 ];

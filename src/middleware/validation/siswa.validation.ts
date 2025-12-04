@@ -18,8 +18,16 @@ export const createSiswaValidation = [
   body("nisn")
     .notEmpty()
     .withMessage("NISN wajib diisi")
-    .isLength({ min: 6 })
-    .withMessage("NISN harus memiliki minimal 6 digit"),
+    .isLength({ min: 10, max: 10 })
+    .withMessage("NISN harus tepat 10 digit")
+    .matches(/^\d+$/)
+    .withMessage("NISN harus berupa angka"),
+  body("nik")
+    .optional()
+    .isLength({ min: 16, max: 16 })
+    .withMessage("NIK harus tepat 16 digit")
+    .matches(/^\d+$/)
+    .withMessage("NIK harus berupa angka"),
   body("tanggalLahir")
     .optional()
     .isISO8601()

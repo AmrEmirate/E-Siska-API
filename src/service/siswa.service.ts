@@ -33,8 +33,8 @@ interface CreateSiswaServiceInput {
 export const createSiswaService = async (data: CreateSiswaServiceInput) => {
   const { nisn, nama, tanggalLahir, alamat } = data;
   const username = nisn;
-  if (nisn.length < 6) {
-    throw new AppError("NISN harus memiliki minimal 6 digit", 400);
+  if (nisn.length !== 10) {
+    throw new AppError("NISN harus tepat 10 digit", 400);
   }
   const defaultPassword = nisn.slice(-6);
   const passwordHash = await hashPassword(defaultPassword);
