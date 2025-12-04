@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express";
+﻿import { Request, Response, NextFunction } from "express";
 import {
   createJadwalService,
   getAllJadwalService,
@@ -7,12 +7,10 @@ import {
   deleteJadwalService,
 } from "../service/jadwal.service";
 import logger from "../utils/logger";
-
 class JadwalController {
   public async create(req: Request, res: Response, next: NextFunction) {
     try {
       const data = req.body;
-
       const result = await createJadwalService({
         tahunAjaranId: data.tahunAjaranId,
         kelasId: data.kelasId,
@@ -23,7 +21,6 @@ class JadwalController {
         waktuMulai: data.waktuMulai,
         waktuSelesai: data.waktuSelesai,
       });
-
       res.status(201).send({
         success: true,
         message: "Jadwal berhasil dibuat",
@@ -36,22 +33,17 @@ class JadwalController {
       next(error);
     }
   }
-
   public async getAll(req: Request, res: Response, next: NextFunction) {
     try {
       let { tahunAjaranId, kelasId, guruId } = req.query;
-
-      // Jika user adalah GURU, paksa filter berdasarkan guruId dari token
       if ((req as any).user?.role === "GURU") {
         guruId = (req as any).user?.guruId;
       }
-
       const result = await getAllJadwalService({
         tahunAjaranId: tahunAjaranId as string,
         kelasId: kelasId as string,
         guruId: guruId as string,
       });
-
       res.status(200).send({
         success: true,
         message: "Daftar jadwal berhasil diambil",
@@ -64,13 +56,10 @@ class JadwalController {
       next(error);
     }
   }
-
   public async getById(req: Request, res: Response, next: NextFunction) {
     try {
       const { id } = req.params;
-
       const result = await getJadwalByIdService(id);
-
       res.status(200).send({
         success: true,
         message: "Jadwal berhasil diambil",
@@ -83,14 +72,11 @@ class JadwalController {
       next(error);
     }
   }
-
   public async update(req: Request, res: Response, next: NextFunction) {
     try {
       const { id } = req.params;
       const data = req.body;
-
       const result = await updateJadwalService(id, data);
-
       res.status(200).send({
         success: true,
         message: "Jadwal berhasil diupdate",
@@ -103,13 +89,10 @@ class JadwalController {
       next(error);
     }
   }
-
   public async delete(req: Request, res: Response, next: NextFunction) {
     try {
       const { id } = req.params;
-
       const result = await deleteJadwalService(id);
-
       res.status(200).send({
         success: true,
         ...result,
@@ -122,5 +105,4 @@ class JadwalController {
     }
   }
 }
-
 export default JadwalController;

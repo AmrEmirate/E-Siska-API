@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express";
+﻿import { Request, Response, NextFunction } from "express";
 import {
   createGuruService,
   getAllGuruService,
@@ -7,16 +7,12 @@ import {
   deleteGuruService,
 } from "../service/guru.service";
 import logger from "../utils/logger";
-
 class GuruController {
   public async create(req: Request, res: Response, next: NextFunction) {
     try {
       const dataGuru = req.body;
-
       logger.info(`Mencoba membuat guru baru dengan NIP: ${dataGuru.nip}`);
-
       const result = await createGuruService(dataGuru);
-
       res.status(201).send({
         success: true,
         message: "Guru dan Akun berhasil dibuat",
@@ -29,19 +25,15 @@ class GuruController {
       next(error);
     }
   }
-
   public async getAll(req: Request, res: Response, next: NextFunction) {
     try {
       const page = parseInt(req.query.page as string) || 1;
       const limit = parseInt(req.query.limit as string) || 50;
       const search = (req.query.search as string) || "";
-
       logger.info(
         `Fetching all guru - Page: ${page}, Limit: ${limit}, Search: ${search}`
       );
-
       const result = await getAllGuruService(page, limit, search);
-
       res.status(200).send({
         success: true,
         message: "Data guru berhasil diambil",
@@ -54,15 +46,11 @@ class GuruController {
       next(error);
     }
   }
-
   public async getById(req: Request, res: Response, next: NextFunction) {
     try {
       const { id } = req.params;
-
       logger.info(`Fetching guru by ID: ${id}`);
-
       const result = await getGuruByIdService(id);
-
       res.status(200).send({
         success: true,
         message: "Data guru berhasil diambil",
@@ -75,16 +63,12 @@ class GuruController {
       next(error);
     }
   }
-
   public async update(req: Request, res: Response, next: NextFunction) {
     try {
       const { id } = req.params;
       const updateData = req.body;
-
       logger.info(`Updating guru: ${id}`);
-
       const result = await updateGuruService(id, updateData);
-
       res.status(200).send({
         success: true,
         message: "Data guru berhasil diupdate",
@@ -97,15 +81,11 @@ class GuruController {
       next(error);
     }
   }
-
   public async delete(req: Request, res: Response, next: NextFunction) {
     try {
       const { id } = req.params;
-
       logger.info(`Deleting guru: ${id}`);
-
       const result = await deleteGuruService(id);
-
       res.status(200).send({
         success: true,
         ...result,
@@ -117,7 +97,6 @@ class GuruController {
       next(error);
     }
   }
-
   public async importGuru(req: Request, res: Response, next: NextFunction) {
     try {
       if (!req.file) {
@@ -127,23 +106,16 @@ class GuruController {
         });
         return;
       }
-
       const xlsx = require("xlsx");
       const workbook = xlsx.read(req.file.buffer, { type: "buffer" });
       const sheetName = workbook.SheetNames[0];
       const worksheet = workbook.Sheets[sheetName];
       const data = xlsx.utils.sheet_to_json(worksheet);
-
       logger.info(`Importing ${data.length} guru records`);
-
       let successCount = 0;
       let errorCount = 0;
-
       for (const row of data as any[]) {
         try {
-          // Map excel columns to expected object structure
-          // Assumes columns: NIP, Nama, Email, No HP, Mata Pelajaran (optional)
-          // Username and password are auto-generated from NIP in the service layer
           const guruData = {
             nip: row["NIP"]?.toString(),
             nama: row["Nama"],
@@ -151,7 +123,6 @@ class GuruController {
             noHp: row["No HP"]?.toString(),
             mataPelajaran: row["Mata Pelajaran"],
           };
-
           if (guruData.nip && guruData.nama && guruData.email) {
             await createGuruService(guruData);
             successCount++;
@@ -164,7 +135,6 @@ class GuruController {
           logger.error(`Error importing row: ${JSON.stringify(row)} - ${err}`);
         }
       }
-
       res.status(200).send({
         success: true,
         message: `Import selesai. Berhasil: ${successCount}, Gagal: ${errorCount}`,
@@ -178,5 +148,4 @@ class GuruController {
     }
   }
 }
-
 export default GuruController;

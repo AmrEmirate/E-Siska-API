@@ -1,8 +1,7 @@
-import { createJadwalRepo } from "../repositories/jadwal.repository";
+﻿import { createJadwalRepo } from "../repositories/jadwal.repository";
 import logger from "../utils/logger";
 import AppError from "../utils/AppError";
 import { prisma } from "../config/prisma";
-
 interface CreateJadwalServiceInput {
   tahunAjaranId: string;
   kelasId: string;
@@ -13,12 +12,9 @@ interface CreateJadwalServiceInput {
   waktuMulai: string;
   waktuSelesai: string;
 }
-
 export const createJadwalService = async (data: CreateJadwalServiceInput) => {
   try {
     logger.info(`Mencoba membuat jadwal baru...`);
-
-    // Auto-create or ensure PenugasanGuru exists
     await prisma.penugasanGuru.upsert({
       where: {
         guruId_mapelId_kelasId: {
@@ -34,31 +30,25 @@ export const createJadwalService = async (data: CreateJadwalServiceInput) => {
         kelasId: data.kelasId,
       },
     });
-
     const [tahunAjaran, ruangan] = await Promise.all([
       prisma.tahunAjaran.findUnique({ where: { id: data.tahunAjaranId } }),
       prisma.ruangan.findUnique({ where: { id: data.ruanganId } }),
     ]);
-
     if (!tahunAjaran) throw new AppError("Tahun Ajaran tidak ditemukan", 404);
     if (!ruangan) throw new AppError("Ruangan tidak ditemukan", 404);
-
     const newJadwal = await createJadwalRepo(data);
-
     return newJadwal;
   } catch (error) {
     logger.error(`Error in createJadwalService: ${error}`);
     throw error;
   }
 };
-
 export const getAllJadwalService = async (filters?: {
   tahunAjaranId?: string;
   kelasId?: string;
   guruId?: string;
 }) => {
   logger.info("Fetching all jadwal");
-
   const jadwal = await prisma.jadwal.findMany({
     where: {
       ...(filters?.tahunAjaranId && { tahunAjaranId: filters.tahunAjaranId }),
@@ -78,13 +68,10 @@ export const getAllJadwalService = async (filters?: {
     },
     orderBy: [{ hari: "asc" }, { waktuMulai: "asc" }],
   });
-
   return jadwal;
 };
-
 export const getJadwalByIdService = async (id: string) => {
   logger.info(`Fetching jadwal: ${id}`);
-
   const jadwal = await prisma.jadwal.findUnique({
     where: { id },
     include: {
@@ -99,28 +86,22 @@ export const getJadwalByIdService = async (id: string) => {
       tahunAjaran: true,
     },
   });
-
   if (!jadwal) {
     throw new AppError("Jadwal tidak ditemukan", 404);
   }
-
   return jadwal;
 };
-
 export const updateJadwalService = async (
   id: string,
   data: Partial<CreateJadwalServiceInput>
 ) => {
   logger.info(`Updating jadwal: ${id}`);
-
   const jadwal = await prisma.jadwal.findUnique({
     where: { id },
   });
-
   if (!jadwal) {
     throw new AppError("Jadwal tidak ditemukan", 404);
   }
-
   const updated = await prisma.jadwal.update({
     where: { id },
     data: {
@@ -134,24 +115,18 @@ export const updateJadwalService = async (
       ...(data.waktuSelesai && { waktuSelesai: data.waktuSelesai }),
     },
   });
-
   return updated;
 };
-
 export const deleteJadwalService = async (id: string) => {
   logger.info(`Deleting jadwal: ${id}`);
-
   const jadwal = await prisma.jadwal.findUnique({
     where: { id },
   });
-
   if (!jadwal) {
     throw new AppError("Jadwal tidak ditemukan", 404);
   }
-
   await prisma.jadwal.delete({
     where: { id },
   });
-
   return { message: "Jadwal berhasil dihapus" };
 };

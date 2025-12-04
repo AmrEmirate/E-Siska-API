@@ -2,7 +2,8 @@ import { prisma } from "../config/prisma";
 
 export interface InputNilaiItem {
   siswaId: string;
-  nilai: number;
+  nilai?: number | null;
+  nilaiDeskripsi?: string | null;
 }
 
 export const upsertNilaiRepo = async (
@@ -23,6 +24,7 @@ export const upsertNilaiRepo = async (
         },
         update: {
           nilaiAngka: item.nilai,
+          nilaiDeskripsi: item.nilaiDeskripsi,
           guruId: guruId,
         },
         create: {
@@ -31,6 +33,7 @@ export const upsertNilaiRepo = async (
           komponenId: komponenId,
           guruId: guruId,
           nilaiAngka: item.nilai,
+          nilaiDeskripsi: item.nilaiDeskripsi,
         },
       })
     )

@@ -1091,3 +1091,298 @@
 2025-12-04 02:00:28 [INFO]: Fetching all tahun ajaran
 2025-12-04 02:00:28 [INFO]: GET /api/tahun-ajaran
 2025-12-04 02:00:29 [INFO]: Fetching all tahun ajaran
+2025-12-04 09:31:04 [INFO]: API Running: http://localhost:2020
+2025-12-04 09:31:17 [INFO]: POST /api/auth/signin
+2025-12-04 09:31:21 [INFO]: GET /api/siswa
+2025-12-04 09:31:21 [INFO]: Fetching all siswa - Page: 1, Limit: 1, Search: 
+2025-12-04 09:31:21 [INFO]: Fetching all siswa - Page: 1, Limit: 1, Search: 
+2025-12-04 09:31:23 [INFO]: GET /api/siswa
+2025-12-04 09:31:23 [INFO]: GET /api/guru
+2025-12-04 09:31:23 [INFO]: Fetching all siswa - Page: 1, Limit: 1, Search: 
+2025-12-04 09:31:23 [INFO]: Fetching all siswa - Page: 1, Limit: 1, Search: 
+2025-12-04 09:31:24 [INFO]: Fetching all guru - Page: 1, Limit: 1, Search: 
+2025-12-04 09:31:24 [INFO]: Fetching all guru - Page: 1, Limit: 1, Search: 
+2025-12-04 09:31:26 [INFO]: GET /api/guru
+2025-12-04 09:31:26 [INFO]: GET /api/tahun-ajaran
+2025-12-04 09:31:26 [INFO]: Fetching all guru - Page: 1, Limit: 1, Search: 
+2025-12-04 09:31:26 [INFO]: Fetching all guru - Page: 1, Limit: 1, Search: 
+2025-12-04 09:31:26 [INFO]: Fetching all tahun ajaran
+2025-12-04 09:31:27 [INFO]: GET /api/kelas
+2025-12-04 09:31:27 [INFO]: Fetching all kelas, search: 
+2025-12-04 09:31:28 [INFO]: GET /api/tahun-ajaran
+2025-12-04 09:31:28 [INFO]: Fetching all tahun ajaran
+2025-12-04 09:31:29 [INFO]: GET /api/kelas
+2025-12-04 09:31:29 [INFO]: Fetching all kelas, search: 
+2025-12-04 09:32:11 [INFO]: GET /api/mapel
+2025-12-04 09:32:11 [INFO]: GET /api/tahun-ajaran
+2025-12-04 09:32:11 [INFO]: GET /api/kelas
+2025-12-04 09:32:12 [INFO]: Fetching all mata pelajaran, search: 
+2025-12-04 09:32:12 [INFO]: Fetching all tahun ajaran
+2025-12-04 09:32:13 [INFO]: GET /api/mapel
+2025-12-04 09:32:13 [INFO]: GET /api/tahun-ajaran
+2025-12-04 09:32:13 [INFO]: Fetching all kelas, search: 
+2025-12-04 09:32:13 [INFO]: Fetching all mata pelajaran, search: 
+2025-12-04 09:32:13 [INFO]: Fetching all tahun ajaran
+2025-12-04 09:32:14 [INFO]: GET /api/kelas
+2025-12-04 09:32:14 [INFO]: Fetching all kelas, search: 
+2025-12-04 09:39:28 [INFO]: GET /api/kelas
+2025-12-04 09:39:30 [INFO]: Fetching all kelas, search: 
+2025-12-04 09:39:32 [INFO]: GET /api/kelas
+2025-12-04 09:39:32 [INFO]: GET /api/tahun-ajaran
+2025-12-04 09:39:32 [INFO]: GET /api/mapel
+2025-12-04 09:39:33 [INFO]: Fetching all kelas, search: 
+2025-12-04 09:39:34 [INFO]: Fetching all tahun ajaran
+2025-12-04 09:39:34 [INFO]: Fetching all mata pelajaran, search: 
+2025-12-04 09:39:34 [INFO]: GET /api/kelas
+2025-12-04 09:39:34 [INFO]: GET /api/tahun-ajaran
+2025-12-04 09:39:34 [INFO]: GET /api/mapel
+2025-12-04 09:39:34 [INFO]: Fetching all kelas, search: 
+2025-12-04 09:39:35 [INFO]: Fetching all tahun ajaran
+2025-12-04 09:39:35 [INFO]: Fetching all mata pelajaran, search: 
+2025-12-04 09:58:34 [INFO]: API Running: http://localhost:2020
+2025-12-04 10:15:09 [INFO]: API Running: http://localhost:2020
+2025-12-04 10:15:27 [INFO]: API Running: http://localhost:2020
+2025-12-04 10:15:44 [INFO]: API Running: http://localhost:2020
+2025-12-04 10:17:11 [INFO]: API Running: http://localhost:2020
+2025-12-04 10:20:23 [INFO]: API Running: http://localhost:2020
+2025-12-04 10:33:19 [INFO]: GET /api/kelas
+2025-12-04 10:33:19 [INFO]: GET /api/tahun-ajaran
+2025-12-04 10:33:19 [INFO]: GET /api/mapel
+2025-12-04 10:33:21 [INFO]: Fetching all kelas, search: 
+2025-12-04 10:33:22 [INFO]: Fetching all tahun ajaran
+2025-12-04 10:33:22 [INFO]: Fetching all mata pelajaran, search: 
+2025-12-04 10:33:22 [INFO]: GET /api/kelas
+2025-12-04 10:33:22 [INFO]: GET /api/mapel
+2025-12-04 10:33:22 [INFO]: GET /api/tahun-ajaran
+2025-12-04 10:33:23 [INFO]: Fetching all kelas, search: 
+2025-12-04 10:33:23 [INFO]: Fetching all mata pelajaran, search: 
+2025-12-04 10:33:23 [INFO]: Fetching all tahun ajaran
+2025-12-04 11:00:41 [INFO]: GET /api/kelas
+2025-12-04 11:00:41 [INFO]: GET /api/tahun-ajaran
+2025-12-04 11:00:41 [INFO]: GET /api/mapel
+2025-12-04 11:00:42 [INFO]: Fetching all mata pelajaran, search: 
+2025-12-04 11:00:42 [INFO]: Fetching all kelas, search: 
+2025-12-04 11:00:42 [INFO]: Fetching all tahun ajaran
+2025-12-04 11:01:42 [INFO]: API Running: http://localhost:2020
+2025-12-04 11:02:07 [INFO]: API Running: http://localhost:2020
+2025-12-04 11:02:51 [INFO]: API Running: http://localhost:2020
+2025-12-04 11:02:59 [INFO]: API Running: http://localhost:2020
+2025-12-04 11:09:26 [INFO]: API Running: http://localhost:2020
+2025-12-04 11:10:19 [INFO]: API Running: http://localhost:2020
+2025-12-04 11:25:34 [INFO]: API Running: http://localhost:2020
+2025-12-04 12:05:36 [INFO]: POST /api/auth/signin
+2025-12-04 12:05:44 [INFO]: POST /api/auth/signin
+2025-12-04 12:05:46 [INFO]: GET /api/siswa
+2025-12-04 12:05:46 [INFO]: Fetching all siswa - Page: 1, Limit: 1, Search: 
+2025-12-04 12:05:46 [INFO]: Fetching all siswa - Page: 1, Limit: 1, Search: 
+2025-12-04 12:05:48 [INFO]: GET /api/siswa
+2025-12-04 12:05:48 [INFO]: GET /api/guru
+2025-12-04 12:05:48 [INFO]: Fetching all siswa - Page: 1, Limit: 1, Search: 
+2025-12-04 12:05:48 [INFO]: Fetching all siswa - Page: 1, Limit: 1, Search: 
+2025-12-04 12:05:49 [INFO]: Fetching all guru - Page: 1, Limit: 1, Search: 
+2025-12-04 12:05:49 [INFO]: Fetching all guru - Page: 1, Limit: 1, Search: 
+2025-12-04 12:05:51 [INFO]: GET /api/guru
+2025-12-04 12:05:51 [INFO]: GET /api/tahun-ajaran
+2025-12-04 12:05:51 [INFO]: Fetching all guru - Page: 1, Limit: 1, Search: 
+2025-12-04 12:05:51 [INFO]: Fetching all guru - Page: 1, Limit: 1, Search: 
+2025-12-04 12:05:51 [INFO]: Fetching all tahun ajaran
+2025-12-04 12:05:52 [INFO]: GET /api/kelas
+2025-12-04 12:05:52 [INFO]: Fetching all kelas, search: 
+2025-12-04 12:05:53 [INFO]: GET /api/tahun-ajaran
+2025-12-04 12:05:53 [INFO]: Fetching all tahun ajaran
+2025-12-04 12:05:54 [INFO]: GET /api/kelas
+2025-12-04 12:05:54 [INFO]: Fetching all kelas, search: 
+2025-12-04 12:05:58 [INFO]: GET /api/siswa
+2025-12-04 12:05:58 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 
+2025-12-04 12:05:58 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 
+2025-12-04 12:06:00 [INFO]: GET /api/siswa
+2025-12-04 12:06:00 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 
+2025-12-04 12:06:00 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 
+2025-12-04 12:07:38 [INFO]: GET /api/kelas
+2025-12-04 12:07:38 [INFO]: GET /api/tahun-ajaran
+2025-12-04 12:07:38 [INFO]: GET /api/mapel
+2025-12-04 12:07:38 [INFO]: Fetching all tahun ajaran
+2025-12-04 12:07:38 [INFO]: Fetching all kelas, search: 
+2025-12-04 12:07:39 [INFO]: GET /api/tahun-ajaran
+2025-12-04 12:07:39 [INFO]: Fetching all mata pelajaran, search: 
+2025-12-04 12:07:39 [INFO]: GET /api/kelas
+2025-12-04 12:07:40 [INFO]: Fetching all tahun ajaran
+2025-12-04 12:07:40 [INFO]: GET /api/mapel
+2025-12-04 12:07:40 [INFO]: Fetching all kelas, search: 
+2025-12-04 12:07:40 [INFO]: Fetching all mata pelajaran, search: 
+2025-12-04 12:07:45 [INFO]: GET /api/penempatan
+2025-12-04 12:07:45 [INFO]: Fetching all penempatan
+2025-12-04 12:14:06 [INFO]: GET /api/kelas
+2025-12-04 12:14:06 [INFO]: GET /api/tahun-ajaran
+2025-12-04 12:14:06 [INFO]: GET /api/mapel
+2025-12-04 12:14:06 [INFO]: GET /api/penempatan
+2025-12-04 12:14:07 [INFO]: Fetching all kelas, search: 
+2025-12-04 12:14:07 [INFO]: Fetching all penempatan
+2025-12-04 12:14:07 [INFO]: Fetching all tahun ajaran
+2025-12-04 12:14:07 [INFO]: Fetching all mata pelajaran, search: 
+2025-12-04 12:27:16 [INFO]: GET /api/guru
+2025-12-04 12:27:18 [INFO]: Fetching all guru - Page: 1, Limit: 10, Search: 
+2025-12-04 12:27:18 [INFO]: Fetching all guru - Page: 1, Limit: 10, Search: 
+2025-12-04 12:27:19 [INFO]: GET /api/guru
+2025-12-04 12:27:20 [INFO]: Fetching all guru - Page: 1, Limit: 10, Search: 
+2025-12-04 12:27:20 [INFO]: Fetching all guru - Page: 1, Limit: 10, Search: 
+2025-12-04 12:29:15 [INFO]: GET /api/kelas
+2025-12-04 12:29:15 [INFO]: GET /api/guru
+2025-12-04 12:29:15 [INFO]: GET /api/tingkatan
+2025-12-04 12:29:15 [INFO]: Fetching all kelas, search: 
+2025-12-04 12:29:16 [INFO]: Fetching all guru - Page: 1, Limit: 100, Search: 
+2025-12-04 12:29:16 [INFO]: Fetching all guru - Page: 1, Limit: 100, Search: 
+2025-12-04 12:29:16 [INFO]: Fetching all tingkatan
+2025-12-04 12:29:16 [INFO]: GET /api/guru
+2025-12-04 12:29:16 [INFO]: GET /api/kelas
+2025-12-04 12:29:17 [INFO]: GET /api/tingkatan
+2025-12-04 12:29:17 [INFO]: Fetching all kelas, search: 
+2025-12-04 12:29:17 [INFO]: Fetching all tingkatan
+2025-12-04 12:29:17 [INFO]: Fetching all guru - Page: 1, Limit: 10, Search: 
+2025-12-04 12:29:17 [INFO]: Fetching all guru - Page: 1, Limit: 10, Search: 
+2025-12-04 12:29:18 [INFO]: GET /api/guru
+2025-12-04 12:29:18 [INFO]: Fetching all guru - Page: 1, Limit: 100, Search: 
+2025-12-04 12:29:18 [INFO]: Fetching all guru - Page: 1, Limit: 100, Search: 
+2025-12-04 12:29:19 [INFO]: GET /api/guru
+2025-12-04 12:29:19 [INFO]: Fetching all guru - Page: 1, Limit: 10, Search: 
+2025-12-04 12:29:19 [INFO]: Fetching all guru - Page: 1, Limit: 10, Search: 
+2025-12-04 12:29:28 [INFO]: GET /api/siswa
+2025-12-04 12:29:28 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 
+2025-12-04 12:29:28 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 
+2025-12-04 12:29:29 [INFO]: GET /api/siswa
+2025-12-04 12:29:30 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 
+2025-12-04 12:29:30 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 
+2025-12-04 13:27:07 [INFO]: GET /api/siswa
+2025-12-04 13:27:07 [INFO]: GET /api/siswa
+2025-12-04 13:27:09 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 
+2025-12-04 13:27:09 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 
+2025-12-04 13:27:09 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 
+2025-12-04 13:27:09 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 
+2025-12-04 13:27:10 [INFO]: GET /api/siswa
+2025-12-04 13:27:11 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 
+2025-12-04 13:27:11 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 
+2025-12-04 13:27:12 [INFO]: GET /api/siswa
+2025-12-04 13:27:13 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 
+2025-12-04 13:27:13 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 
+2025-12-04 13:55:48 [INFO]: GET /api/siswa
+2025-12-04 13:55:50 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 
+2025-12-04 13:55:50 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 
+2025-12-04 13:56:10 [INFO]: API Running: http://localhost:2020
+2025-12-04 13:59:31 [INFO]: GET /api/siswa
+2025-12-04 13:59:33 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 
+2025-12-04 13:59:33 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 
+2025-12-04 13:59:34 [INFO]: GET /api/siswa
+2025-12-04 13:59:35 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 
+2025-12-04 13:59:35 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 
+2025-12-04 13:59:37 [INFO]: GET /api/siswa
+2025-12-04 13:59:37 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 
+2025-12-04 13:59:37 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 
+2025-12-04 13:59:39 [INFO]: GET /api/siswa
+2025-12-04 13:59:39 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 
+2025-12-04 13:59:39 [INFO]: Fetching all siswa - Page: 1, Limit: 10, Search: 
+2025-12-04 13:59:46 [INFO]: GET /api/guru
+2025-12-04 13:59:47 [INFO]: Fetching all guru - Page: 1, Limit: 10, Search: 
+2025-12-04 13:59:47 [INFO]: Fetching all guru - Page: 1, Limit: 10, Search: 
+2025-12-04 13:59:49 [INFO]: GET /api/guru
+2025-12-04 13:59:49 [INFO]: Fetching all guru - Page: 1, Limit: 10, Search: 
+2025-12-04 13:59:49 [INFO]: Fetching all guru - Page: 1, Limit: 10, Search: 
+2025-12-04 14:00:17 [INFO]: GET /api/kelas
+2025-12-04 14:00:17 [INFO]: GET /api/guru
+2025-12-04 14:00:17 [INFO]: GET /api/tingkatan
+2025-12-04 14:00:17 [INFO]: Fetching all kelas, search: 
+2025-12-04 14:00:18 [INFO]: Fetching all guru - Page: 1, Limit: 100, Search: 
+2025-12-04 14:00:18 [INFO]: Fetching all guru - Page: 1, Limit: 100, Search: 
+2025-12-04 14:00:18 [INFO]: Fetching all tingkatan
+2025-12-04 14:00:18 [INFO]: GET /api/kelas
+2025-12-04 14:00:18 [INFO]: GET /api/tingkatan
+2025-12-04 14:00:19 [INFO]: Fetching all kelas, search: 
+2025-12-04 14:00:19 [INFO]: Fetching all tingkatan
+2025-12-04 14:00:19 [INFO]: GET /api/guru
+2025-12-04 14:00:20 [INFO]: Fetching all guru - Page: 1, Limit: 100, Search: 
+2025-12-04 14:00:20 [INFO]: Fetching all guru - Page: 1, Limit: 100, Search: 
+2025-12-04 14:00:22 [INFO]: GET /api/mapel
+2025-12-04 14:00:23 [INFO]: Fetching all mata pelajaran, search: 
+2025-12-04 14:00:23 [INFO]: GET /api/mapel
+2025-12-04 14:00:24 [INFO]: Fetching all mata pelajaran, search: 
+2025-12-04 14:00:26 [INFO]: GET /api/mapel
+2025-12-04 14:00:26 [INFO]: GET /api/jadwal
+2025-12-04 14:00:26 [INFO]: GET /api/kelas
+2025-12-04 14:00:26 [INFO]: GET /api/guru
+2025-12-04 14:00:26 [INFO]: GET /api/ruangan
+2025-12-04 14:00:26 [INFO]: GET /api/tahun-ajaran
+2025-12-04 14:00:26 [INFO]: Fetching all mata pelajaran, search: 
+2025-12-04 14:00:26 [INFO]: Fetching all jadwal
+2025-12-04 14:00:26 [INFO]: Fetching all kelas, search: 
+2025-12-04 14:00:27 [INFO]: GET /api/mapel
+2025-12-04 14:00:27 [INFO]: Fetching all tahun ajaran
+2025-12-04 14:00:27 [INFO]: Mencoba mengambil semua data ruangan
+2025-12-04 14:00:27 [INFO]: Fetching all guru - Page: 1, Limit: 100, Search: 
+2025-12-04 14:00:27 [INFO]: Fetching all guru - Page: 1, Limit: 100, Search: 
+2025-12-04 14:00:27 [INFO]: GET /api/kelas
+2025-12-04 14:00:27 [INFO]: Fetching all mata pelajaran, search: 
+2025-12-04 14:00:28 [INFO]: GET /api/tahun-ajaran
+2025-12-04 14:00:28 [INFO]: GET /api/ruangan
+2025-12-04 14:00:28 [INFO]: GET /api/mapel
+2025-12-04 14:00:28 [INFO]: GET /api/jadwal
+2025-12-04 14:00:28 [INFO]: Fetching all tahun ajaran
+2025-12-04 14:00:28 [INFO]: Fetching all kelas, search: 
+2025-12-04 14:00:28 [INFO]: Mencoba mengambil semua data ruangan
+2025-12-04 14:00:29 [INFO]: Fetching all mata pelajaran, search: 
+2025-12-04 14:00:29 [INFO]: GET /api/guru
+2025-12-04 14:00:29 [INFO]: Fetching all jadwal
+2025-12-04 14:00:29 [INFO]: GET /api/tahun-ajaran
+2025-12-04 14:00:29 [INFO]: GET /api/mapel
+2025-12-04 14:00:29 [INFO]: GET /api/kelas
+2025-12-04 14:00:29 [INFO]: Fetching all guru - Page: 1, Limit: 100, Search: 
+2025-12-04 14:00:29 [INFO]: Fetching all guru - Page: 1, Limit: 100, Search: 
+2025-12-04 14:00:29 [INFO]: Fetching all tahun ajaran
+2025-12-04 14:00:30 [INFO]: Fetching all mata pelajaran, search: 
+2025-12-04 14:00:30 [INFO]: Fetching all kelas, search: 
+2025-12-04 14:00:30 [INFO]: GET /api/tahun-ajaran
+2025-12-04 14:00:30 [INFO]: Fetching all tahun ajaran
+2025-12-04 14:00:31 [INFO]: GET /api/kelas
+2025-12-04 14:00:32 [INFO]: GET /api/pengumuman
+2025-12-04 14:00:32 [INFO]: Fetching all kelas, search: 
+2025-12-04 14:00:32 [INFO]: Fetching all pengumuman - Page: 1, Limit: 50, Search: 
+2025-12-04 14:00:33 [INFO]: GET /api/pengumuman
+2025-12-04 14:00:34 [INFO]: Fetching all pengumuman - Page: 1, Limit: 50, Search: 
+2025-12-04 14:00:40 [INFO]: GET /api/penempatan
+2025-12-04 14:00:40 [INFO]: GET /api/siswa
+2025-12-04 14:00:40 [INFO]: GET /api/kelas
+2025-12-04 14:00:40 [INFO]: GET /api/tahun-ajaran
+2025-12-04 14:00:40 [INFO]: Fetching all penempatan
+2025-12-04 14:00:40 [INFO]: Fetching all kelas, search: 
+2025-12-04 14:00:40 [INFO]: Fetching all siswa - Page: 1, Limit: 100, Search: 
+2025-12-04 14:00:40 [INFO]: Fetching all siswa - Page: 1, Limit: 100, Search: 
+2025-12-04 14:00:40 [INFO]: Fetching all tahun ajaran
+2025-12-04 14:00:41 [INFO]: GET /api/tahun-ajaran
+2025-12-04 14:00:41 [INFO]: GET /api/kelas
+2025-12-04 14:00:41 [INFO]: Fetching all tahun ajaran
+2025-12-04 14:00:42 [INFO]: GET /api/penempatan
+2025-12-04 14:00:42 [INFO]: GET /api/siswa
+2025-12-04 14:00:42 [INFO]: Fetching all kelas, search: 
+2025-12-04 14:00:42 [INFO]: Fetching all penempatan
+2025-12-04 14:00:42 [INFO]: Fetching all siswa - Page: 1, Limit: 100, Search: 
+2025-12-04 14:00:42 [INFO]: Fetching all siswa - Page: 1, Limit: 100, Search: 
+2025-12-04 14:01:20 [INFO]: GET /api/guru
+2025-12-04 14:01:20 [INFO]: GET /api/penugasan-guru
+2025-12-04 14:01:20 [INFO]: GET /api/kelas
+2025-12-04 14:01:20 [INFO]: GET /api/mapel
+2025-12-04 14:01:20 [INFO]: GET /api/tahun-ajaran
+2025-12-04 14:01:20 [INFO]: Fetching all penugasan
+2025-12-04 14:01:20 [INFO]: Fetching all tahun ajaran
+2025-12-04 14:01:20 [INFO]: Fetching all guru - Page: 1, Limit: 100, Search: 
+2025-12-04 14:01:20 [INFO]: Fetching all guru - Page: 1, Limit: 100, Search: 
+2025-12-04 14:01:20 [INFO]: Fetching all kelas, search: 
+2025-12-04 14:01:20 [INFO]: Fetching all mata pelajaran, search: 
+2025-12-04 14:01:21 [INFO]: GET /api/tahun-ajaran
+2025-12-04 14:01:21 [INFO]: GET /api/mapel
+2025-12-04 14:01:21 [INFO]: GET /api/kelas
+2025-12-04 14:01:21 [INFO]: Fetching all tahun ajaran
+2025-12-04 14:01:21 [INFO]: Fetching all mata pelajaran, search: 
+2025-12-04 14:01:22 [INFO]: GET /api/penugasan-guru
+2025-12-04 14:01:22 [INFO]: GET /api/guru
+2025-12-04 14:01:22 [INFO]: Fetching all kelas, search: 
+2025-12-04 14:01:22 [INFO]: Fetching all penugasan
+2025-12-04 14:01:22 [INFO]: Fetching all guru - Page: 1, Limit: 100, Search: 
+2025-12-04 14:01:22 [INFO]: Fetching all guru - Page: 1, Limit: 100, Search: 

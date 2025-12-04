@@ -55,6 +55,13 @@ class RaporRouter {
     );
 
     this.route.get(
+      "/siswa/:siswaId",
+      authMiddleware,
+      adminGuard,
+      this.raporController.getRaporBySiswaId
+    );
+
+    this.route.get(
       "/me",
       authMiddleware,
       siswaGuard,

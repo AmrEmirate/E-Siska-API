@@ -1,11 +1,10 @@
 import { Request, Response, NextFunction } from "express";
 import {
   createBackupService,
-  listBackupsService,
   restoreBackupService,
-  deleteBackupService,
 } from "../service/backup.service";
 import logger from "../utils/logger";
+import AppError from "../utils/AppError";
 
 class BackupController {
   public async create(req: Request, res: Response, next: NextFunction) {
@@ -13,11 +12,13 @@ class BackupController {
       logger.info("Admin requesting database backup");
 
       const result = await createBackupService();
+      const fileName = `backup-e-siska-${new Date()
+        .toISOString()
+        .replace(/[:.]/g, "-")}.json`;
 
-      res.status(200).send({
-        success: true,
-        ...result,
-      });
+      res.setHeader("Content-Type", "application/json");
+      res.setHeader("Content-Disposition", `attachment; filename=${fileName}`);
+      res.status(200).send(JSON.stringify(result, null, 2));
     } catch (error: unknown) {
       if (error instanceof Error) {
         logger.error(`Error creating backup: ${error.message}`);
@@ -26,37 +27,23 @@ class BackupController {
     }
   }
 
-  public async list(req: Request, res: Response, next: NextFunction) {
-    try {
-      const result = await listBackupsService();
-
-      res.status(200).send({
-        success: true,
-        message: "Daftar backup berhasil diambil",
-        data: result,
-      });
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        logger.error(`Error listing backups: ${error.message}`);
-      }
-      next(error);
-    }
-  }
-
   public async restore(req: Request, res: Response, next: NextFunction) {
     try {
-      const { filename } = req.body;
-
-      if (!filename) {
-        return res.status(400).send({
-          success: false,
-          message: "Filename harus disertakan",
-        });
+      if (!req.file) {
+        throw new AppError("File backup tidak ditemukan", 400);
       }
 
-      logger.warn(`Admin requesting database restore from: ${filename}`);
+      logger.warn("Admin requesting database restore");
 
-      const result = await restoreBackupService(filename);
+      let backupData;
+      try {
+        const fileContent = req.file.buffer.toString("utf-8");
+        backupData = JSON.parse(fileContent);
+      } catch (error) {
+        throw new AppError("Format file backup tidak valid (harus JSON)", 400);
+      }
+
+      const result = await restoreBackupService(backupData);
 
       res.status(200).send({
         success: true,
@@ -65,24 +52,6 @@ class BackupController {
     } catch (error: unknown) {
       if (error instanceof Error) {
         logger.error(`Error restoring backup: ${error.message}`);
-      }
-      next(error);
-    }
-  }
-
-  public async delete(req: Request, res: Response, next: NextFunction) {
-    try {
-      const { filename } = req.params;
-
-      const result = await deleteBackupService(filename);
-
-      res.status(200).send({
-        success: true,
-        ...result,
-      });
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        logger.error(`Error deleting backup: ${error.message}`);
       }
       next(error);
     }

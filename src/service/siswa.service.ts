@@ -1,4 +1,4 @@
-import { UserRole } from "../generated/prisma";
+﻿import { UserRole } from "../generated/prisma";
 import { prisma } from "../config/prisma";
 import {
   createSiswaRepo,
@@ -10,7 +10,6 @@ import {
 import AppError from "../utils/AppError";
 import { hashPassword } from "../utils/hashPassword";
 import logger from "../utils/logger";
-
 interface CreateSiswaServiceInput {
   nisn: string;
   nama: string;
@@ -31,19 +30,15 @@ interface CreateSiswaServiceInput {
   status?: string;
   nik?: string;
 }
-
 export const createSiswaService = async (data: CreateSiswaServiceInput) => {
   const { nisn, nama, tanggalLahir, alamat } = data;
-
   const username = nisn;
   if (nisn.length < 6) {
     throw new AppError("NISN harus memiliki minimal 6 digit", 400);
   }
   const defaultPassword = nisn.slice(-6);
-
   const passwordHash = await hashPassword(defaultPassword);
   logger.info(`Password default dibuat untuk NISN: ${nisn}`);
-
   const repoInput = {
     nisn,
     nama,
@@ -67,12 +62,9 @@ export const createSiswaService = async (data: CreateSiswaServiceInput) => {
     passwordHash,
     role: UserRole.SISWA,
   };
-
   const newSiswaData = await createSiswaRepo(repoInput);
-
   return newSiswaData;
 };
-
 export const getAllSiswaService = async (
   page: number = 1,
   limit: number = 50,
@@ -80,14 +72,10 @@ export const getAllSiswaService = async (
 ) => {
   const skip = (page - 1) * limit;
   const take = limit;
-
   logger.info(
     `Fetching all siswa - Page: ${page}, Limit: ${limit}, Search: ${search}`
   );
-
   const students = await getAllSiswaRepo(skip, take, search);
-
-  // Count total with search filter
   const whereClause: any = { deletedAt: null };
   if (search) {
     whereClause.OR = [
@@ -96,7 +84,6 @@ export const getAllSiswaService = async (
     ];
   }
   const total = await prisma.siswa.count({ where: whereClause });
-
   return {
     data: students,
     pagination: {
@@ -107,19 +94,14 @@ export const getAllSiswaService = async (
     },
   };
 };
-
 export const getSiswaByIdService = async (id: string) => {
   logger.info(`Fetching siswa by ID: ${id}`);
-
   const siswa = await getSiswaByIdRepo(id);
-
   if (!siswa) {
     throw new AppError("Siswa tidak ditemukan", 404);
   }
-
   return siswa;
 };
-
 interface UpdateSiswaServiceInput {
   nisn?: string;
   nama?: string;
@@ -140,22 +122,18 @@ interface UpdateSiswaServiceInput {
   status?: string;
   nik?: string;
 }
-
 export const updateSiswaService = async (
   id: string,
   data: UpdateSiswaServiceInput
 ) => {
   logger.info(`Updating siswa: ${id}`);
-
   const existingSiswa = await getSiswaByIdRepo(id);
   if (!existingSiswa) {
     throw new AppError("Siswa tidak ditemukan", 404);
   }
-
   const updateData: any = {};
   if (data.nisn && data.nisn !== existingSiswa.nisn) {
     updateData.nisn = data.nisn;
-    // Sync username and password with new NISN
     updateData.username = data.nisn;
     const passwordToHash = data.nisn.slice(-6);
     updateData.passwordHash = await hashPassword(passwordToHash);
@@ -165,7 +143,6 @@ export const updateSiswaService = async (
   } else if (data.nisn) {
     updateData.nisn = data.nisn;
   }
-
   if (data.nama) updateData.nama = data.nama;
   if (data.jenisKelamin) updateData.jenisKelamin = data.jenisKelamin;
   if (data.agama) updateData.agama = data.agama;
@@ -184,25 +161,18 @@ export const updateSiswaService = async (
   if (data.alamatWali) updateData.alamatWali = data.alamatWali;
   if (data.status) updateData.status = data.status;
   if (data.nik) updateData.nik = data.nik;
-
   const updatedSiswa = await updateSiswaRepo(id, updateData);
-
   logger.info(
     `Siswa updated: ${id}, updatedAt: ${updatedSiswa.user.updatedAt}`
   );
-
   return updatedSiswa;
 };
-
 export const deleteSiswaService = async (id: string) => {
   logger.info(`Deleting siswa: ${id}`);
-
   const existingSiswa = await getSiswaByIdRepo(id);
   if (!existingSiswa) {
     throw new AppError("Siswa tidak ditemukan", 404);
   }
-
   await deleteSiswaRepo(id);
-
   return { message: "Siswa berhasil dihapus" };
 };

@@ -1,6 +1,7 @@
 import { Router } from "express";
 import BackupController from "../controllers/backup.controller";
 import { authMiddleware, adminGuard } from "../middleware/auth.middleware";
+import { uploaderMemory } from "../middleware/uploader";
 
 class BackupRouter {
   private route: Router;
@@ -13,27 +14,19 @@ class BackupRouter {
   }
 
   private initializeRoute(): void {
-    this.route.post(
-      "/create",
+    this.route.get(
+      "/download",
       authMiddleware,
       adminGuard,
       this.backupController.create
     );
 
-    this.route.get("/", authMiddleware, adminGuard, this.backupController.list);
-
     this.route.post(
       "/restore",
       authMiddleware,
       adminGuard,
+      uploaderMemory(50 * 1024 * 1024).single("file"),
       this.backupController.restore
-    );
-
-    this.route.delete(
-      "/:filename",
-      authMiddleware,
-      adminGuard,
-      this.backupController.delete
     );
   }
 

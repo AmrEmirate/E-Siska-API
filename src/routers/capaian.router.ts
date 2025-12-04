@@ -21,6 +21,19 @@ class CapaianRouter {
       inputCapaianValidation,
       this.capaianController.inputCapaian
     );
+
+    this.route.get(
+      "/",
+      authMiddleware,
+      guruGuard,
+      this.capaianController.getCapaian
+    );
+
+    this.route.get(
+      "/siswa/:siswaId",
+      authMiddleware,
+      this.capaianController.getCapaianBySiswaId
+    );
   }
 
   public getRouter(): Router {

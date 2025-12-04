@@ -18,11 +18,7 @@ class AbsensiRouter {
   }
 
   private initializeRoute(): void {
-    this.route.get(
-      "/",
-      authMiddleware,
-      this.absensiController.getAbsensiByStudent
-    );
+    this.route.get("/", authMiddleware, this.absensiController.getAbsensi);
 
     this.route.post(
       "/sesi",

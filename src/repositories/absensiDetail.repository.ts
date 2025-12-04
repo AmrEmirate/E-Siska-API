@@ -51,3 +51,26 @@ export const findAbsensiBySiswaRepo = async (siswaId: string) => {
     },
   });
 };
+
+export const findAbsensiByKelasRepo = async (kelasId: string) => {
+  return prisma.absensiDetail.findMany({
+    where: {
+      sesi: {
+        kelasId: kelasId,
+      },
+    },
+    include: {
+      siswa: true,
+      sesi: {
+        include: {
+          kelas: true,
+        },
+      },
+    },
+    orderBy: {
+      sesi: {
+        tanggal: "desc",
+      },
+    },
+  });
+};

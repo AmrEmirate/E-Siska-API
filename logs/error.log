@@ -319,3 +319,4 @@ Foreign key constraint violated on the constraint: `Pengumuman_adminId_fkey` {"c
 2025-12-04 00:06:47 [ERROR]: POST /api/jadwal: Penugasan Guru untuk Mapel dan Kelas ini tidak ditemukan. Harap buat penugasan terlebih dahulu. {"code":404,"message":"Penugasan Guru untuk Mapel dan Kelas ini tidak ditemukan. Harap buat penugasan terlebih dahulu.","isSuccess":false}
 2025-12-04 00:06:48 [ERROR]: Error in createJadwalService: [object Object]
 2025-12-04 00:06:48 [ERROR]: POST /api/jadwal: Penugasan Guru untuk Mapel dan Kelas ini tidak ditemukan. Harap buat penugasan terlebih dahulu. {"code":404,"message":"Penugasan Guru untuk Mapel dan Kelas ini tidak ditemukan. Harap buat penugasan terlebih dahulu.","isSuccess":false}
+2025-12-04 12:05:37 [ERROR]: POST /api/auth/signin: Akun tidak ditemukan {"code":404,"message":"Akun tidak ditemukan","isSuccess":false}

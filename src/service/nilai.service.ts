@@ -17,7 +17,11 @@ interface InputNilaiServiceInput {
   guruId: string;
   mapelId: string;
   komponenId: string;
-  data: { siswaId: string; nilai: number }[];
+  data: {
+    siswaId: string;
+    nilai?: number | null;
+    nilaiDeskripsi?: string | null;
+  }[];
 }
 
 export const inputNilaiService = async (input: InputNilaiServiceInput) => {
@@ -81,14 +85,30 @@ export const getNilaiKelasService = async (
   mapelId: string
 ) => {
   const { students, grades } = await getNilaiKelasRepo(kelasId, mapelId);
+  const mapel = await prisma.mataPelajaran.findUnique({
+    where: { id: mapelId },
+  });
+  const isEkskul = mapel?.kategori === "EKSTRAKURIKULER";
 
   const formattedData = students.map((p) => {
     const studentGrades = grades.filter((g) => g.siswaId === p.siswaId);
 
-    const gradesMap: Record<string, number> = {};
+    const gradesMap: Record<string, number | string> = {};
     studentGrades.forEach((g) => {
-      if (g.komponenId && g.nilaiAngka !== null) {
-        gradesMap[g.komponenId] = g.nilaiAngka;
+      if (g.komponenId) {
+        if (isEkskul) {
+          if (g.nilaiDeskripsi !== null) {
+            gradesMap[g.komponenId] = g.nilaiDeskripsi;
+          } else if (g.nilaiAngka !== null) {
+            gradesMap[g.komponenId] = g.nilaiAngka;
+          }
+        } else {
+          if (g.nilaiAngka !== null) {
+            gradesMap[g.komponenId] = g.nilaiAngka;
+          } else if (g.nilaiDeskripsi !== null) {
+            gradesMap[g.komponenId] = g.nilaiDeskripsi;
+          }
+        }
       }
     });
 
@@ -123,6 +143,7 @@ export const getMyGradesService = async (siswaId: string) => {
       komponen: g.komponen?.namaKomponen || "Unknown",
       tipe: g.komponen?.tipe,
       nilai: g.nilaiAngka,
+      nilaiDeskripsi: g.nilaiDeskripsi,
       guru: g.guru.nama,
     });
   });

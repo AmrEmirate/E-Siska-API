@@ -3,7 +3,10 @@ import {
   findSesiByKelasRepo,
   findSesiByIdRepo,
 } from "../repositories/absensi.repository";
-import { findAbsensiBySiswaRepo } from "../repositories/absensiDetail.repository";
+import {
+  findAbsensiBySiswaRepo,
+  findAbsensiByKelasRepo,
+} from "../repositories/absensiDetail.repository";
 import { getKelasByIdWithStudentsRepo } from "../repositories/kelas.repository";
 import logger from "../utils/logger";
 import AppError from "../utils/AppError";
@@ -116,5 +119,20 @@ export const getAbsensiByStudentService = async (siswaId: string) => {
     tanggal: a.sesi.tanggal,
     status: a.status,
     kelas: a.sesi.kelas,
+  }));
+};
+
+export const getAbsensiByKelasService = async (kelasId: string) => {
+  logger.info(`Fetching absensi for class: ${kelasId}`);
+  const absensi = await findAbsensiByKelasRepo(kelasId);
+
+  return absensi.map((a) => ({
+    id: a.id,
+    siswaId: a.siswaId,
+    kelasId: a.sesi.kelasId,
+    tanggal: a.sesi.tanggal,
+    status: a.status,
+    kelas: a.sesi.kelas,
+    siswa: a.siswa,
   }));
 };

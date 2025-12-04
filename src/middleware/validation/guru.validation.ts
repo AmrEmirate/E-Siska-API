@@ -1,6 +1,5 @@
-import { NextFunction, Request, Response } from "express";
+﻿import { NextFunction, Request, Response } from "express";
 import { body, validationResult } from "express-validator";
-
 const validationHandler = (req: Request, res: Response, next: NextFunction) => {
   try {
     const errorValidation = validationResult(req);
@@ -12,7 +11,6 @@ const validationHandler = (req: Request, res: Response, next: NextFunction) => {
     next(error);
   }
 };
-
 export const createGuruValidation = [
   body("nama").notEmpty().withMessage("Nama guru wajib diisi"),
   body("nip")
@@ -20,7 +18,6 @@ export const createGuruValidation = [
     .withMessage("NIP wajib diisi")
     .isLength({ min: 6 })
     .withMessage("NIP minimal 6 karakter (untuk generate password)"),
-  // Username and password are auto-generated from NIP, so no validation needed
   body("email").optional().isEmail().withMessage("Format email tidak valid"),
   validationHandler,
 ];
