@@ -29,14 +29,21 @@ export const createKelasService = async (data: CreateKelasServiceInput) => {
   if (data.waliKelasId) {
     const guru = await prisma.guru.findUnique({
       where: { id: data.waliKelasId },
+      include: { user: true },
     });
     if (!guru) {
       throw new AppError("Guru (calon Wali Kelas) tidak ditemukan", 404);
     }
+
+    if (guru.userId) {
+      await prisma.user.update({
+        where: { id: guru.userId },
+        data: { isWaliKelas: true },
+      });
+    }
   }
 
   const newKelas = await createKelasRepo(data);
-
   return newKelas;
 };
 
@@ -46,12 +53,43 @@ export const updateKelasService = async (
 ) => {
   logger.info(`Mencoba update kelas: ${id}`);
 
+  const existingKelas = await prisma.kelas.findUnique({
+    where: { id },
+    include: { waliKelas: { include: { user: true } } },
+  });
+
   if (data.waliKelasId) {
-    const guru = await prisma.guru.findUnique({
+    const newGuru = await prisma.guru.findUnique({
       where: { id: data.waliKelasId },
+      include: { user: true },
     });
-    if (!guru) {
+    if (!newGuru) {
       throw new AppError("Guru (calon Wali Kelas) tidak ditemukan", 404);
+    }
+
+    if (
+      existingKelas?.waliKelas?.userId &&
+      existingKelas.waliKelasId !== data.waliKelasId
+    ) {
+      const stillWali = await prisma.kelas.findFirst({
+        where: {
+          waliKelasId: existingKelas.waliKelasId,
+          id: { not: id },
+        },
+      });
+      if (!stillWali) {
+        await prisma.user.update({
+          where: { id: existingKelas.waliKelas.userId },
+          data: { isWaliKelas: false },
+        });
+      }
+    }
+
+    if (newGuru.userId) {
+      await prisma.user.update({
+        where: { id: newGuru.userId },
+        data: { isWaliKelas: true },
+      });
     }
   }
 

@@ -5,5 +5,10 @@ export const findUserByUsernameRepo = async (username: string) => {
     where: {
       username: username,
     },
+    include: {
+      guru: true,
+      siswa: true,
+      admin: true,
+    },
   });
 };
