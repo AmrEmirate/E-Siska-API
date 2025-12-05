@@ -1,0 +1,20 @@
+2025-12-05 15:42:46 [ERROR]: Error restoring backup: 
+Invalid `prisma.user.deleteMany()` invocation:
+
+
+Transaction API error: Transaction not found. Transaction ID is invalid, refers to an old closed transaction Prisma doesn't have information about anymore, or was obtained before disconnecting.
+2025-12-05 15:42:46 [ERROR]: POST /api/backup/restore: 
+Invalid `prisma.user.deleteMany()` invocation:
+
+
+Transaction API error: Transaction not found. Transaction ID is invalid, refers to an old closed transaction Prisma doesn't have information about anymore, or was obtained before disconnecting. {"code":"P2028","meta":{"modelName":"User","error":"Transaction not found. Transaction ID is invalid, refers to an old closed transaction Prisma doesn't have information about anymore, or was obtained before disconnecting."},"clientVersion":"6.19.0","name":"PrismaClientKnownRequestError"}
+2025-12-05 15:45:39 [ERROR]: Error restoring backup: 
+Invalid `prisma.user.deleteMany()` invocation:
+
+
+Transaction API error: Transaction not found. Transaction ID is invalid, refers to an old closed transaction Prisma doesn't have information about anymore, or was obtained before disconnecting.
+2025-12-05 15:45:39 [ERROR]: POST /api/backup/restore: 
+Invalid `prisma.user.deleteMany()` invocation:
+
+
+Transaction API error: Transaction not found. Transaction ID is invalid, refers to an old closed transaction Prisma doesn't have information about anymore, or was obtained before disconnecting. {"code":"P2028","meta":{"modelName":"User","error":"Transaction not found. Transaction ID is invalid, refers to an old closed transaction Prisma doesn't have information about anymore, or was obtained before disconnecting."},"clientVersion":"6.19.0","name":"PrismaClientKnownRequestError"}

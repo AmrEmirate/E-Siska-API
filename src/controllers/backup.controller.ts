@@ -34,12 +34,16 @@ class BackupController {
       }
 
       logger.warn("Admin requesting database restore");
+      logger.info(`File received: ${req.file.originalname}, size: ${req.file.size} bytes`);
 
       let backupData;
       try {
         const fileContent = req.file.buffer.toString("utf-8");
+        logger.info(`File content length: ${fileContent.length} characters`);
         backupData = JSON.parse(fileContent);
-      } catch (error) {
+        logger.info(`Parsed backup data, timestamp: ${backupData.timestamp}, version: ${backupData.version}`);
+      } catch (parseError: any) {
+        logger.error(`JSON parse error: ${parseError.message}`);
         throw new AppError("Format file backup tidak valid (harus JSON)", 400);
       }
 
@@ -49,11 +53,16 @@ class BackupController {
         success: true,
         ...result,
       });
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        logger.error(`Error restoring backup: ${error.message}`);
-      }
-      next(error);
+    } catch (error: any) {
+      logger.error(`Error restoring backup: ${error.message}`);
+      logger.error(`Error stack: ${error.stack}`);
+      
+      // Return detailed error to frontend
+      res.status(error.statusCode || 500).send({
+        success: false,
+        message: error.message || "Gagal restore database",
+        error: process.env.NODE_ENV === 'development' ? error.stack : undefined
+      });
     }
   }
 }
