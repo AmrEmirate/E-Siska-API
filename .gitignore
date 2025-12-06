@@ -5,3 +5,12 @@ node_modules
 /src/generated/prisma
 dist
 
+# Seed and utility files (local development only)
+prisma/seed.ts
+prisma/seed-admin.ts
+prisma/check-data.ts
+prisma/test-db.ts
+
+# Logs
+logs/
+*.log
