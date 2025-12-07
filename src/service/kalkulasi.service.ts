@@ -45,10 +45,27 @@ export const calculateGradesService = async (
     });
 
     for (const comp of readOnlyComponents) {
-      if (!comp.formula) continue;
-
       try {
-        const result = math.evaluate(comp.formula, scope);
+        let result: number;
+
+        if (comp.formula) {
+          // Use explicit formula if set
+          result = math.evaluate(comp.formula, scope);
+        } else {
+          // Default: calculate average of all INPUT components with values
+          const inputComponents = components.filter(
+            (c) => c.tipe === NilaiKomponenType.INPUT
+          );
+          const values = inputComponents
+            .map((c) => scope[c.namaKomponen])
+            .filter((v) => v !== undefined && v !== null && v !== 0);
+
+          if (values.length === 0) {
+            continue; // Skip if no input values yet
+          }
+
+          result = values.reduce((a, b) => a + b, 0) / values.length;
+        }
 
         scope[comp.namaKomponen] = Number(result);
 
@@ -59,9 +76,9 @@ export const calculateGradesService = async (
         });
       } catch (error) {
         logger.error(
-          `Gagal menghitung rumus '${comp.formula}' untuk siswa ${siswaId}: ${
-            (error as Error).message
-          }`
+          `Gagal menghitung rumus '${
+            comp.formula || "rata-rata otomatis"
+          }' untuk siswa ${siswaId}: ${(error as Error).message}`
         );
       }
     }
