@@ -104,26 +104,42 @@ export const generateRaporService = async (input: GenerateRaporInput) => {
 
   const mapelMap = new Map();
 
+  // Group nilai by mapel and calculate average
   nilaiData.nilaiDetails.forEach((n) => {
     const mapelName = n.mapel.namaMapel;
     if (!mapelMap.has(mapelName)) {
       mapelMap.set(mapelName, {
         kkm: 75,
+        nilaiList: [],
         nilaiAkhir: 0,
         predikat: "",
         deskripsi: "",
       });
     }
 
-    if (
-      n.komponen?.namaKomponen === "Nilai Akhir" ||
-      (n.komponen?.tipe === "READ_ONLY" && n.nilaiAngka)
-    ) {
-      const current = mapelMap.get(mapelName);
-      current.nilaiAkhir = n.nilaiAngka || 0;
-      current.predikat =
-        current.nilaiAkhir >= 90 ? "A" : current.nilaiAkhir >= 80 ? "B" : "C";
+    // Collect all numeric grades
+    if (n.nilaiAngka !== null && n.nilaiAngka !== undefined) {
+      mapelMap.get(mapelName).nilaiList.push(n.nilaiAngka);
     }
+  });
+
+  // Calculate average for each mapel
+  mapelMap.forEach((value, key) => {
+    if (value.nilaiList.length > 0) {
+      const avg =
+        value.nilaiList.reduce((a: number, b: number) => a + b, 0) /
+        value.nilaiList.length;
+      value.nilaiAkhir = Math.round(avg);
+      value.predikat =
+        value.nilaiAkhir >= 90
+          ? "A"
+          : value.nilaiAkhir >= 80
+          ? "B"
+          : value.nilaiAkhir >= 70
+          ? "C"
+          : "D";
+    }
+    delete value.nilaiList; // Clean up temp data
   });
 
   nilaiData.capaianDetails.forEach((c) => {});
