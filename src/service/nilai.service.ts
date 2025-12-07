@@ -251,62 +251,33 @@ export const getNilaiByKelasOnlyService = async (kelasId: string) => {
     include: {
       siswa: true,
       mapel: true,
-      komponen: {
-        include: {
-          skema: true,
-        },
-      },
+      komponen: true,
     },
     orderBy: [{ siswa: { nama: "asc" } }, { mapel: { namaMapel: "asc" } }],
   });
 
-  // Group by student
-  const studentGrades: Record<string, any> = {};
-
-  penempatan.forEach((p) => {
-    studentGrades[p.siswaId] = {
-      siswaId: p.siswaId,
-      nisn: p.siswa.nisn,
-      nama: p.siswa.nama,
-      subjects: {} as Record<string, any>,
-    };
-  });
-
-  allGrades.forEach((grade) => {
-    const studentId = grade.siswaId;
-    const mapelName = grade.mapel.namaMapel;
-
-    if (!studentGrades[studentId].subjects[mapelName]) {
-      studentGrades[studentId].subjects[mapelName] = {
-        mapel: mapelName,
-        kategori: grade.mapel.kategori,
-        components: [],
-        average: null,
-      };
-    }
-
-    studentGrades[studentId].subjects[mapelName].components.push({
-      komponen: grade.komponen?.namaKomponen || "Unknown",
-      tipe: grade.komponen?.tipe,
-      nilai: grade.nilaiAngka,
-      nilaiDeskripsi: grade.nilaiDeskripsi,
-    });
-  });
-
-  // Calculate averages for each subject
-  Object.values(studentGrades).forEach((student: any) => {
-    Object.values(student.subjects).forEach((subject: any) => {
-      const numericGrades = subject.components
-        .filter((c: any) => c.nilai !== null && c.tipe === "READ_ONLY")
-        .map((c: any) => c.nilai);
-
-      if (numericGrades.length > 0) {
-        subject.average =
-          numericGrades.reduce((a: number, b: number) => a + b, 0) /
-          numericGrades.length;
-      }
-    });
-  });
-
-  return Object.values(studentGrades);
+  // Return flat array format matching frontend expectations
+  return allGrades.map((grade) => ({
+    siswaId: grade.siswaId,
+    siswa: {
+      id: grade.siswa.id,
+      nisn: grade.siswa.nisn,
+      nama: grade.siswa.nama,
+    },
+    mapelId: grade.mapelId,
+    mapel: {
+      id: grade.mapel.id,
+      namaMapel: grade.mapel.namaMapel,
+    },
+    komponenId: grade.komponenId,
+    komponen: grade.komponen
+      ? {
+          id: grade.komponen.id,
+          namaKomponen: grade.komponen.namaKomponen,
+          tipe: grade.komponen.tipe,
+        }
+      : null,
+    nilai: grade.nilaiAngka,
+    nilaiDeskripsi: grade.nilaiDeskripsi,
+  }));
 };
