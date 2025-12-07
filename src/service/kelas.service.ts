@@ -98,7 +98,87 @@ export const updateKelasService = async (
 
 export const deleteKelasService = async (id: string) => {
   logger.info(`Mencoba hapus kelas: ${id}`);
-  return await deleteKelasRepo(id);
+
+  // Cek apakah kelas ada
+  const existingKelas = await prisma.kelas.findUnique({
+    where: { id },
+    include: { waliKelas: { include: { user: true } } },
+  });
+
+  if (!existingKelas) {
+    throw new AppError("Kelas tidak ditemukan", 404);
+  }
+
+  // Hapus data terkait terlebih dahulu (dalam transaction)
+  await prisma.$transaction(async (tx) => {
+    // 1. Hapus AbsensiDetail yang terhubung melalui AbsensiSesi
+    await tx.absensiDetail.deleteMany({
+      where: {
+        sesi: {
+          kelasId: id,
+        },
+      },
+    });
+
+    // 2. Hapus AbsensiSesi
+    await tx.absensiSesi.deleteMany({
+      where: { kelasId: id },
+    });
+
+    // 3. Hapus NilaiRaporAkhir yang terhubung melalui Rapor
+    await tx.nilaiRaporAkhir.deleteMany({
+      where: {
+        rapor: {
+          kelasId: id,
+        },
+      },
+    });
+
+    // 4. Hapus Rapor
+    await tx.rapor.deleteMany({
+      where: { kelasId: id },
+    });
+
+    // 5. Hapus Jadwal
+    await tx.jadwal.deleteMany({
+      where: { kelasId: id },
+    });
+
+    // 6. Hapus PenugasanGuru
+    await tx.penugasanGuru.deleteMany({
+      where: { kelasId: id },
+    });
+
+    // 7. Hapus PenempatanSiswa
+    await tx.penempatanSiswa.deleteMany({
+      where: { kelasId: id },
+    });
+
+    // 8. Hapus Kelas
+    await tx.kelas.delete({
+      where: { id },
+    });
+
+    // 9. Update isWaliKelas jika guru tidak lagi menjadi wali kelas manapun
+    if (existingKelas.waliKelasId && existingKelas.waliKelas?.userId) {
+      const stillWali = await tx.kelas.findFirst({
+        where: {
+          waliKelasId: existingKelas.waliKelasId,
+          id: { not: id },
+        },
+      });
+
+      if (!stillWali) {
+        await tx.user.update({
+          where: { id: existingKelas.waliKelas.userId },
+          data: { isWaliKelas: false },
+        });
+      }
+    }
+  });
+
+  logger.info(`Kelas ${id} berhasil dihapus beserta data terkait`);
+  return { success: true };
 };
 
 export const getAllKelasService = async (search?: string) => {

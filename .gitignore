@@ -9,7 +9,12 @@ dist
 prisma/seed.ts
 prisma/seed-admin.ts
 prisma/check-data.ts
+prisma/check-names.ts
+prisma/diagnose-crud.ts
+prisma/show-credentials.ts
 prisma/test-db.ts
+prisma/verify-format.ts
+prisma/verify-unique-names.ts
 
 # Logs
 logs/
