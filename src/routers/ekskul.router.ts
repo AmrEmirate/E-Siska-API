@@ -15,7 +15,7 @@ class EkskulRouter {
 
   private initializeRoute(): void {
     this.route.post(
-      "/ekskul",
+      "/",
       authMiddleware,
       guruGuard,
       inputEkskulValidation,
