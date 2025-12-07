@@ -92,13 +92,8 @@ export const generateRaporService = async (input: GenerateRaporInput) => {
   if (!penempatan)
     throw new AppError("Data penempatan siswa tidak ditemukan", 404);
 
-  // Skip wali kelas check for system/siswa access (downloading own rapor)
-  if (
-    input.guruId !== "system" &&
-    penempatan.kelas.waliKelasId !== input.guruId
-  ) {
-    throw new AppError("Anda bukan Wali Kelas siswa ini", 403);
-  }
+  // Note: Access control is handled by middleware (authMiddleware, guruGuard, waliKelasGuard)
+  // This service focuses on data generation only
 
   const [absensi, nilaiData, ekskulData, dataRapor] = await Promise.all([
     getAbsensiSummaryRepo(input.siswaId, input.tahunAjaranId),
