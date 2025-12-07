@@ -91,7 +91,12 @@ export const generateRaporService = async (input: GenerateRaporInput) => {
 
   if (!penempatan)
     throw new AppError("Data penempatan siswa tidak ditemukan", 404);
-  if (penempatan.kelas.waliKelasId !== input.guruId) {
+
+  // Skip wali kelas check for system/siswa access (downloading own rapor)
+  if (
+    input.guruId !== "system" &&
+    penempatan.kelas.waliKelasId !== input.guruId
+  ) {
     throw new AppError("Anda bukan Wali Kelas siswa ini", 403);
   }
 
