@@ -36,6 +36,14 @@ class NilaiRouter {
       this.nilaiController.getNilaiKelas
     );
 
+    // Endpoint untuk wali kelas - mendapatkan semua nilai siswa di kelasnya
+    this.route.get(
+      "/kelas/:kelasId",
+      authMiddleware,
+      guruGuard,
+      this.nilaiController.getNilaiByKelasOnly
+    );
+
     this.route.get(
       "/me",
       authMiddleware,

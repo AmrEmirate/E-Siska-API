@@ -224,3 +224,89 @@ export const deleteNilaiService = async (id: string) => {
 
   return result;
 };
+
+// Service untuk wali kelas - mendapatkan semua nilai siswa di kelasnya
+export const getNilaiByKelasOnlyService = async (kelasId: string) => {
+  logger.info(`Fetching all grades for kelas: ${kelasId}`);
+
+  // Get all students in this class
+  const penempatan = await prisma.penempatanSiswa.findMany({
+    where: { kelasId },
+    include: {
+      siswa: true,
+    },
+  });
+
+  if (penempatan.length === 0) {
+    return [];
+  }
+
+  const siswaIds = penempatan.map((p) => p.siswaId);
+
+  // Get all grades for these students
+  const allGrades = await prisma.nilaiDetailSiswa.findMany({
+    where: {
+      siswaId: { in: siswaIds },
+    },
+    include: {
+      siswa: true,
+      mapel: true,
+      komponen: {
+        include: {
+          skema: true,
+        },
+      },
+    },
+    orderBy: [{ siswa: { nama: "asc" } }, { mapel: { namaMapel: "asc" } }],
+  });
+
+  // Group by student
+  const studentGrades: Record<string, any> = {};
+
+  penempatan.forEach((p) => {
+    studentGrades[p.siswaId] = {
+      siswaId: p.siswaId,
+      nisn: p.siswa.nisn,
+      nama: p.siswa.nama,
+      subjects: {} as Record<string, any>,
+    };
+  });
+
+  allGrades.forEach((grade) => {
+    const studentId = grade.siswaId;
+    const mapelName = grade.mapel.namaMapel;
+
+    if (!studentGrades[studentId].subjects[mapelName]) {
+      studentGrades[studentId].subjects[mapelName] = {
+        mapel: mapelName,
+        kategori: grade.mapel.kategori,
+        components: [],
+        average: null,
+      };
+    }
+
+    studentGrades[studentId].subjects[mapelName].components.push({
+      komponen: grade.komponen?.namaKomponen || "Unknown",
+      tipe: grade.komponen?.tipe,
+      nilai: grade.nilaiAngka,
+      nilaiDeskripsi: grade.nilaiDeskripsi,
+    });
+  });
+
+  // Calculate averages for each subject
+  Object.values(studentGrades).forEach((student: any) => {
+    Object.values(student.subjects).forEach((subject: any) => {
+      const numericGrades = subject.components
+        .filter((c: any) => c.nilai !== null && c.tipe === "READ_ONLY")
+        .map((c: any) => c.nilai);
+
+      if (numericGrades.length > 0) {
+        subject.average =
+          numericGrades.reduce((a: number, b: number) => a + b, 0) /
+          numericGrades.length;
+      }
+    });
+  });
+
+  return Object.values(studentGrades);
+};
