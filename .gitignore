@@ -15,7 +15,4 @@ prisma/show-credentials.ts
 prisma/test-db.ts
 prisma/verify-format.ts
 prisma/verify-unique-names.ts
-
-# Logs
-logs/
-*.log
+prisma/test-connection.ts
