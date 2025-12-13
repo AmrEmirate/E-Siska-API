@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { body, validationResult } from "express-validator";
-import { MapelCategory } from "../../generated/prisma";
+import { MapelCategory } from "@prisma/client";
 
 const validationHandler = (req: Request, res: Response, next: NextFunction) => {
   try {

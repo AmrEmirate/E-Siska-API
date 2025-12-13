@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { body, param, validationResult } from "express-validator";
-import { NilaiKomponenType } from "../../generated/prisma";
+import { NilaiKomponenType } from "@prisma/client";
 
 const validationHandler = (req: Request, res: Response, next: NextFunction) => {
   try {

@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { body, param, validationResult } from "express-validator";
-import { AbsensiStatus } from "../../generated/prisma";
+import { AbsensiStatus } from "@prisma/client";
 
 const validationHandler = (req: Request, res: Response, next: NextFunction) => {
   try {

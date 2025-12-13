@@ -89,16 +89,16 @@ export const restoreBackupService = async (backupData: any) => {
   if (!backupData || !backupData.data) {
     throw new AppError("Invalid backup file format", 400);
   }
-  
+
   const data = backupData.data;
-  
+
   // Create a fresh Prisma client for restore operation
-  const { PrismaClient } = require("../generated/prisma");
+  const { PrismaClient } = require("@prisma/client");
   const freshPrisma = new PrismaClient();
-  
+
   try {
     logger.info("Clearing existing data (using raw SQL)...");
-    
+
     // Use raw SQL CASCADE to delete all data
     await freshPrisma.$executeRawUnsafe(`
       TRUNCATE TABLE 
@@ -109,7 +109,7 @@ export const restoreBackupService = async (backupData: any) => {
         "Siswa", "Guru", "Admin", "User"
       CASCADE
     `);
-    
+
     logger.info("All data cleared. Now restoring...");
 
     // Helper function to restore table one by one
@@ -120,7 +120,8 @@ export const restoreBackupService = async (backupData: any) => {
           try {
             await model.create({ data: item });
           } catch (e: any) {
-            if (e.code !== 'P2002') { // Skip only duplicate errors
+            if (e.code !== "P2002") {
+              // Skip only duplicate errors
               logger.warn(`Error restoring ${name}: ${e.message}`);
             }
           }
@@ -129,30 +130,82 @@ export const restoreBackupService = async (backupData: any) => {
     };
 
     // Restore in correct order (parent tables first)
-    await restoreTable('users', data.users, freshPrisma.user);
-    await restoreTable('admins', data.admins, freshPrisma.admin);
-    await restoreTable('gurus', data.gurus, freshPrisma.guru);
-    await restoreTable('siswas', data.siswas, freshPrisma.siswa);
-    await restoreTable('sekolahData', data.sekolahData, freshPrisma.sekolahData);
-    await restoreTable('tahunAjarans', data.tahunAjarans, freshPrisma.tahunAjaran);
-    await restoreTable('tingkatanKelas', data.tingkatanKelas, freshPrisma.tingkatanKelas);
-    await restoreTable('ruangans', data.ruangans, freshPrisma.ruangan);
-    await restoreTable('kelas', data.kelas, freshPrisma.kelas);
-    await restoreTable('penempatanSiswas', data.penempatanSiswas, freshPrisma.penempatanSiswa);
-    await restoreTable('mataPelajarans', data.mataPelajarans, freshPrisma.mataPelajaran);
-    await restoreTable('penugasanGurus', data.penugasanGurus, freshPrisma.penugasanGuru);
-    await restoreTable('skemaPenilaians', data.skemaPenilaians, freshPrisma.skemaPenilaian);
-    await restoreTable('nilaiKomponens', data.nilaiKomponens, freshPrisma.nilaiKomponen);
-    await restoreTable('jadwals', data.jadwals, freshPrisma.jadwal);
-    await restoreTable('absensiSesis', data.absensiSesis, freshPrisma.absensiSesi);
-    await restoreTable('absensiDetails', data.absensiDetails, freshPrisma.absensiDetail);
-    await restoreTable('nilaiDetailSiswas', data.nilaiDetailSiswas, freshPrisma.nilaiDetailSiswa);
-    await restoreTable('capaianKompetensis', data.capaianKompetensis, freshPrisma.capaianKompetensi);
-    await restoreTable('rapors', data.rapors, freshPrisma.rapor);
-    await restoreTable('nilaiRaporAkhirs', data.nilaiRaporAkhirs, freshPrisma.nilaiRaporAkhir);
-    await restoreTable('dokumens', data.dokumens, freshPrisma.dokumen);
-    await restoreTable('pengumumans', data.pengumumans, freshPrisma.pengumuman);
-    
+    await restoreTable("users", data.users, freshPrisma.user);
+    await restoreTable("admins", data.admins, freshPrisma.admin);
+    await restoreTable("gurus", data.gurus, freshPrisma.guru);
+    await restoreTable("siswas", data.siswas, freshPrisma.siswa);
+    await restoreTable(
+      "sekolahData",
+      data.sekolahData,
+      freshPrisma.sekolahData
+    );
+    await restoreTable(
+      "tahunAjarans",
+      data.tahunAjarans,
+      freshPrisma.tahunAjaran
+    );
+    await restoreTable(
+      "tingkatanKelas",
+      data.tingkatanKelas,
+      freshPrisma.tingkatanKelas
+    );
+    await restoreTable("ruangans", data.ruangans, freshPrisma.ruangan);
+    await restoreTable("kelas", data.kelas, freshPrisma.kelas);
+    await restoreTable(
+      "penempatanSiswas",
+      data.penempatanSiswas,
+      freshPrisma.penempatanSiswa
+    );
+    await restoreTable(
+      "mataPelajarans",
+      data.mataPelajarans,
+      freshPrisma.mataPelajaran
+    );
+    await restoreTable(
+      "penugasanGurus",
+      data.penugasanGurus,
+      freshPrisma.penugasanGuru
+    );
+    await restoreTable(
+      "skemaPenilaians",
+      data.skemaPenilaians,
+      freshPrisma.skemaPenilaian
+    );
+    await restoreTable(
+      "nilaiKomponens",
+      data.nilaiKomponens,
+      freshPrisma.nilaiKomponen
+    );
+    await restoreTable("jadwals", data.jadwals, freshPrisma.jadwal);
+    await restoreTable(
+      "absensiSesis",
+      data.absensiSesis,
+      freshPrisma.absensiSesi
+    );
+    await restoreTable(
+      "absensiDetails",
+      data.absensiDetails,
+      freshPrisma.absensiDetail
+    );
+    await restoreTable(
+      "nilaiDetailSiswas",
+      data.nilaiDetailSiswas,
+      freshPrisma.nilaiDetailSiswa
+    );
+    await restoreTable(
+      "capaianKompetensis",
+      data.capaianKompetensis,
+      freshPrisma.capaianKompetensi
+    );
+    await restoreTable("rapors", data.rapors, freshPrisma.rapor);
+    await restoreTable(
+      "nilaiRaporAkhirs",
+      data.nilaiRaporAkhirs,
+      freshPrisma.nilaiRaporAkhir
+    );
+    await restoreTable("dokumens", data.dokumens, freshPrisma.dokumen);
+    await restoreTable("pengumumans", data.pengumumans, freshPrisma.pengumuman);
+
     logger.info("Database restore completed successfully.");
     return { message: "Database restored successfully" };
   } catch (error: any) {

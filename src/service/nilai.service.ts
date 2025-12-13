@@ -10,7 +10,7 @@ import {
 import logger from "../utils/logger";
 import AppError from "../utils/AppError";
 import { prisma } from "../config/prisma";
-import { NilaiKomponenType } from "../generated/prisma";
+import { NilaiKomponenType } from "@prisma/client";
 import { calculateGradesService } from "./kalkulasi.service";
 
 interface InputNilaiServiceInput {

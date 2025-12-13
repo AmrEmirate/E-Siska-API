@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { verify } from "jsonwebtoken";
 import AppError from "../utils/AppError";
-import { UserRole } from "../generated/prisma";
+import { UserRole } from "@prisma/client";
 import { prisma } from "../config/prisma";
 
 const JWT_SECRET = process.env.JWT_SECRET || "secret";

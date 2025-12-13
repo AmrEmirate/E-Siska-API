@@ -5,7 +5,7 @@ import {
 import logger from "../utils/logger";
 import AppError from "../utils/AppError";
 import { prisma } from "../config/prisma";
-import { AbsensiStatus } from "../generated/prisma";
+import { AbsensiStatus } from "@prisma/client";
 
 interface InputAbsensiServiceInput {
   sesiId: string;

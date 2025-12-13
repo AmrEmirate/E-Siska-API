@@ -5,7 +5,7 @@ import {
 import logger from "../utils/logger";
 import AppError from "../utils/AppError";
 import { prisma } from "../config/prisma";
-import { MapelCategory } from "../generated/prisma";
+import { MapelCategory } from "@prisma/client";
 
 interface InputEkskulServiceInput {
   guruId: string;

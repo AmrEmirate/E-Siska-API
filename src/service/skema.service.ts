@@ -4,7 +4,7 @@ import {
   deleteKomponenRepo,
 } from "../repositories/skema.repository";
 import logger from "../utils/logger";
-import { MapelCategory, NilaiKomponenType } from "../generated/prisma";
+import { MapelCategory, NilaiKomponenType } from "@prisma/client";
 import AppError from "../utils/AppError";
 import { prisma } from "../config/prisma";
 

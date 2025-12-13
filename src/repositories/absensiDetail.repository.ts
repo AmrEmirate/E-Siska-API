@@ -1,5 +1,5 @@
 import { prisma } from "../config/prisma";
-import { AbsensiStatus } from "../generated/prisma";
+import { AbsensiStatus } from "@prisma/client";
 
 export interface AbsensiInputItem {
   siswaId: string;

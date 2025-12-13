@@ -1,5 +1,5 @@
 import { prisma } from "../config/prisma";
-import { NilaiKomponenType } from "../generated/prisma";
+import { NilaiKomponenType } from "@prisma/client";
 
 interface AddKomponenInput {
   skemaId: string;

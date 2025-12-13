@@ -2,7 +2,7 @@ import { prisma } from "../config/prisma";
 import { create, all } from "mathjs";
 import { upsertNilaiRepo } from "../repositories/nilai.repository";
 import logger from "../utils/logger";
-import { NilaiKomponenType } from "../generated/prisma";
+import { NilaiKomponenType } from "@prisma/client";
 
 const math = create(all);
 

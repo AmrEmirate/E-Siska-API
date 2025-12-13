@@ -1,5 +1,5 @@
 import { prisma } from "../config/prisma";
-import { MapelCategory } from "../generated/prisma";
+import { MapelCategory } from "@prisma/client";
 
 interface CreateMapelInput {
   namaMapel: string;

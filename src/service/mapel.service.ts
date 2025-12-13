@@ -5,7 +5,7 @@ import {
   getAllMapelRepo,
 } from "../repositories/mapel.repository";
 import logger from "../utils/logger";
-import { MapelCategory } from "../generated/prisma";
+import { MapelCategory } from "@prisma/client";
 
 interface CreateMapelServiceInput {
   namaMapel: string;
