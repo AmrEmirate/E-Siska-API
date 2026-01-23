@@ -40,7 +40,7 @@ class MapelController {
       const { id } = req.params;
       const { namaMapel, kategori } = req.body;
 
-      const result = await updateMapelService(id, {
+      const result = await updateMapelService(id as string, {
         namaMapel,
         kategori,
       });
@@ -62,7 +62,7 @@ class MapelController {
     try {
       const { id } = req.params;
 
-      await deleteMapelService(id);
+      await deleteMapelService(id as string);
 
       res.status(200).send({
         success: true,

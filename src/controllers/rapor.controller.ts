@@ -15,14 +15,14 @@ class RaporController {
   public async updateDataRapor(
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ) {
     try {
       const { siswaId } = req.params;
       const { guruId, tahunAjaranId, catatan, kokurikuler } = req.body;
       const result = await inputDataRaporService({
         guruId,
-        siswaId,
+        siswaId: siswaId as string,
         tahunAjaranId,
         catatan,
         kokurikuler,
@@ -44,7 +44,7 @@ class RaporController {
       const { siswaId } = req.params;
       const { guruId, tahunAjaranId } = req.body;
       const result = await generateRaporService({
-        siswaId,
+        siswaId: siswaId as string,
         guruId,
         tahunAjaranId,
       });
@@ -66,7 +66,7 @@ class RaporController {
       const { guruId, tahunAjaranId } = req.body;
       const result = await finalizeRaporService({
         guruId,
-        siswaId,
+        siswaId: siswaId as string,
         tahunAjaranId,
       });
       res.status(200).send({
@@ -87,7 +87,7 @@ class RaporController {
       const { guruId, tahunAjaranId } = req.body;
       const result = await definalizeRaporService({
         guruId,
-        siswaId,
+        siswaId: siswaId as string,
         tahunAjaranId,
       });
       res.status(200).send({
@@ -109,7 +109,7 @@ class RaporController {
       const { adminId } = req.user as any;
       const result = await overrideNilaiRaporService({
         adminId,
-        siswaId,
+        siswaId: siswaId as string,
         mapelId,
         tahunAjaranId,
         nilaiAkhir,
@@ -148,11 +148,11 @@ class RaporController {
   public async getRaporBySiswaId(
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ) {
     try {
       const { siswaId } = req.params;
-      const result = await getMyRaporService(siswaId);
+      const result = await getMyRaporService(siswaId as string);
       res.status(200).send({
         success: true,
         message: "Rapor berhasil diambil",
@@ -182,13 +182,13 @@ class RaporController {
       logger.info(`Generating PDF for siswa: ${siswaId}, TA: ${tahunAjaranId}`);
       const pdfDoc = await generateRaporPDFService({
         guruId: guruId || "system",
-        siswaId,
+        siswaId: siswaId as string,
         tahunAjaranId,
       });
       res.setHeader("Content-Type", "application/pdf");
       res.setHeader(
         "Content-Disposition",
-        `attachment; filename=rapor-${siswaId}.pdf`
+        `attachment; filename=rapor-${siswaId}.pdf`,
       );
       pdfDoc.pipe(res);
       pdfDoc.end();

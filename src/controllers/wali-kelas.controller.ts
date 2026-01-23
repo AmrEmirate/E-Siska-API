@@ -21,10 +21,10 @@ class WaliKelasController {
       }
 
       logger.info(
-        `Wali kelas ${guruId} fetching rekap nilai for kelas ${kelasId}`
+        `Wali kelas ${guruId} fetching rekap nilai for kelas ${kelasId}`,
       );
 
-      const result = await getRekapNilaiKelasService(guruId, kelasId);
+      const result = await getRekapNilaiKelasService(guruId, kelasId as string);
 
       res.status(200).send({
         success: true,
@@ -42,7 +42,7 @@ class WaliKelasController {
   public async getRekapAbsensi(
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ) {
     try {
       const guruId = req.user?.guruId;
@@ -56,10 +56,13 @@ class WaliKelasController {
       }
 
       logger.info(
-        `Wali kelas ${guruId} fetching rekap absensi for kelas ${kelasId}`
+        `Wali kelas ${guruId} fetching rekap absensi for kelas ${kelasId}`,
       );
 
-      const result = await getRekapAbsensiKelasService(guruId, kelasId);
+      const result = await getRekapAbsensiKelasService(
+        guruId,
+        kelasId as string,
+      );
 
       res.status(200).send({
         success: true,
@@ -87,10 +90,13 @@ class WaliKelasController {
       }
 
       logger.info(
-        `Wali kelas ${guruId} fetching data siswa for kelas ${kelasId}`
+        `Wali kelas ${guruId} fetching data siswa for kelas ${kelasId}`,
       );
 
-      const result = await getDataSiswaBimbinganService(guruId, kelasId);
+      const result = await getDataSiswaBimbinganService(
+        guruId,
+        kelasId as string,
+      );
 
       res.status(200).send({
         success: true,

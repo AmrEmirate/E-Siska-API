@@ -51,7 +51,7 @@ class TahunAjaranController {
     try {
       const { id } = req.params;
 
-      const result = await getTahunAjaranByIdService(id);
+      const result = await getTahunAjaranByIdService(id as string);
 
       res.status(200).send({
         success: true,
@@ -71,7 +71,7 @@ class TahunAjaranController {
       const { id } = req.params;
       const { nama } = req.body;
 
-      const result = await updateTahunAjaranService(id, { nama });
+      const result = await updateTahunAjaranService(id as string, { nama });
 
       res.status(200).send({
         success: true,
@@ -90,7 +90,7 @@ class TahunAjaranController {
     try {
       const { id } = req.params;
 
-      const result = await activateTahunAjaranService(id);
+      const result = await activateTahunAjaranService(id as string);
 
       res.status(200).send({
         success: true,
@@ -109,7 +109,7 @@ class TahunAjaranController {
     try {
       const { id } = req.params;
 
-      const result = await deleteTahunAjaranService(id);
+      const result = await deleteTahunAjaranService(id as string);
 
       res.status(200).send({
         success: true,

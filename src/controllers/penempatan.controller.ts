@@ -54,7 +54,7 @@ class PenempatanController {
   public async getById(req: Request, res: Response, next: NextFunction) {
     try {
       const { id } = req.params;
-      const result = await getPenempatanByIdService(id);
+      const result = await getPenempatanByIdService(id as string);
       res.status(200).send({
         success: true,
         message: "Penempatan berhasil diambil",
@@ -71,7 +71,7 @@ class PenempatanController {
     try {
       const { id } = req.params;
       const data = req.body;
-      const result = await updatePenempatanService(id, data);
+      const result = await updatePenempatanService(id as string, data);
       res.status(200).send({
         success: true,
         message: "Penempatan berhasil diupdate",
@@ -87,7 +87,7 @@ class PenempatanController {
   public async delete(req: Request, res: Response, next: NextFunction) {
     try {
       const { id } = req.params;
-      const result = await deletePenempatanService(id);
+      const result = await deletePenempatanService(id as string);
       res.status(200).send({
         success: true,
         ...result,

@@ -41,7 +41,11 @@ class NilaiController {
       const { kelasId, mapelId } = req.params;
       const guruId = req.user?.guruId || "";
 
-      const result = await getNilaiKelasService(guruId, kelasId, mapelId);
+      const result = await getNilaiKelasService(
+        guruId,
+        kelasId as string,
+        mapelId as string,
+      );
 
       res.status(200).send({
         success: true,
@@ -100,7 +104,7 @@ class NilaiController {
       const { nilai } = req.body;
       const guruId = req.user?.guruId || "";
 
-      const result = await updateNilaiService(id, nilai, guruId);
+      const result = await updateNilaiService(id as string, nilai, guruId);
 
       res.status(200).send({
         success: true,
@@ -116,7 +120,7 @@ class NilaiController {
     try {
       const { id } = req.params;
 
-      await deleteNilaiService(id);
+      await deleteNilaiService(id as string);
 
       res.status(200).send({
         success: true,
@@ -131,12 +135,12 @@ class NilaiController {
   public async getNilaiByKelasOnly(
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ) {
     try {
       const { kelasId } = req.params;
 
-      const result = await getNilaiByKelasOnlyService(kelasId);
+      const result = await getNilaiByKelasOnlyService(kelasId as string);
 
       res.status(200).send({
         success: true,

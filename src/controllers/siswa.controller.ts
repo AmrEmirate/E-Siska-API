@@ -31,7 +31,7 @@ class SiswaController {
       const limit = parseInt(req.query.limit as string) || 50;
       const search = (req.query.search as string) || "";
       logger.info(
-        `Fetching all siswa - Page: ${page}, Limit: ${limit}, Search: ${search}`
+        `Fetching all siswa - Page: ${page}, Limit: ${limit}, Search: ${search}`,
       );
       const result = await getAllSiswaService(page, limit, search);
       res.status(200).send({
@@ -50,7 +50,7 @@ class SiswaController {
     try {
       const { id } = req.params;
       logger.info(`Fetching siswa by ID: ${id}`);
-      const result = await getSiswaByIdService(id);
+      const result = await getSiswaByIdService(id as string);
       res.status(200).send({
         success: true,
         message: "Data siswa berhasil diambil",
@@ -68,7 +68,7 @@ class SiswaController {
       const { id } = req.params;
       const updateData = req.body;
       logger.info(`Updating siswa: ${id}`);
-      const result = await updateSiswaService(id, updateData);
+      const result = await updateSiswaService(id as string, updateData);
       res.status(200).send({
         success: true,
         message: "Data siswa berhasil diupdate",
@@ -85,7 +85,7 @@ class SiswaController {
     try {
       const { id } = req.params;
       logger.info(`Deleting siswa: ${id}`);
-      const result = await deleteSiswaService(id);
+      const result = await deleteSiswaService(id as string);
       res.status(200).send({
         success: true,
         ...result,

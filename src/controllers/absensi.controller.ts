@@ -36,7 +36,7 @@ class AbsensiController {
   public async getSesiByKelas(req: Request, res: Response, next: NextFunction) {
     try {
       const { kelasId } = req.params;
-      const result = await getSesiByKelasService(kelasId);
+      const result = await getSesiByKelasService(kelasId as string);
       res.status(200).send({
         success: true,
         message: "Daftar sesi berhasil diambil",
@@ -52,7 +52,7 @@ class AbsensiController {
   public async getSesiDetail(req: Request, res: Response, next: NextFunction) {
     try {
       const { sesiId } = req.params;
-      const result = await getSesiDetailService(sesiId);
+      const result = await getSesiDetailService(sesiId as string);
       res.status(200).send({
         success: true,
         message: "Detail sesi berhasil diambil",

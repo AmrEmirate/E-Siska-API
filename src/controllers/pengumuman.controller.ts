@@ -63,7 +63,7 @@ class PengumumanController {
     try {
       const { id } = req.params;
 
-      const result = await getPengumumanByIdService(id);
+      const result = await getPengumumanByIdService(id as string);
 
       res.status(200).send({
         success: true,
@@ -83,7 +83,7 @@ class PengumumanController {
       const { id } = req.params;
       const { judul, konten, target } = req.body;
 
-      const result = await updatePengumumanService(id, {
+      const result = await updatePengumumanService(id as string, {
         judul,
         konten,
         target,
@@ -106,7 +106,7 @@ class PengumumanController {
     try {
       const { id } = req.params;
 
-      const result = await deletePengumumanService(id);
+      const result = await deletePengumumanService(id as string);
 
       res.status(200).send({
         success: true,

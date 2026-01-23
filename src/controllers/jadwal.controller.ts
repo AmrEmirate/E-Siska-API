@@ -59,7 +59,7 @@ class JadwalController {
   public async getById(req: Request, res: Response, next: NextFunction) {
     try {
       const { id } = req.params;
-      const result = await getJadwalByIdService(id);
+      const result = await getJadwalByIdService(id as string);
       res.status(200).send({
         success: true,
         message: "Jadwal berhasil diambil",
@@ -76,7 +76,7 @@ class JadwalController {
     try {
       const { id } = req.params;
       const data = req.body;
-      const result = await updateJadwalService(id, data);
+      const result = await updateJadwalService(id as string, data);
       res.status(200).send({
         success: true,
         message: "Jadwal berhasil diupdate",
@@ -92,7 +92,7 @@ class JadwalController {
   public async delete(req: Request, res: Response, next: NextFunction) {
     try {
       const { id } = req.params;
-      const result = await deleteJadwalService(id);
+      const result = await deleteJadwalService(id as string);
       res.status(200).send({
         success: true,
         ...result,

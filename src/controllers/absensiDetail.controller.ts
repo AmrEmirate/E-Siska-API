@@ -9,7 +9,7 @@ class AbsensiDetailController {
       const { data } = req.body;
 
       const result = await inputAbsensiService({
-        sesiId,
+        sesiId: sesiId as string,
         data,
       });
 

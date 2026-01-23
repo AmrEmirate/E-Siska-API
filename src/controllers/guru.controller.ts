@@ -31,7 +31,7 @@ class GuruController {
       const limit = parseInt(req.query.limit as string) || 50;
       const search = (req.query.search as string) || "";
       logger.info(
-        `Fetching all guru - Page: ${page}, Limit: ${limit}, Search: ${search}`
+        `Fetching all guru - Page: ${page}, Limit: ${limit}, Search: ${search}`,
       );
       const result = await getAllGuruService(page, limit, search);
       res.status(200).send({
@@ -50,7 +50,7 @@ class GuruController {
     try {
       const { id } = req.params;
       logger.info(`Fetching guru by ID: ${id}`);
-      const result = await getGuruByIdService(id);
+      const result = await getGuruByIdService(id as string);
       res.status(200).send({
         success: true,
         message: "Data guru berhasil diambil",
@@ -68,7 +68,7 @@ class GuruController {
       const { id } = req.params;
       const updateData = req.body;
       logger.info(`Updating guru: ${id}`);
-      const result = await updateGuruService(id, updateData);
+      const result = await updateGuruService(id as string, updateData);
       res.status(200).send({
         success: true,
         message: "Data guru berhasil diupdate",
@@ -85,7 +85,7 @@ class GuruController {
     try {
       const { id } = req.params;
       logger.info(`Deleting guru: ${id}`);
-      const result = await deleteGuruService(id);
+      const result = await deleteGuruService(id as string);
       res.status(200).send({
         success: true,
         ...result,

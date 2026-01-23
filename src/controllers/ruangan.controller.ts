@@ -40,7 +40,7 @@ class RuanganController {
       const { id } = req.params;
       const { namaRuangan, kapasitas } = req.body;
 
-      const result = await updateRuanganService(id, {
+      const result = await updateRuanganService(id as string, {
         namaRuangan,
         kapasitas,
       });
@@ -62,7 +62,7 @@ class RuanganController {
     try {
       const { id } = req.params;
 
-      await deleteRuanganService(id);
+      await deleteRuanganService(id as string);
 
       res.status(200).send({
         success: true,

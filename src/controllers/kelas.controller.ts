@@ -56,7 +56,7 @@ class KelasController {
       const { id } = req.params;
       const { namaKelas, tingkatanId, waliKelasId } = req.body;
 
-      const result = await updateKelasService(id, {
+      const result = await updateKelasService(id as string, {
         namaKelas,
         tingkatanId,
         waliKelasId,
@@ -79,7 +79,7 @@ class KelasController {
     try {
       const { id } = req.params;
 
-      await deleteKelasService(id);
+      await deleteKelasService(id as string);
 
       res.status(200).send({
         success: true,
@@ -119,7 +119,7 @@ class KelasController {
   public async getMyTeachingClasses(
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ) {
     try {
       const guruId = (req as any).user?.guruId;

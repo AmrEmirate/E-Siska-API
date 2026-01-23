@@ -54,7 +54,7 @@ class TingkatanController {
       const { id } = req.params;
       const { namaTingkat } = req.body;
 
-      const result = await updateTingkatanService(id, namaTingkat);
+      const result = await updateTingkatanService(id as string, namaTingkat);
 
       res.status(200).send({
         success: true,
@@ -73,7 +73,7 @@ class TingkatanController {
     try {
       const { id } = req.params;
 
-      const result = await deleteTingkatanService(id);
+      const result = await deleteTingkatanService(id as string);
 
       res.status(200).send({
         success: true,

@@ -13,7 +13,7 @@ class SkemaController {
       const { namaKomponen, tipe, formula, urutan } = req.body;
 
       const result = await addKomponenToSkemaService({
-        skemaId,
+        skemaId: skemaId as string,
         namaKomponen,
         tipe,
         formula,
@@ -28,7 +28,7 @@ class SkemaController {
     } catch (error: unknown) {
       if (error instanceof Error) {
         logger.error(
-          `Error add komponen ke skema ${req.params.skemaId}: ${error.message}`
+          `Error add komponen ke skema ${req.params.skemaId}: ${error.message}`,
         );
       }
       next(error);
@@ -38,7 +38,7 @@ class SkemaController {
   public async getSkema(req: Request, res: Response, next: NextFunction) {
     try {
       const { mapelId } = req.params;
-      const result = await getSkemaByMapelIdService(mapelId);
+      const result = await getSkemaByMapelIdService(mapelId as string);
 
       res.status(200).send({
         success: true,
@@ -52,7 +52,7 @@ class SkemaController {
   public async deleteKomponen(req: Request, res: Response, next: NextFunction) {
     try {
       const { komponenId } = req.params;
-      const result = await deleteKomponenService(komponenId);
+      const result = await deleteKomponenService(komponenId as string);
 
       res.status(200).send({
         success: true,

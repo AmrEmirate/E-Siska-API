@@ -59,7 +59,7 @@ class PenugasanController {
     try {
       const { id } = req.params;
 
-      const result = await getPenugasanByIdService(id);
+      const result = await getPenugasanByIdService(id as string);
 
       res.status(200).send({
         success: true,
@@ -79,7 +79,7 @@ class PenugasanController {
       const { id } = req.params;
       const data = req.body;
 
-      const result = await updatePenugasanService(id, data);
+      const result = await updatePenugasanService(id as string, data);
 
       res.status(200).send({
         success: true,
@@ -98,7 +98,7 @@ class PenugasanController {
     try {
       const { id } = req.params;
 
-      const result = await deletePenugasanService(id);
+      const result = await deletePenugasanService(id as string);
 
       res.status(200).send({
         success: true,

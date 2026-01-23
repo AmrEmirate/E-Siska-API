@@ -55,12 +55,12 @@ class CapaianController {
   public async getCapaianBySiswaId(
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ) {
     try {
       const { siswaId } = req.params;
 
-      const result = await getCapaianBySiswaIdService(siswaId);
+      const result = await getCapaianBySiswaIdService(siswaId as string);
 
       res.status(200).send({
         success: true,

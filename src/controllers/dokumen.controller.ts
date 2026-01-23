@@ -65,7 +65,7 @@ class DokumenController {
     try {
       const { id } = req.params;
 
-      const result = await deleteDokumenService(id);
+      const result = await deleteDokumenService(id as string);
 
       res.status(200).send({
         success: true,
