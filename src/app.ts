@@ -2,6 +2,9 @@
 dotenv.config();
 import cors from "cors";
 import express, { Application, NextFunction, Request, Response } from "express";
+import helmet from "helmet";
+import compression from "compression";
+import rateLimit from "express-rate-limit";
 import AuthRouter from "./routers/auth.router";
 import logger from "./utils/logger";
 import SiswaRouter from "./routers/siswa.router";
@@ -37,6 +40,13 @@ class App {
     this.errorHandler();
   }
   private configure(): void {
+    this.app.use(helmet());
+    this.app.use(compression());
+    const limiter = rateLimit({
+      windowMs: 15 * 60 * 1000, // 15 minutes
+      max: 100, // Limit each IP to 100 requests per windowMs
+    });
+    this.app.use(limiter);
     this.app.use(cors({ origin: process.env.FE_URL }));
     this.app.use(express.json());
     this.app.use((req: Request, res: Response, next: NextFunction) => {
@@ -103,7 +113,7 @@ class App {
     this.app.use(
       (error: any, req: Request, res: Response, next: NextFunction) => {
         logger.error(
-          `${req.method} ${req.path}: ${error.message} ${JSON.stringify(error)}`
+          `${req.method} ${req.path}: ${error.message} ${JSON.stringify(error)}`,
         );
         let status = 500;
         if (typeof error.code === "number") {
@@ -116,7 +126,7 @@ class App {
           status = 404;
         }
         res.status(status).send(error);
-      }
+      },
     );
   }
   public start(): void {

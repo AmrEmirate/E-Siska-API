@@ -100,6 +100,8 @@ model Siswa {
   Penempatan           PenempatanSiswa[]
   Rapor                Rapor[]
   user                 User                @relation(fields: [userId], references: [id])
+
+  @@index([status])
 }
 
 model SekolahData {
@@ -259,6 +261,8 @@ model Jadwal {
   mapel         MataPelajaran @relation(fields: [mapelId], references: [id])
   ruangan       Ruangan       @relation(fields: [ruanganId], references: [id])
   tahunAjaran   TahunAjaran   @relation(fields: [tahunAjaranId], references: [id])
+
+  @@index([hari])
 }
 
 model AbsensiSesi {

@@ -5,13 +5,13 @@ import {
   deleteMapelService,
   getAllMapelService,
 } from "../service/mapel.service";
-import logger from "../utils/logger";
+import { asyncHandler } from "../utils/asyncHandler";
 
 class MapelController {
-  public async create(req: Request, res: Response, next: NextFunction) {
-    try {
+  public create = asyncHandler(
+    async (req: Request, res: Response, next: NextFunction) => {
       const { namaMapel, kategori } = req.body;
-      const adminId = (req as any).user?.adminId;
+      const adminId = req.user?.adminId;
 
       if (!adminId) {
         throw new Error("Admin ID not found in request");
@@ -28,15 +28,11 @@ class MapelController {
         message: "Mata pelajaran dan skema (kosong) berhasil dibuat",
         data: result,
       });
-    } catch (error) {
-      if (error instanceof Error) {
-        logger.error(`Error create mapel: ${error.message}`);
-      }
-      next(error);
-    }
-  }
-  public async update(req: Request, res: Response, next: NextFunction) {
-    try {
+    },
+  );
+
+  public update = asyncHandler(
+    async (req: Request, res: Response, next: NextFunction) => {
       const { id } = req.params;
       const { namaMapel, kategori } = req.body;
 
@@ -50,16 +46,11 @@ class MapelController {
         message: "Mata pelajaran berhasil diperbarui",
         data: result,
       });
-    } catch (error) {
-      if (error instanceof Error) {
-        logger.error(`Error update mapel: ${error.message}`);
-      }
-      next(error);
-    }
-  }
+    },
+  );
 
-  public async delete(req: Request, res: Response, next: NextFunction) {
-    try {
+  public delete = asyncHandler(
+    async (req: Request, res: Response, next: NextFunction) => {
       const { id } = req.params;
 
       await deleteMapelService(id as string);
@@ -68,16 +59,11 @@ class MapelController {
         success: true,
         message: "Mata pelajaran berhasil dihapus",
       });
-    } catch (error) {
-      if (error instanceof Error) {
-        logger.error(`Error delete mapel: ${error.message}`);
-      }
-      next(error);
-    }
-  }
+    },
+  );
 
-  public async getAll(req: Request, res: Response, next: NextFunction) {
-    try {
+  public getAll = asyncHandler(
+    async (req: Request, res: Response, next: NextFunction) => {
       const search = (req.query.search as string) || "";
       const result = await getAllMapelService(search);
 
@@ -85,10 +71,8 @@ class MapelController {
         success: true,
         data: result,
       });
-    } catch (error) {
-      next(error);
-    }
-  }
+    },
+  );
 }
 
 export default MapelController;
